@@ -1,0 +1,33 @@
+/* Landing Page Styles */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Navbar */
+.navbar {
+    background-color: #2c3e50;
+    padding: 1rem 0;
+}
+.navbar-brand {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+.navbar .nav-link {
+    color: #bdc3c7;
+}
+.navbar .nav-link:hover {
+    color: #ffffff;
+}
+
+/* Hero */
+.hero-section {
+    background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    color: white;
+    padding: 80px 0;
+}
+.hero-section h1 { font-size: 3rem; }
+
+/* Footer */
+.footer-section {
+    background-color: #2c3e50;
+    color: #bdc3c7;
+}

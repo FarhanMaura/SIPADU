@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers\Pembimbing;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Pembimbing\AbsensiRequest;
+use App\Models\Absensi;
+use App\Models\Peserta;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+
+class AbsensiController extends Controller
+{
+    private function getPesertaBimbingan()
+    {
+        $pembimbing = auth()->user()->pembimbing;
+
+        return $pembimbing ? $pembimbing->pesertas()->get() : collect();
+    }
+
+    public function pesertaList(): View
+    {
+        $pesertas = $this->getPesertaBimbingan();
+
+        return view('pembimbing.peserta.index', compact('pesertas'));
+    }
+
+    public function index(): View
+    {
+        $pembimbing = auth()->user()->pembimbing;
+        $absensis   = Absensi::whereHas('peserta', function ($q) use ($pembimbing) {
+            $q->where('pembimbing_id', $pembimbing?->id);
+        })->with('peserta')->latest('tanggal')->paginate(20);
+
+        $pesertas = $this->getPesertaBimbingan();
+
+        return view('pembimbing.absensi.index', compact('absensis', 'pesertas'));
+    }
+
+    public function create(): View
+    {
+        $pesertas = $this->getPesertaBimbingan();
+
+        return view('pembimbing.absensi.create', compact('pesertas'));
+    }
+
+    public function store(AbsensiRequest $request): RedirectResponse
+    {
+        Absensi::create($request->validated());
+
+        return redirect()->route('pembimbing.absensi.index')
+            ->with('success', 'Data absensi berhasil disimpan.');
+    }
+
+    private function authorizeAbsensi(Absensi $absensi): void
+    {
+        $pembimbing = auth()->user()->pembimbing;
+
+        if (! $pembimbing || $absensi->peserta?->pembimbing_id !== $pembimbing->id) {
+            abort(403, 'Anda tidak memiliki hak akses untuk data absensi ini.');
+        }
+    }
+
+    public function edit(Absensi $absensi): View
+    {
+        $this->authorizeAbsensi($absensi);
+        $pesertas = $this->getPesertaBimbingan();
+
+        return view('pembimbing.absensi.edit', compact('absensi', 'pesertas'));
+    }
+
+    public function update(AbsensiRequest $request, Absensi $absensi): RedirectResponse
+    {
+        $this->authorizeAbsensi($absensi);
+        $absensi->update($request->validated());
+
+        return redirect()->route('pembimbing.absensi.index')
+            ->with('success', 'Data absensi berhasil diperbarui.');
+    }
+
+    public function destroy(Absensi $absensi): RedirectResponse
+    {
+        $this->authorizeAbsensi($absensi);
+        $absensi->delete();
+
+        return redirect()->route('pembimbing.absensi.index')
+            ->with('success', 'Data absensi berhasil dihapus.');
+    }
+}

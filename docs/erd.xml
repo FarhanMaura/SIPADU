@@ -1,0 +1,90 @@
+<mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    
+    <!-- TITLE -->
+    <mxCell id="title" value="Entity Relationship Diagram - Internship System" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="350" y="10" width="450" height="30" as="geometry"/>
+    </mxCell>
+
+    <!-- TABLES -->
+    <mxCell id="table_users" value="&lt;b&gt;users&lt;/b&gt;&lt;hr&gt;&lt;div style=&quot;text-align: left; padding: 0 5px;&quot;&gt;&lt;b&gt;PK&lt;/b&gt; id: bigint&lt;br&gt;name: string&lt;br&gt;email: string&lt;br&gt;password: string&lt;br&gt;role: tinyint&lt;br&gt;email_verified_at: timestamp&lt;br&gt;remember_token: string&lt;br&gt;created_at: timestamp&lt;br&gt;updated_at: timestamp&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="50" y="80" width="220" height="190" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="table_bidangs" value="&lt;b&gt;bidangs&lt;/b&gt;&lt;hr&gt;&lt;div style=&quot;text-align: left; padding: 0 5px;&quot;&gt;&lt;b&gt;PK&lt;/b&gt; id: bigint&lt;br&gt;nama: string&lt;br&gt;deskripsi: text&lt;br&gt;deleted_at: timestamp&lt;br&gt;created_at: timestamp&lt;br&gt;updated_at: timestamp&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="350" y="80" width="220" height="140" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="table_instansis" value="&lt;b&gt;instansis&lt;/b&gt;&lt;hr&gt;&lt;div style=&quot;text-align: left; padding: 0 5px;&quot;&gt;&lt;b&gt;PK&lt;/b&gt; id: bigint&lt;br&gt;nama: string&lt;br&gt;alamat: text&lt;br&gt;telp: string&lt;br&gt;email: string&lt;br&gt;deleted_at: timestamp&lt;br&gt;created_at: timestamp&lt;br&gt;updated_at: timestamp&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="650" y="80" width="220" height="160" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="table_pembimbings" value="&lt;b&gt;pembimbings&lt;/b&gt;&lt;hr&gt;&lt;div style=&quot;text-align: left; padding: 0 5px;&quot;&gt;&lt;b&gt;PK&lt;/b&gt; id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; user_id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; bidang_id: bigint&lt;br&gt;nip: string&lt;br&gt;nama: string&lt;br&gt;no_hp: string&lt;br&gt;deleted_at: timestamp&lt;br&gt;created_at: timestamp&lt;br&gt;updated_at: timestamp&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="50" y="380" width="220" height="190" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="table_pengajuans" value="&lt;b&gt;pengajuans&lt;/b&gt;&lt;hr&gt;&lt;div style=&quot;text-align: left; padding: 0 5px;&quot;&gt;&lt;b&gt;PK&lt;/b&gt; id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; instansi_id: bigint&lt;br&gt;nama_instansi: string&lt;br&gt;pic_nama: string&lt;br&gt;pic_email: string&lt;br&gt;pic_telp: string&lt;br&gt;jml_peserta: int&lt;br&gt;tgl_mulai: date&lt;br&gt;tgl_selesai: date&lt;br&gt;file_surat: string&lt;br&gt;file_peserta: string&lt;br&gt;status: string&lt;br&gt;keterangan: text&lt;br&gt;keterangan_reject: text&lt;br&gt;created_at: timestamp&lt;br&gt;updated_at: timestamp&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="850" y="380" width="220" height="300" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="table_pesertas" value="&lt;b&gt;pesertas&lt;/b&gt;&lt;hr&gt;&lt;div style=&quot;text-align: left; padding: 0 5px;&quot;&gt;&lt;b&gt;PK&lt;/b&gt; id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; user_id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; pengajuan_id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; instansi_id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; bidang_id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; pembimbing_id: bigint&lt;br&gt;nim_nisn: string&lt;br&gt;nama: string&lt;br&gt;jurusan: string&lt;br&gt;deleted_at: timestamp&lt;br&gt;created_at: timestamp&lt;br&gt;updated_at: timestamp&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="450" y="380" width="220" height="230" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="table_absensis" value="&lt;b&gt;absensis&lt;/b&gt;&lt;hr&gt;&lt;div style=&quot;text-align: left; padding: 0 5px;&quot;&gt;&lt;b&gt;PK&lt;/b&gt; id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; peserta_id: bigint&lt;br&gt;tanggal: date&lt;br&gt;status: string&lt;br&gt;keterangan: text&lt;br&gt;created_at: timestamp&lt;br&gt;updated_at: timestamp&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="650" y="720" width="220" height="150" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="table_penilaians" value="&lt;b&gt;penilaians&lt;/b&gt;&lt;hr&gt;&lt;div style=&quot;text-align: left; padding: 0 5px;&quot;&gt;&lt;b&gt;PK&lt;/b&gt; id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; peserta_id: bigint&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; pembimbing_id: bigint&lt;br&gt;nilai_angka: decimal&lt;br&gt;keterangan: text&lt;br&gt;created_at: timestamp&lt;br&gt;updated_at: timestamp&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+      <mxGeometry x="350" y="720" width="220" height="150" as="geometry"/>
+    </mxCell>
+
+    <!-- EDGES (Relationships) -->
+    <mxCell id="edge_users_pembimbings" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERzeroToOne;startArrow=ERone;" edge="1" parent="1" source="table_users" target="table_pembimbings">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_users_pesertas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERzeroToOne;startArrow=ERone;" edge="1" parent="1" source="table_users" target="table_pesertas">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_bidangs_pembimbings" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" edge="1" parent="1" source="table_bidangs" target="table_pembimbings">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_bidangs_pesertas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" edge="1" parent="1" source="table_bidangs" target="table_pesertas">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_instansis_pengajuans" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" edge="1" parent="1" source="table_instansis" target="table_pengajuans">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_instansis_pesertas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" edge="1" parent="1" source="table_instansis" target="table_pesertas">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_pengajuans_pesertas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" edge="1" parent="1" source="table_pengajuans" target="table_pesertas">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_pembimbings_pesertas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" edge="1" parent="1" source="table_pembimbings" target="table_pesertas">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_pesertas_absensis" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" edge="1" parent="1" source="table_pesertas" target="table_absensis">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_pesertas_penilaians" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERzeroToOne;startArrow=ERone;" edge="1" parent="1" source="table_pesertas" target="table_penilaians">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="edge_pembimbings_penilaians" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;" edge="1" parent="1" source="table_pembimbings" target="table_penilaians">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

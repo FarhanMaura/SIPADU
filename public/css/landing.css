@@ -1,0 +1,131 @@
+        html { scroll-behavior: smooth; }
+
+        /* Navbar: transparan → glassmorphism saat scroll */
+        #navbar {
+            transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+            background: rgba(255,255,255,0.08);
+        }
+        #navbar.scrolled {
+            background: rgba(255,255,255,0.72);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 6px rgba(32,33,36,0.28);
+        }
+        #navbar .nav-link {
+            color: #fff;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+        #navbar.scrolled .nav-link {
+            color: #1E3A92;
+        }
+        #navbar .nav-link:hover {
+            text-shadow: rgba(255,255,255,0.8) 0 0 8px;
+        }
+        #navbar.scrolled .nav-link:hover {
+            text-shadow: rgba(30,58,146,0.5) 0 0 8px;
+        }
+        #navbar .nav-btn {
+            background: #1E3A92;
+            color: #fff;
+            transition: background 0.3s;
+        }
+        #navbar.scrolled .nav-btn {
+            background: #1E3A92;
+            color: #fff;
+        }
+        #navbar .nav-btn:hover { background: #2a4fb5; }
+
+        /* Logo color adjustment */
+        #navbar .logo-text { color: #fff; transition: color 0.3s; }
+        #navbar.scrolled .logo-text { color: #1E3A92; }
+        #navbar.scrolled .logo-accent { color: #F9DC5C !important; filter: brightness(0.75); }
+
+        /* Hero */
+        .hero-bg {
+            background: linear-gradient(135deg, #0d2166 0%, #1E3A92 60%, #1a5276 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Section Heading dengan underline */
+        .section-title {
+            color: #1E3A92;
+            font-size: 2rem;
+            font-weight: 600;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid #1E3A92;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        /* Announcement ticker */
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+        }
+        .ticker-content:hover { animation-play-state: paused; }
+        @keyframes ticker {
+            0%   { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Card hover */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(30,58,146,0.12);
+        }
+
+        /* Featured news card overlay */
+        .news-featured {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            min-height: 360px;
+        }
+        .news-featured-layer {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+        }
+        .news-featured-content {
+            position: absolute;
+            bottom: 0; left: 0;
+            padding: 1.5rem;
+            color: #fff;
+        }
+
+        /* Footer hover glow */
+        .hover-glow:hover {
+            text-shadow: rgba(255,255,255,0.8) 0 0 8px;
+        }
+
+        /* Info card */
+        .info-card {
+            border-bottom: 1px solid #ddd;
+            transition: background 0.2s;
+        }
+        .info-card:hover { background: rgba(30,58,146,0.04); }
+
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
