@@ -136,7 +136,8 @@ body::after {
     transition: color 0.2s ease;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 0.85rem 1rem 0.85rem 2.8rem;
     border: 1.5px solid #e9edf2;
@@ -146,6 +147,9 @@ body::after {
     background: #fafcff;
     transition: all 0.2s ease;
     color: #0f172a;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 .form-group input:focus {

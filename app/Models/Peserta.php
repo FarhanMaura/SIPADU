@@ -63,4 +63,10 @@ class Peserta extends Model
     {
         return $this->hasOne(Penilaian::class);
     }
+
+    public function scopeUnregistered($query)
+    {
+        return $query->whereNull('user_id');
+    }
 }
+

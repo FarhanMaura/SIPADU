@@ -61,15 +61,20 @@
                 <label>Tanggal Selesai</label>
                 <input type="date" name="tgl_selesai" class="form-control" value="{{ old('tgl_selesai') }}">
             </div>
-            <hr><h5>Akun Login Peserta</h5>
+            <hr>
+            <div class="mb-3">
+                <h5 class="mb-1">Akun Login Peserta (Opsional)</h5>
+                <small class="text-muted">Kosongkan jika peserta akan melakukan registrasi mandiri melalui halaman register.</small>
+            </div>
             <div class="form-group">
-                <label>Email <span class="text-danger">*</span></label>
-                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
+                <label>Email</label>
+                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Contoh: peserta@email.com (opsional)">
                 @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div class="form-group">
-                <label>Password <span class="text-danger">*</span></label>
-                <input type="password" name="password" class="form-control" required>
+                <label>Password</label>
+                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Min 8 karakter (opsional)">
+                @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
         </div>
         <div class="mt-4 pt-3 border-top d-flex gap-2">

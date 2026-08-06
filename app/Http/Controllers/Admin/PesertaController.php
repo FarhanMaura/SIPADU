@@ -100,22 +100,26 @@ class PesertaController extends Controller
             'tgl_mulai'     => 'nullable|date',
             'tgl_selesai'   => 'nullable|date|after_or_equal:tgl_mulai',
             'status'        => 'nullable|in:aktif,selesai',
-            'email'         => 'required|email|unique:users,email',
-            'password'      => 'required|string|min:8',
+            'email'         => 'nullable|email|unique:users,email',
+            'password'      => 'nullable|string|min:8',
         ]);
 
         DB::transaction(function () use ($request) {
             $pengajuan = Pengajuan::find($request->pengajuan_id);
 
-            $user = User::create([
-                'name'     => $request->nama,
-                'email'    => $request->email,
-                'password' => Hash::make($request->password),
-                'role'     => User::ROLE_PESERTA,
-            ]);
+            $userId = null;
+            if ($request->filled('email') && $request->filled('password')) {
+                $user = User::create([
+                    'name'     => $request->nama,
+                    'email'    => $request->email,
+                    'password' => Hash::make($request->password),
+                    'role'     => User::ROLE_PESERTA,
+                ]);
+                $userId = $user->id;
+            }
 
             Peserta::create([
-                'user_id'       => $user->id,
+                'user_id'       => $userId,
                 'pengajuan_id'  => $request->pengajuan_id,
                 'instansi_id'   => $pengajuan->instansi_id,
                 'nim_nisn'      => $request->nim_nisn,
