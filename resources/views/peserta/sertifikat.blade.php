@@ -13,25 +13,32 @@
     @if($peserta && $penilaian)
     <div style="border: 8px solid #f8fafc; padding: 3rem 2rem; border-radius: 16px; background: white; box-shadow: inset 0 0 0 1px #e2e8f0; position: relative;">
         <i class="fas fa-award" style="font-size: 4rem; color: #f59e0b; margin-bottom: 1rem; opacity: 0.2; position: absolute; top: 2rem; right: 2rem;"></i>
-        <h2 style="font-size: 2.5rem; font-weight: 800; color: #0f172a; margin-bottom: 2rem; letter-spacing: 0.1em;">SERTIFIKAT MAGANG</h2>
-        <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 0.5rem;">Diberikan kepada:</p>
+        <div style="font-size: 0.9rem; font-weight: 700; color: #0284c7; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;">DINAS PENDIDIKAN PROVINSI SUMATERA SELATAN</div>
+        <h2 style="font-size: 2.2rem; font-weight: 800; color: #0f172a; margin-bottom: 1.5rem; letter-spacing: 0.05em;">SERTIFIKAT MAGANG</h2>
+        <p style="color: #64748b; font-size: 1rem; margin-bottom: 0.5rem;">Diberikan secara resmi kepada:</p>
         <h3 style="font-size: 2rem; font-weight: 700; color: #2563eb; margin-bottom: 0.5rem;">{{ $peserta->nama }}</h3>
-        <p style="color: #475569; font-size: 1.1rem; margin-bottom: 2rem;">{{ $peserta->jurusan ?? '' }} - {{ $peserta->instansi?->nama }}</p>
+        <p style="color: #475569; font-size: 1rem; margin-bottom: 1.5rem;">NIM/NIS: {{ $peserta->nim_nisn ?? '-' }} | {{ $peserta->jurusan ?? '' }} — {{ $peserta->instansi?->nama }}</p>
         
-        <p style="color: #1e293b; font-size: 1.1rem; margin-bottom: 1rem;">
-            Telah menyelesaikan program magang di bidang <strong>{{ $peserta->bidang?->nama ?? '-' }}</strong>
+        <p style="color: #1e293b; font-size: 1rem; margin-bottom: 0.5rem;">
+            Telah menyelesaikan seluruh rangkaian program magang di bidang <strong>{{ $peserta->bidang?->nama ?? '-' }}</strong>
         </p>
-        <p style="color: #64748b; margin-bottom: 2rem;">
+        <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 1.5rem;">
             Periode: {{ ($peserta->tgl_mulai ?? $peserta->pengajuan?->tgl_mulai)?->format('d F Y') }} s/d {{ ($peserta->tgl_selesai ?? $peserta->pengajuan?->tgl_selesai)?->format('d F Y') }}
         </p>
         
-        <div style="display: inline-block; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1rem 2rem; border-radius: 12px; margin-bottom: 2rem;">
-            <p style="margin: 0; color: #166534; font-size: 1.1rem;">Nilai Akhir: <strong style="font-size: 1.5rem; margin-left: 0.5rem;">{{ $penilaian->nilai_angka }}</strong></p>
+        <div style="display: inline-block; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.75rem 2rem; border-radius: 12px; margin-bottom: 2rem;">
+            <p style="margin: 0; color: #166534; font-size: 1rem;">Hasil Penilaian Akhir: <strong style="font-size: 1.4rem; margin-left: 0.5rem;">{{ $penilaian->nilai_angka }} ({{ $penilaian->predikat }})</strong></p>
         </div>
         
-        <div style="text-align: center; max-width: 300px; margin: 0 auto; border-top: 1px solid #cbd5e1; padding-top: 1rem;">
-            <p style="color: #0f172a; font-weight: 600; margin-bottom: 0;">{{ $peserta->pembimbing?->nama }}</p>
-            <p style="color: #64748b; font-size: 0.9rem;">Pembimbing Magang</p>
+        <div style="display: flex; justify-content: space-around; gap: 1rem; border-top: 1px solid #cbd5e1; padding-top: 1.5rem; margin-top: 1rem;">
+            <div style="text-align: center; flex: 1;">
+                <p style="color: #0f172a; font-weight: 600; margin-bottom: 0.2rem;">Kasubbag Umum dan Kepegawaian</p>
+                <p style="color: #64748b; font-size: 0.85rem;">Dinas Pendidikan Prov. Sumsel</p>
+            </div>
+            <div style="text-align: center; flex: 1;">
+                <p style="color: #0f172a; font-weight: 600; margin-bottom: 0.2rem;">{{ $peserta->pembimbing?->nama ?? 'Pembimbing Bidang' }}</p>
+                <p style="color: #64748b; font-size: 0.85rem;">Pembimbing Magang Bidang</p>
+            </div>
         </div>
     </div>
     <div style="margin-top: 2rem;">

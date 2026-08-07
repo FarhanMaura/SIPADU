@@ -196,14 +196,15 @@
             <div class="grid lg:grid-cols-5 gap-10">
                 <!-- Persyaratan (featured, span 3) -->
                 <div class="lg:col-span-3 fade-in">
-                    <h2 class="section-title">Persyaratan Pengajuan</h2>
+                    <h2 class="section-title">Berkas & Persyaratan Pengajuan</h2>
+                    <p class="text-gray-600 text-sm mb-4">Pihak sekolah/kampus mengajukan permohonan magang kepada <strong>Dinas Pendidikan Provinsi Sumatera Selatan</strong> dengan mengunggah <strong>Surat Pengantar</strong> yang wajib memuat:</p>
                     <ul class="space-y-3">
                         @foreach([
-                            ['Surat permohonan resmi dari instansi', 'PDF, JPG, atau PNG — maks. 5MB'],
-                            ['Daftar calon peserta magang dalam format Excel', '.xlsx atau .xls — maks. 5MB'],
-                            ['Data PIC (Person in Charge) yang dapat dihubungi', 'Nama, email, dan nomor HP'],
-                            ['Periode magang yang direncanakan', 'Tanggal mulai dan selesai'],
-                            ['Jumlah peserta yang akan ikut program', 'Minimal 1 orang'],
+                            ['Daftar Nama & Jumlah Peserta Magang', 'Data lengkap peserta dari sekolah / perguruan tinggi'],
+                            ['NIM / NIS Peserta', 'Nomor Induk Mahasiswa / Nomor Induk Siswa aktif'],
+                            ['Nomor Kontak Aktif', 'Nomor telepon/HP PIC atau peserta yang dapat dihubungi'],
+                            ['Jadwal Pelaksanaan Magang', 'Tanggal pasti mulai dan selesai magang'],
+                            ['File Daftar Peserta (Excel)', 'Rekapitulasi berkas peserta berformat .xlsx / .xls'],
                         ] as $req)
                         <li class="info-card flex items-start gap-3 py-3">
                             <i class="fas fa-bullhorn text-navy mt-0.5 flex-shrink-0"></i>
@@ -215,21 +216,22 @@
                         @endforeach
                     </ul>
                     <a href="{{ route('pengajuan.form') }}"
-                        class="inline-flex items-center gap-2 mt-6 bg-navy hover:bg-navy-light text-white font-semibold px-6 py-3 rounded-lg text-sm transition">
+                        class="inline-flex items-center gap-2 mt-6 bg-navy hover:bg-navy-light text-white font-semibold px-6 py-3 rounded-lg text-sm transition shadow-md">
                         <i class="fas fa-paper-plane"></i> Isi Formulir Pengajuan
                     </a>
                 </div>
 
                 <!-- Informasi Penting (sidebar, span 2) -->
                 <div class="lg:col-span-2 fade-in">
-                    <h2 class="section-title">Informasi Penting</h2>
+                    <h2 class="section-title">Proses & Ketentuan</h2>
                     <ul class="space-y-3">
                         @foreach([
-                            ['Proses verifikasi 3–5 hari kerja setelah pengajuan diterima'],
-                            ['Peserta yang diterima akan mendapat akun portal magang'],
-                            ['Pembimbing ditentukan sesuai bidang penempatan'],
-                            ['Absensi diinput harian oleh peserta melalui portal'],
-                            ['Sertifikat dapat diunduh setelah program selesai'],
+                            ['Verifikasi berkoordinasi dengan Kasubbag Umum dan Kepegawaian'],
+                            ['Pertimbangan diterima berdasarkan kesesuaian jurusan peserta'],
+                            ['Peserta dengan jurusan tidak sesuai dialihkan/disarankan ke instansi yang relevan'],
+                            ['Hari pertama diawali Pembinaan oleh Kasubbag Umum & Kepegawaian'],
+                            ['Atasan bidang menentukan Pembimbing berdasarkan tugas yang diberikan'],
+                            ['Sertifikat diterbitkan Admin setelah rekap penilaian disetujui Kasubbag'],
                         ] as $info)
                         <li class="info-card flex items-center gap-3 py-3">
                             <span class="w-2 h-2 bg-navy rounded-full flex-shrink-0"></span>
@@ -249,23 +251,26 @@
     <!-- ===== ALUR MAGANG ===== -->
     <section id="alur" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="fade-in">
-                <h2 class="section-title">Alur Program Magang</h2>
+            <div class="fade-in text-center mb-12">
+                <h2 class="section-title inline-block">Alur Resmi Program Magang</h2>
+                <p class="text-gray-500 text-sm mt-2">Dinas Pendidikan Provinsi Sumatera Selatan</p>
             </div>
             <div class="grid md:grid-cols-4 gap-6 fade-in">
                 @foreach([
-                    ['01','fa-file-alt','Ajukan Online','Isi formulir & upload dokumen persyaratan secara online.'],
-                    ['02','fa-shield-alt','Verifikasi Admin','Tim admin memverifikasi kelengkapan dokumen.'],
-                    ['03','fa-map-marker-alt','Penempatan','Peserta ditempatkan di bidang & mendapat pembimbing.'],
-                    ['04','fa-certificate','Selesai','Jalani magang, absensi digital, dan unduh sertifikat.'],
+                    ['01','fa-file-alt','1. Pengajuan Berkas','Sekolah/kampus mengunggah surat pengantar memuat daftar nama, NIM/NIS, nomor kontak, & jadwal magang.'],
+                    ['02','fa-user-check','2. Verifikasi Kasubbag','Admin & Kasubbag Umum Kepegawaian meninjau kesesuaian jurusan. Diterbitkan surat balasan atau arahan pengalihan instansi.'],
+                    ['03','fa-chalkboard-teacher','3. Pembinaan & Penempatan','Hari pertama ikuti pembinaan Kasubbag Umum Kepegawaian. Atasan bidang menentukan pembimbing sesuai tugas.'],
+                    ['04','fa-award','4. Penilaian & Sertifikat','Pembimbing menilai kinerja di bidang. Rekap disampaikan ke Kasubbag, lalu admin menerbitkan Sertifikat Magang.'],
                 ] as $step)
-                <div class="card-hover text-center bg-gray-50 rounded-xl p-6 border border-gray-100">
-                    <div class="w-14 h-14 bg-navy rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-md shadow-navy/30">
-                        <i class="fas {{ $step[1] }} text-white text-xl"></i>
+                <div class="card-hover text-center bg-gray-50 rounded-xl p-6 border border-gray-100 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-navy rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-md shadow-navy/30">
+                            <i class="fas {{ $step[1] }} text-white text-xl"></i>
+                        </div>
+                        <div class="text-xs font-bold text-navy mb-1 tracking-wider">TAHAP {{ $step[0] }}</div>
+                        <h3 class="font-semibold text-gray-900 mb-2 text-sm">{{ $step[2] }}</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed">{{ $step[3] }}</p>
                     </div>
-                    <div class="text-xs font-bold text-navy mb-1 tracking-wider">LANGKAH {{ $step[0] }}</div>
-                    <h3 class="font-semibold text-gray-900 mb-2 text-sm">{{ $step[2] }}</h3>
-                    <p class="text-gray-500 text-xs leading-relaxed">{{ $step[3] }}</p>
                 </div>
                 @endforeach
             </div>

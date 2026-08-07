@@ -28,19 +28,23 @@ class PengajuanController extends Controller
             return back()->with('error', 'Pengajuan ini sudah diproses sebelumnya.');
         }
 
-        $pengajuan->update(['status' => 'approved']);
+        $pengajuan->update([
+            'status' => 'approved',
+        ]);
 
         return redirect()->route('admin.pengajuan.index')
-            ->with('success', 'Pengajuan berhasil disetujui.');
+            ->with('success', 'Pengajuan disetujui (Hasil koordinasi dengan Kasubbag Umum dan Kepegawaian). Surat balasan diterbitkan.');
     }
 
     public function reject(Request $request, Pengajuan $pengajuan): RedirectResponse
     {
         $request->validate([
-            'keterangan_reject' => 'required|string|max:500',
+            'keterangan_reject'    => 'required|string|max:500',
+            'rekomendasi_instansi' => 'nullable|string|max:255',
         ], [
-            'keterangan_reject.required' => 'Alasan penolakan wajib diisi.',
+            'keterangan_reject.required' => 'Alasan penolakan/pengalihan wajib diisi.',
             'keterangan_reject.max'      => 'Alasan penolakan maksimal 500 karakter.',
+            'rekomendasi_instansi.max'   => 'Rekomendasi instansi maksimal 255 karakter.',
         ]);
 
         if ($pengajuan->status !== 'pending') {
@@ -48,12 +52,13 @@ class PengajuanController extends Controller
         }
 
         $pengajuan->update([
-            'status'             => 'rejected',
-            'keterangan_reject'  => strip_tags($request->keterangan_reject),
+            'status'               => 'rejected',
+            'keterangan_reject'    => strip_tags($request->keterangan_reject),
+            'rekomendasi_instansi' => $request->filled('rekomendasi_instansi') ? strip_tags($request->rekomendasi_instansi) : null,
         ]);
 
         return redirect()->route('admin.pengajuan.index')
-            ->with('success', 'Pengajuan berhasil ditolak.');
+            ->with('success', 'Pengajuan diproses ditolak / dialihkan ke instansi lain sesuai kesesuaian jurusan.');
     }
 
     public function downloadFile(Pengajuan $pengajuan, string $type)

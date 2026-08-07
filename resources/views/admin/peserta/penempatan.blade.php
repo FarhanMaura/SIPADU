@@ -9,12 +9,16 @@
             <i class="fas fa-edit"></i> Penempatan Peserta
         </h1>
         <p>
-            <i class="fas fa-chevron-right"></i> Form <i class="fas fa-chevron-right"></i> Penempatan Peserta
+            <i class="fas fa-chevron-right"></i> Form <i class="fas fa-chevron-right"></i> Penempatan Bidang & Pembimbing Peserta
         </p>
     </div>
     <a href="javascript:history.back()" class="action-button" style="background: #64748b; box-shadow: none;">
         <i class="fas fa-arrow-left"></i> Kembali
     </a>
+</div>
+
+<div class="alert alert-info border-0 shadow-sm mb-4" style="background: #e0f2fe; color: #0369a1; border-radius: 12px; padding: 1rem 1.25rem;">
+    <i class="fas fa-info-circle mr-2"></i> <strong>Catatan Alur Penempatan:</strong> Setelah pembinaan oleh Kasubbag Umum & Kepegawaian pada hari pertama, peserta ditempatkan pada bidang yang sesuai. Penentuan Pembimbing ditentukan oleh Atasan di bidang masing-masing berdasarkan tugas yang diberikan.
 </div>
 
 <!-- Form Container -->

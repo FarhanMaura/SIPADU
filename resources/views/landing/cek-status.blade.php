@@ -130,25 +130,37 @@
                             <div class="mt-4 bg-emerald-50 border border-emerald-100 rounded-xl p-4">
                                 <p class="text-emerald-800 text-sm font-medium">
                                     <i class="fas fa-check-circle text-emerald-500 mr-1"></i>
-                                    Pengajuan Anda telah <strong>disetujui</strong>. Tim kami akan segera menindaklanjuti penempatan peserta dan akan menghubungi PIC.
+                                    Pengajuan Anda telah <strong>disetujui</strong> oleh Dinas Pendidikan Provinsi Sumatera Selatan setelah koordinasi dengan Kasubbag Umum dan Kepegawaian (Jurusan Sesuai). Surat balasan telah diterbitkan.
                                 </p>
+                                <div class="mt-2 text-emerald-700 text-xs bg-emerald-100/60 p-2.5 rounded-lg border border-emerald-200">
+                                    <strong><i class="fas fa-info-circle mr-1"></i> Petunjuk Hari Pertama:</strong> Peserta wajib mengikuti <strong>pembinaan oleh Kasubbag Umum dan Kepegawaian</strong> sebelum penempatan bidang dan pembagian pembimbing oleh atasan bidang.
+                                </div>
                             </div>
                             @elseif($p->status === 'rejected')
                             <div class="mt-4 bg-red-50 border border-red-100 rounded-xl p-4">
                                 <p class="text-red-800 text-sm font-medium mb-1">
                                     <i class="fas fa-times-circle text-red-500 mr-1"></i>
-                                    Pengajuan Anda <strong>tidak dapat diproses</strong>.
+                                    Pengajuan Anda <strong>tidak dapat diterima di Dinas Pendidikan</strong> karena ketidaksesuaian jurusan dengan kebutuhan dinas.
                                 </p>
                                 @if($p->keterangan_reject)
-                                <p class="text-red-700 text-sm">Alasan: {{ $p->keterangan_reject }}</p>
+                                <p class="text-red-700 text-sm mt-1"><strong>Alasan / Pertimbangan:</strong> {{ $p->keterangan_reject }}</p>
                                 @endif
-                                <p class="text-red-600 text-xs mt-2">Untuk informasi lebih lanjut, silakan hubungi tim kami.</p>
+
+                                @if($p->rekomendasi_instansi)
+                                <div class="mt-3 bg-blue-50 border border-blue-200 rounded-lg p-3 text-blue-900 text-xs">
+                                    <div class="font-bold flex items-center gap-1.5 text-blue-700 text-sm mb-1">
+                                        <i class="fas fa-directions text-blue-600"></i> Rekomendasi Pengalihan Instansi:
+                                    </div>
+                                    <p>Sesuai pertimbangan bidang ilmu peserta, kami menyarankan / mengalihkan permohonan magang ke <strong>{{ $p->rekomendasi_instansi }}</strong>.</p>
+                                </div>
+                                @endif
+                                <p class="text-red-600 text-xs mt-2">Untuk informasi lebih lanjut, silakan hubungi Kasubbag Umum & Kepegawaian / Admin Dinas Pendidikan.</p>
                             </div>
                             @else
                             <div class="mt-4 bg-amber-50 border border-amber-100 rounded-xl p-4">
                                 <p class="text-amber-800 text-sm">
                                     <i class="fas fa-clock text-amber-500 mr-1"></i>
-                                    Pengajuan Anda sedang dalam proses review. Proses verifikasi membutuhkan <strong>3–5 hari kerja</strong>.
+                                    Surat permohonan telah diterima Admin dan sedang dalam proses <strong>koordinasi & verifikasi kesesuaian jurusan bersama Kasubbag Umum dan Kepegawaian</strong> (Estimasi 3–5 hari kerja).
                                 </p>
                             </div>
                             @endif

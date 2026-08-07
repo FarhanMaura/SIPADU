@@ -19,6 +19,7 @@ class Penilaian extends Model
         'kejujuran',
         'nilai_angka',
         'keterangan',
+        'status_administrasi',
     ];
 
     public function peserta()

@@ -20,6 +20,7 @@ class Pengajuan extends Model
         'status',
         'keterangan',
         'keterangan_reject',
+        'rekomendasi_instansi',
     ];
 
     protected $casts = [

@@ -62,8 +62,16 @@
                 </tr>
                 @if($pengajuan->keterangan_reject)
                 <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Alasan Penolakan</th>
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Alasan Penolakan / Ketidaksesuaian</th>
                     <td style="padding: 1rem 0; color: #dc2626; font-weight: 500;">{{ $pengajuan->keterangan_reject }}</td>
+                </tr>
+                @endif
+                @if($pengajuan->rekomendasi_instansi)
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Rekomendasi Instansi Pengalihan</th>
+                    <td style="padding: 1rem 0; color: #0284c7; font-weight: 600;">
+                        <i class="fas fa-directions"></i> {{ $pengajuan->rekomendasi_instansi }}
+                    </td>
                 </tr>
                 @endif
                 <tr style="border-bottom: 1px solid #f0f4fa;">

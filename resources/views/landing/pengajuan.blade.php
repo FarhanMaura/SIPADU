@@ -32,8 +32,8 @@
             <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-semibold px-4 py-2 rounded-full mb-4">
                 <i class="fas fa-file-alt"></i> FORMULIR PENGAJUAN MAGANG
             </div>
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">Ajukan Program Magang</h1>
-            <p class="text-gray-500">Isi data di bawah ini dengan lengkap dan benar. Tim kami akan menghubungi PIC dalam 3–5 hari kerja.</p>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Permohonan Magang Dinas Pendidikan Prov. Sumsel</h1>
+            <p class="text-gray-500 text-sm max-w-xl mx-auto">Pengajuan permohonan magang oleh sekolah/kampus kepada Dinas Pendidikan Provinsi Sumatera Selatan. Pastikan surat pengantar memuat daftar nama, NIM/NIS, kontak aktif, dan jadwal magang.</p>
         </div>
 
         @if(session('success'))
@@ -127,9 +127,10 @@
                 </h2>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Surat Permohonan <span class="text-red-500">*</span></label>
-                        <div class="border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-blue-400 transition">
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Surat Pengantar / Permohonan <span class="text-red-500">*</span></label>
+                        <div class="border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-blue-400 transition bg-blue-50/30">
                             <input type="file" name="file_surat" accept=".pdf,.jpg,.jpeg,.png" required class="w-full text-sm text-gray-500">
+                            <p class="text-xs text-blue-700 mt-2 font-medium"><i class="fas fa-info-circle mr-1"></i> Surat Pengantar wajib memuat: Daftar nama peserta, NIM/NIS, nomor kontak dihubungi, dan jadwal pelaksanaan magang.</p>
                             <p class="text-xs text-gray-400 mt-1">Format: PDF, JPG, PNG — Maks. 5MB</p>
                         </div>
                     </div>

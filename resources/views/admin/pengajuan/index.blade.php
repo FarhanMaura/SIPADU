@@ -96,8 +96,9 @@
                             <form action="{{ route('admin.pengajuan.reject', $p) }}" method="POST" class="d-inline" id="form-reject-{{ $p->id }}">
                                 @csrf @method('PATCH')
                                 <input type="hidden" name="keterangan_reject" id="keterangan_reject_{{ $p->id }}">
+                                <input type="hidden" name="rekomendasi_instansi" id="rekomendasi_instansi_{{ $p->id }}">
                                 <button type="button" class="delete" style="background: #fef2f2; color: #dc2626;" onclick="rejectPengajuan({{ $p->id }})">
-                                    <i class="fas fa-times"></i> Tolak
+                                    <i class="fas fa-times"></i> Tolak / Alihkan
                                 </button>
                             </form>
                         </div>
@@ -130,7 +131,7 @@
 @push('scripts')
 <script>
     function rejectPengajuan(id) {
-        let alasan = prompt('Masukkan alasan penolakan (maks 500 karakter):');
+        let alasan = prompt('Masukkan alasan penolakan / ketidaksesuaian jurusan (mis. "Jurusan tidak sesuai kebutuhan Dinas Pendidikan"):');
         if (alasan === null) {
             return;
         }
@@ -138,11 +139,13 @@
             alert('Alasan penolakan wajib diisi!');
             return;
         }
-        if (alasan.length > 500) {
-            alert('Alasan penolakan terlalu panjang! Maksimal 500 karakter.');
-            return;
-        }
+        
+        let rekomendasi = prompt('Bila dialihkan ke instansi lain, masukkan nama instansi rekomendasi (mis. "Dinas Pariwisata Provinsi Sumsel") atau kosongkan:');
+        
         document.getElementById('keterangan_reject_' + id).value = alasan;
+        if (rekomendasi && rekomendasi.trim() !== '') {
+            document.getElementById('rekomendasi_instansi_' + id).value = rekomendasi.trim();
+        }
         document.getElementById('form-reject-' + id).submit();
     }
 </script>
