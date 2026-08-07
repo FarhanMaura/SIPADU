@@ -16,6 +16,7 @@ class User extends Authenticatable
     const ROLE_ADMIN = 1;
     const ROLE_PEMBIMBING = 2;
     const ROLE_PESERTA = 3;
+    const ROLE_KASUBBAG = 4;
 
     /**
      * The attributes that are mass assignable.
@@ -75,5 +76,10 @@ class User extends Authenticatable
     public function isPeserta(): bool
     {
         return $this->role === self::ROLE_PESERTA;
+    }
+
+    public function isKasubbag(): bool
+    {
+        return $this->role === self::ROLE_KASUBBAG;
     }
 }

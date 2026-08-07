@@ -55,7 +55,11 @@
                     <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Status</th>
                     <td style="padding: 1rem 0;">
                         @if($pengajuan->status === 'pending') <span class="badge-status pending" style="background:#fef3c7; color:#d97706;">Pending</span>
-                        @elseif($pengajuan->status === 'approved') <span class="badge-status approved" style="background:#dcfce7; color:#15803d;">Disetujui</span>
+                        @elseif($pengajuan->status === 'approved') 
+                            <span class="badge-status approved" style="background:#dcfce7; color:#15803d; margin-right: 0.5rem;">Disetujui</span>
+                            <a href="{{ route('pengajuan.surat_balasan', $pengajuan) }}" class="action-button" style="background: #16a34a; padding: 0.35rem 0.75rem; font-size: 0.8rem; box-shadow: none;">
+                                <i class="fas fa-file-pdf"></i> Cetak Surat Balasan PDF
+                            </a>
                         @else <span class="badge-status rejected" style="background:#fee2e2; color:#b91c1c;">Ditolak</span>
                         @endif
                     </td>

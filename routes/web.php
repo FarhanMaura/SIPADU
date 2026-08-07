@@ -21,6 +21,7 @@ Route::get('/pengajuan', [LandingController::class, 'form'])->name('pengajuan.fo
 Route::post('/pengajuan', [LandingController::class, 'store'])->middleware('throttle:10,1')->name('pengajuan.submit');
 Route::get('/cek-status', [LandingController::class, 'cekStatusForm'])->name('status.form');
 Route::post('/cek-status', [LandingController::class, 'cekStatus'])->middleware('throttle:15,1')->name('status.cek');
+Route::get('/pengajuan/{pengajuan}/surat-balasan', [LandingController::class, 'downloadSuratBalasan'])->name('pengajuan.surat_balasan');
 
 // ===================================================
 // AUTHENTICATED - Dashboard (redirect by role)

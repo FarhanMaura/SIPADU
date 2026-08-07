@@ -38,6 +38,7 @@
                     <option value="1" {{ old('role') == 1 ? 'selected' : '' }}>Admin</option>
                     <option value="2" {{ old('role') == 2 ? 'selected' : '' }}>Pembimbing</option>
                     <option value="3" {{ old('role') == 3 ? 'selected' : '' }}>Peserta</option>
+                    <option value="4" {{ old('role') == 4 ? 'selected' : '' }}>Kasubbag Umum & Kepegawaian</option>
                 </select>
             </div>
             <div class="form-group">

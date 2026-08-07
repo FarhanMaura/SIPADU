@@ -105,6 +105,17 @@
                 </a>
             @endif
             
+            <!-- Role Kasubbag Sidebar Menu -->
+            @if(auth()->user()->role === \App\Models\User::ROLE_KASUBBAG)
+                <div class="nav-label">PENGAWASAN & VERIFIKASI</div>
+                <a href="{{ route('admin.pengajuan.index') }}" class="nav-item {{ Request::is('admin/pengajuan*') ? 'active' : '' }}">
+                    <i class="fas fa-file-signature"></i> Verifikasi Pengajuan
+                </a>
+                <a href="{{ route('admin.peserta.index') }}" class="nav-item {{ Request::is('admin/peserta*') ? 'active' : '' }}">
+                    <i class="fas fa-users"></i> Penempatan Peserta
+                </a>
+            @endif
+
             <div class="nav-label">AKUN</div>
             <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
                 @csrf
@@ -120,6 +131,7 @@
             <span style="margin-left: auto; font-size: 0.8rem; color: #94a3b8;">
                 @if(Auth::user()->role === 1) Admin
                 @elseif(Auth::user()->role === 2) Pembimbing
+                @elseif(Auth::user()->role === 4) Kasubbag
                 @else Peserta
                 @endif
             </span>

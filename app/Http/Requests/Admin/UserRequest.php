@@ -19,7 +19,7 @@ class UserRequest extends FormRequest
         return [
             'name'     => 'required|string|max:255',
             'email'    => ['required', 'email', Rule::unique('users', 'email')->ignore($userId)],
-            'role'     => 'required|integer|in:1,2,3',
+            'role'     => 'required|integer|in:1,2,3,4',
             'password' => $this->isMethod('POST') ? 'required|string|min:8' : 'nullable|string|min:8',
         ];
     }

@@ -135,6 +135,11 @@
                                 <div class="mt-2 text-emerald-700 text-xs bg-emerald-100/60 p-2.5 rounded-lg border border-emerald-200">
                                     <strong><i class="fas fa-info-circle mr-1"></i> Petunjuk Hari Pertama:</strong> Peserta wajib mengikuti <strong>pembinaan oleh Kasubbag Umum dan Kepegawaian</strong> sebelum penempatan bidang dan pembagian pembimbing oleh atasan bidang.
                                 </div>
+                                <div class="mt-3">
+                                    <a href="{{ route('pengajuan.surat_balasan', $p) }}" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-sm">
+                                        <i class="fas fa-file-pdf"></i> Unduh Surat Balasan Resmi (PDF)
+                                    </a>
+                                </div>
                             </div>
                             @elseif($p->status === 'rejected')
                             <div class="mt-4 bg-red-50 border border-red-100 rounded-xl p-4">

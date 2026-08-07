@@ -49,6 +49,18 @@ class DashboardController extends Controller
 
             return view('pembimbing.dashboard', compact('stats', 'pesertas', 'absensi_terbaru', 'pembimbing'));
 
+        } elseif ($user->role === User::ROLE_KASUBBAG) {
+            $stats = [
+                'pengajuan_pending'  => Pengajuan::where('status', 'pending')->count(),
+                'pengajuan_approved' => Pengajuan::where('status', 'approved')->count(),
+                'total_peserta'      => Peserta::count(),
+                'penilaian_selesai'  => \App\Models\Penilaian::count(),
+            ];
+            $pengajuan_terbaru = Pengajuan::latest()->take(5)->get();
+            $peserta_terbaru   = Peserta::with(['instansi', 'bidang', 'pembimbing'])->latest()->take(5)->get();
+
+            return view('kasubbag.dashboard', compact('stats', 'pengajuan_terbaru', 'peserta_terbaru'));
+
         } else {
             $peserta   = $user->peserta?->load(['pengajuan', 'bidang', 'pembimbing', 'instansi', 'penilaian']);
 

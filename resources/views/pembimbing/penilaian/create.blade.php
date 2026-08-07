@@ -14,23 +14,52 @@
         <form action="{{ route('pembimbing.penilaian.store') }}" method="POST" class="form-container-clean">
     @csrf
     <div class="form-group">
-        <label>Peserta <span class="text-danger">*</span></label>
+        <label>Peserta Magang <span class="text-danger">*</span></label>
         <select name="peserta_id" class="form-control @error('peserta_id') is-invalid @enderror" required>
             <option value="">-- Pilih Peserta --</option>
             @foreach($pesertas as $p)
-            <option value="{{ $p->id }}" {{ (old('peserta_id') ?? request('peserta_id')) == $p->id ? 'selected' : '' }}>{{ $p->nama }}</option>
+            <option value="{{ $p->id }}" {{ (old('peserta_id') ?? request('peserta_id')) == $p->id ? 'selected' : '' }}>{{ $p->nama }} ({{ $p->jurusan ?? 'Tanpa Jurusan' }})</option>
             @endforeach
         </select>
         @error('peserta_id')<div class="invalid-feedback" style="color: #dc2626; font-size: 0.85rem; margin-top: 0.25rem;">{{ $message }}</div>@enderror
     </div>
-    <div class="form-group">
-        <label>Nilai (0-100) <span class="text-danger">*</span></label>
-        <input type="number" name="nilai_angka" class="form-control @error('nilai_angka') is-invalid @enderror" value="{{ old('nilai_angka') }}" min="0" max="100" step="0.01" required>
-        @error('nilai_angka')<div class="invalid-feedback" style="color: #dc2626; font-size: 0.85rem; margin-top: 0.25rem;">{{ $message }}</div>@enderror
+
+    <h5 class="mt-4 mb-3 font-weight-bold text-dark"><i class="fas fa-tasks mr-1"></i> Penilaian Indikator Kinerja Bidang (0–100)</h5>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+            <label>Kedisiplinan</label>
+            <input type="number" name="kedisiplinan" class="form-control" value="{{ old('kedisiplinan', 85) }}" min="0" max="100" step="1">
+        </div>
+        <div class="form-group">
+            <label>Kerapian</label>
+            <input type="number" name="kerapian" class="form-control" value="{{ old('kerapian', 85) }}" min="0" max="100" step="1">
+        </div>
+        <div class="form-group">
+            <label>Kebersihan</label>
+            <input type="number" name="kebersihan" class="form-control" value="{{ old('kebersihan', 85) }}" min="0" max="100" step="1">
+        </div>
+        <div class="form-group">
+            <label>Tanggung Jawab</label>
+            <input type="number" name="tanggung_jawab" class="form-control" value="{{ old('tanggung_jawab', 85) }}" min="0" max="100" step="1">
+        </div>
+        <div class="form-group">
+            <label>Kerjasama</label>
+            <input type="number" name="kerjasama" class="form-control" value="{{ old('kerjasama', 85) }}" min="0" max="100" step="1">
+        </div>
+        <div class="form-group">
+            <label>Kreativitas</label>
+            <input type="number" name="kreativitas" class="form-control" value="{{ old('kreativitas', 85) }}" min="0" max="100" step="1">
+        </div>
+        <div class="form-group" style="grid-column: span 2;">
+            <label>Kejujuran</label>
+            <input type="number" name="kejujuran" class="form-control" value="{{ old('kejujuran', 85) }}" min="0" max="100" step="1">
+        </div>
     </div>
+
     <div class="form-group">
-        <label>Keterangan</label>
-        <textarea name="keterangan" class="form-control" rows="3">{{ old('keterangan') }}</textarea>
+        <label>Catatan / Keterangan Kinerja Bidang</label>
+        <textarea name="keterangan" class="form-control" rows="3" placeholder="Catatan evaluasi kinerja peserta selama magang di bidang...">{{ old('keterangan') }}</textarea>
     </div>
     
     <hr>

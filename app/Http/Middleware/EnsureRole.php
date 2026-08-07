@@ -32,6 +32,8 @@ class EnsureRole
                 $allowedRoleIds[] = User::ROLE_PEMBIMBING;
             } elseif ($roleLower === 'peserta' || $roleLower === '3') {
                 $allowedRoleIds[] = User::ROLE_PESERTA;
+            } elseif ($roleLower === 'kasubbag' || $roleLower === '4') {
+                $allowedRoleIds[] = User::ROLE_KASUBBAG;
             }
         }
 

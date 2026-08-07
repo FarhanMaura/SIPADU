@@ -49,6 +49,8 @@
                             <span class="badge-status rejected" style="background:#fee2e2; color:#b91c1c;"><i class="fas fa-user-shield mr-1"></i> Admin</span>
                         @elseif($user->role === 2) 
                             <span class="badge-status approved" style="background:#dbeafe; color:#1d4ed8;"><i class="fas fa-chalkboard-teacher mr-1"></i> Pembimbing</span>
+                        @elseif($user->role === 4) 
+                            <span class="badge-status approved" style="background:#fef3c7; color:#b45309;"><i class="fas fa-user-check mr-1"></i> Kasubbag</span>
                         @else 
                             <span class="badge-status pending" style="background:#e0f2fe; color:#0369a1;"><i class="fas fa-user-graduate mr-1"></i> Peserta</span>
                         @endif

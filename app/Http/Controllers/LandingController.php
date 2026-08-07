@@ -93,4 +93,16 @@ class LandingController extends Controller
         return redirect()->route('pengajuan.form')
             ->with('success', 'Pengajuan berhasil dikirim! Tim kami akan menghubungi ' . e($request->pic_nama) . ' dalam 3–5 hari kerja.');
     }
+
+    public function downloadSuratBalasan(Pengajuan $pengajuan)
+    {
+        if ($pengajuan->status !== 'approved') {
+            return redirect()->back()->with('error', 'Surat balasan belum tersedia untuk pengajuan yang belum disetujui.');
+        }
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('emails.surat_balasan_pdf', compact('pengajuan'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('Surat_Balasan_Magang_' . str_replace(' ', '_', $pengajuan->nama_instansi) . '.pdf');
+    }
 }

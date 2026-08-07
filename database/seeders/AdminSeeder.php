@@ -12,11 +12,22 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::create([
-            'name' => 'Administrator',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-            'role' => \App\Models\User::ROLE_ADMIN,
-        ]);
+        \App\Models\User::firstOrCreate(
+            ['email' => 'admin@admin.com'],
+            [
+                'name'     => 'Administrator',
+                'password' => bcrypt('password'),
+                'role'     => \App\Models\User::ROLE_ADMIN,
+            ]
+        );
+
+        \App\Models\User::firstOrCreate(
+            ['email' => 'kasubbag@sipadu.go.id'],
+            [
+                'name'     => 'Kasubbag Umum dan Kepegawaian',
+                'password' => bcrypt('password'),
+                'role'     => \App\Models\User::ROLE_KASUBBAG,
+            ]
+        );
     }
 }

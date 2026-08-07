@@ -34,18 +34,27 @@ class PenilaianController extends Controller
     public function store(PenilaianRequest $request): RedirectResponse
     {
         $pembimbing = auth()->user()->pembimbing;
+        $data       = $request->validated();
+
+        $indicators = array_filter([
+            $request->kedisiplinan, $request->kerapian, $request->kebersihan,
+            $request->tanggung_jawab, $request->kerjasama, $request->kreativitas, $request->kejujuran
+        ], fn($v) => !is_null($v));
+
+        if (count($indicators) > 0) {
+            $data['nilai_angka'] = round(array_sum($indicators) / count($indicators), 2);
+        }
+
+        $data['pembimbing_id'] = $pembimbing?->id;
+        $data['status_administrasi'] = 'dinilai_pembimbing';
 
         Penilaian::updateOrCreate(
             ['peserta_id' => $request->peserta_id],
-            [
-                'pembimbing_id' => $pembimbing?->id,
-                'nilai_angka'   => $request->nilai_angka,
-                'keterangan'    => $request->keterangan,
-            ]
+            $data
         );
 
         return redirect()->route('pembimbing.penilaian.index')
-            ->with('success', 'Penilaian berhasil disimpan.');
+            ->with('success', 'Penilaian kinerja peserta berhasil disimpan.');
     }
 
     private function authorizePenilaian(Penilaian $penilaian): void
@@ -68,10 +77,21 @@ class PenilaianController extends Controller
     public function update(PenilaianRequest $request, Penilaian $penilaian): RedirectResponse
     {
         $this->authorizePenilaian($penilaian);
-        $penilaian->update($request->validated());
+        $data = $request->validated();
+
+        $indicators = array_filter([
+            $request->kedisiplinan, $request->kerapian, $request->kebersihan,
+            $request->tanggung_jawab, $request->kerjasama, $request->kreativitas, $request->kejujuran
+        ], fn($v) => !is_null($v));
+
+        if (count($indicators) > 0) {
+            $data['nilai_angka'] = round(array_sum($indicators) / count($indicators), 2);
+        }
+
+        $penilaian->update($data);
 
         return redirect()->route('pembimbing.penilaian.index')
-            ->with('success', 'Penilaian berhasil diperbarui.');
+            ->with('success', 'Penilaian kinerja peserta berhasil diperbarui.');
     }
 
     public function destroy(Penilaian $penilaian): RedirectResponse
