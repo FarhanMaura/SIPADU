@@ -292,7 +292,7 @@
         <!-- Title -->
         <div class="login-title">
             <h1>Registrasi Akun Peserta</h1>
-            <p>Pilih data diri Anda yang telah disetujui Admin untuk membuat akun</p>
+            <p>Pilih data diri Anda yang telah disetujui Kasubbag untuk membuat akun</p>
         </div>
 
         <!-- Error Messages -->
@@ -308,7 +308,7 @@
                 <i class="fas fa-exclamation-triangle"></i>
                 <div>
                     <strong>Belum Ada Data Peserta Disetujui</strong><br>
-                    Data peserta Anda belum diinput atau disetujui oleh Admin. Silakan pastikan pengajuan magang dari sekolah/kampus Anda sudah dikonfirmasi oleh Admin.
+                    Data peserta Anda belum diinput atau disetujui oleh Kasubbag. Silakan pastikan pengajuan magang Anda sudah dikonfirmasi oleh Kasubbag.
                 </div>
             </div>
             <div class="signup-link" style="margin-top: 1.5rem;">
@@ -319,7 +319,7 @@
             <div class="info-box">
                 <i class="fas fa-info-circle"></i>
                 <div>
-                    Data pada pilihan bersumber dari pengajuan magang yang telah <strong>disetujui oleh Admin</strong>.
+                    Data pada pilihan bersumber dari pengajuan magang yang telah <strong>disetujui oleh Kasubbag</strong>.
                 </div>
             </div>
 

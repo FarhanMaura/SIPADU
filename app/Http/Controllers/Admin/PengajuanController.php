@@ -32,6 +32,8 @@ class PengajuanController extends Controller
             'status' => 'approved',
         ]);
 
+        $pengajuan->syncPesertaOnApproval();
+
         return redirect()->route('admin.pengajuan.index')
             ->with('success', 'Pengajuan disetujui (Hasil koordinasi dengan Kasubbag Umum dan Kepegawaian). Surat balasan diterbitkan.');
     }
@@ -64,9 +66,11 @@ class PengajuanController extends Controller
     public function downloadFile(Pengajuan $pengajuan, string $type)
     {
         $filePath = match ($type) {
-            'surat'   => $pengajuan->file_surat,
-            'peserta' => $pengajuan->file_peserta,
-            default   => null,
+            'surat'            => $pengajuan->file_surat,
+            'peserta'          => $pengajuan->file_peserta,
+            'transkrip'        => $pengajuan->file_transkrip,
+            'surat_pernyataan' => $pengajuan->file_surat_pernyataan,
+            default            => null,
         };
 
         if (! $filePath) {

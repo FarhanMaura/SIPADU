@@ -30,10 +30,10 @@
         <!-- Page Title -->
         <div class="text-center mb-10">
             <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 text-xs font-semibold px-4 py-2 rounded-full mb-4">
-                <i class="fas fa-file-alt"></i> FORMULIR PENGAJUAN MAGANG
+                <i class="fas fa-user-graduate"></i> FORMULIR PENGAJUAN MAGANG MANDIRI
             </div>
             <h1 class="text-3xl font-bold text-gray-900 mb-2">Permohonan Magang Dinas Pendidikan Prov. Sumsel</h1>
-            <p class="text-gray-500 text-sm max-w-xl mx-auto">Pengajuan permohonan magang oleh sekolah/kampus kepada Dinas Pendidikan Provinsi Sumatera Selatan. Pastikan surat pengantar memuat daftar nama, NIM/NIS, kontak aktif, dan jadwal magang.</p>
+            <p class="text-gray-500 text-sm max-w-xl mx-auto">Pengajuan permohonan magang mandiri oleh peserta didik/mahasiswa kepada Dinas Pendidikan Provinsi Sumatera Selatan. Pastikan seluruh berkas kelengkapan diunggah dengan benar.</p>
         </div>
 
         @if(session('success'))
@@ -60,61 +60,81 @@
         <form action="{{ route('pengajuan.submit') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <!-- BAGIAN 1: DATA INSTANSI -->
+            <!-- BAGIAN 1: DATA PESERTA -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
                 <h2 class="font-semibold text-gray-900 mb-5 flex items-center gap-2">
                     <span class="w-6 h-6 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center font-bold">1</span>
-                    Data Instansi / Lembaga
+                    Data Diri Peserta (Pemohon)
                 </h2>
                 <div class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Nama Lengkap Peserta <span class="text-red-500">*</span></label>
+                            <input type="text" name="pic_nama" value="{{ old('pic_nama') }}" required placeholder="Contoh: Ahmad Rizki"
+                                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">NIM / NIS / NISN <span class="text-red-500">*</span></label>
+                            <input type="text" name="nim_nisn" value="{{ old('nim_nisn') }}" required placeholder="Contoh: 09031282126040"
+                                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Kategori / Jenis Peserta <span class="text-red-500">*</span></label>
+                            <select name="jenis_peserta" required
+                                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition bg-white">
+                                <option value="" disabled {{ old('jenis_peserta') ? '' : 'selected' }}>-- Pilih Kategori --</option>
+                                <option value="Mahasiswa" {{ old('jenis_peserta') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa (Perguruan Tinggi)</option>
+                                <option value="Siswa (SMA/SMK)" {{ old('jenis_peserta') == 'Siswa (SMA/SMK)' ? 'selected' : '' }}>Siswa (SMA / SMK / MA)</option>
+                                <option value="Lainnya" {{ old('jenis_peserta') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Jurusan / Program Studi <span class="text-red-500">*</span></label>
+                            <input type="text" name="jurusan" value="{{ old('jurusan') }}" required placeholder="Contoh: Teknik Informatika"
+                                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+                        </div>
+                    </div>
+
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Nama Instansi / Sekolah / Kampus <span class="text-red-500">*</span></label>
-                        <input type="text" name="nama_instansi" value="{{ old('nama_instansi') }}" required placeholder="Contoh: SMK Negeri 1 Jakarta"
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Asal Sekolah / Kampus / Instansi <span class="text-red-500">*</span></label>
+                        <input type="text" name="nama_instansi" value="{{ old('nama_instansi') }}" required placeholder="Contoh: Universitas Sriwijaya / SMKN 2 Palembang"
                             class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     </div>
-                    <div class="grid md:grid-cols-3 gap-4">
+
+                    <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Jumlah Peserta <span class="text-red-500">*</span></label>
-                            <input type="number" name="jml_peserta" value="{{ old('jml_peserta', 1) }}" min="1" required
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Email Aktif Peserta <span class="text-red-500">*</span></label>
+                            <input type="email" name="pic_email" value="{{ old('pic_email') }}" required placeholder="email.peserta@gmail.com"
                                 class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Tanggal Mulai <span class="text-red-500">*</span></label>
-                            <input type="date" name="tgl_mulai" value="{{ old('tgl_mulai') }}" required
-                                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Tanggal Selesai <span class="text-red-500">*</span></label>
-                            <input type="date" name="tgl_selesai" value="{{ old('tgl_selesai') }}" required
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">No. HP / WhatsApp <span class="text-red-500">*</span></label>
+                            <input type="text" name="pic_telp" value="{{ old('pic_telp') }}" required placeholder="08xxxxxxxxxx"
                                 class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- BAGIAN 2: DATA PIC -->
+            <!-- BAGIAN 2: PERIODE JADWAL MAGANG -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
                 <h2 class="font-semibold text-gray-900 mb-5 flex items-center gap-2">
                     <span class="w-6 h-6 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center font-bold">2</span>
-                    Data PIC (Person in Charge)
+                    Periode Pelaksanaan Magang
                 </h2>
-                <div class="space-y-4">
+                <div class="grid md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Nama PIC <span class="text-red-500">*</span></label>
-                        <input type="text" name="pic_nama" value="{{ old('pic_nama') }}" required placeholder="Nama lengkap penanggung jawab"
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Tanggal Mulai <span class="text-red-500">*</span></label>
+                        <input type="date" name="tgl_mulai" value="{{ old('tgl_mulai') }}" required
                             class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     </div>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Email PIC <span class="text-red-500">*</span></label>
-                            <input type="email" name="pic_email" value="{{ old('pic_email') }}" required placeholder="email@instansi.com"
-                                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">No. HP PIC <span class="text-red-500">*</span></label>
-                            <input type="text" name="pic_telp" value="{{ old('pic_telp') }}" required placeholder="08xxxxxxxxxx"
-                                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                        </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Tanggal Selesai <span class="text-red-500">*</span></label>
+                        <input type="date" name="tgl_selesai" value="{{ old('tgl_selesai') }}" required
+                            class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     </div>
                 </div>
             </div>
@@ -123,22 +143,28 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
                 <h2 class="font-semibold text-gray-900 mb-5 flex items-center gap-2">
                     <span class="w-6 h-6 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center font-bold">3</span>
-                    Upload Dokumen
+                    Upload Dokumen Persyaratan
                 </h2>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Surat Pengantar / Permohonan <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Surat Pengantar / Permohonan Magang dari Sekolah/Kampus <span class="text-red-500">*</span></label>
                         <div class="border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-blue-400 transition bg-blue-50/30">
                             <input type="file" name="file_surat" accept=".pdf,.jpg,.jpeg,.png" required class="w-full text-sm text-gray-500">
-                            <p class="text-xs text-blue-700 mt-2 font-medium"><i class="fas fa-info-circle mr-1"></i> Surat Pengantar wajib memuat: Daftar nama peserta, NIM/NIS, nomor kontak dihubungi, dan jadwal pelaksanaan magang.</p>
                             <p class="text-xs text-gray-400 mt-1">Format: PDF, JPG, PNG — Maks. 5MB</p>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Daftar Peserta (Excel) <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Transkrip Nilai <span class="text-red-500">*</span></label>
                         <div class="border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-blue-400 transition">
-                            <input type="file" name="file_peserta" accept=".xlsx,.xls" required class="w-full text-sm text-gray-500">
-                            <p class="text-xs text-gray-400 mt-1">Format: XLSX, XLS — Maks. 5MB</p>
+                            <input type="file" name="file_transkrip" accept=".pdf,.jpg,.jpeg,.png" required class="w-full text-sm text-gray-500">
+                            <p class="text-xs text-gray-400 mt-1">Format: PDF, JPG, PNG — Maks. 5MB</p>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Surat Pernyataan Bersedia Mengikuti, Melaksanakan, dan Menyelesaikan Program Magang Berdampak Hingga Selesai <span class="text-red-500">*</span></label>
+                        <div class="border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-blue-400 transition">
+                            <input type="file" name="file_surat_pernyataan" accept=".pdf,.jpg,.jpeg,.png" required class="w-full text-sm text-gray-500">
+                            <p class="text-xs text-gray-400 mt-1">Format: PDF, JPG, PNG — Maks. 5MB</p>
                         </div>
                     </div>
                     <div>
@@ -151,7 +177,7 @@
 
             <button type="submit"
                 class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl transition flex items-center justify-center gap-2 text-sm">
-                <i class="fas fa-paper-plane"></i> Kirim Pengajuan Magang
+                <i class="fas fa-paper-plane"></i> Kirim Pengajuan Magang Mandiri
             </button>
             <p class="text-center text-xs text-gray-400 mt-4">
                 Dengan mengirim formulir ini, Anda menyetujui bahwa data yang diisi adalah benar.

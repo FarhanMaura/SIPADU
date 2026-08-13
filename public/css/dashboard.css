@@ -519,6 +519,25 @@
             .mobile-menu-btn {
                 display: flex !important;
             }
+
+            div[style*="grid-template-columns: repeat(2, 1fr)"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .page-header .action-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .table-container {
+                border-radius: 16px;
+            }
         }
 
         .mobile-menu-btn {
@@ -718,4 +737,60 @@
             border: 0;
             border-top: 1px solid #e2e8f0;
             margin: 2rem 0;
+        }
+
+        /* Form Controls & Sidebar User Status Fixes */
+        .form-control {
+            width: 100%;
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 10px !important;
+            padding: 0.65rem 1rem !important;
+            font-size: 0.9rem !important;
+            color: #1e293b !important;
+            background-color: #ffffff !important;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+            font-family: inherit !important;
+        }
+
+        .form-control:focus {
+            border-color: #2563eb !important;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+            outline: none !important;
+        }
+
+        .sidebar .user-status {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid #f0f4fa;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.8rem;
+            color: #475569;
+            overflow: hidden;
+        }
+
+        .sidebar .user-status .user-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
+            line-height: 1.3;
+        }
+
+        .sidebar .user-status .user-name {
+            font-weight: 700;
+            color: #0f172a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.85rem;
+        }
+
+        .sidebar .user-status .user-role {
+            font-size: 0.725rem;
+            color: #64748b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }

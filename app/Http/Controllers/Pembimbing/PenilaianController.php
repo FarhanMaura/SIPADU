@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pembimbing;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Pembimbing\PenilaianRequest;
 use App\Models\Penilaian;
+use App\Models\Peserta;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -14,7 +15,18 @@ class PenilaianController extends Controller
     {
         $pembimbing = auth()->user()->pembimbing;
 
-        return $pembimbing ? $pembimbing->pesertas()->with('penilaian')->get() : collect();
+        if (! $pembimbing) {
+            return collect();
+        }
+
+        return Peserta::where(function ($q) use ($pembimbing) {
+            $q->where('pembimbing_id', $pembimbing->id);
+            if ($pembimbing->bidang_id) {
+                $q->orWhere('bidang_id', $pembimbing->bidang_id);
+            }
+        })
+        ->with(['instansi', 'bidang', 'pengajuan', 'penilaian'])
+        ->get();
     }
 
     public function index(): View

@@ -23,15 +23,15 @@
     </ul>
 </li>
 
-<li class="nav-header text-uppercase font-weight-bold text-muted px-3 mt-3 mb-2" style="letter-spacing: 0.5px; opacity: 0.6; font-size: 0.75rem;">Manajemen Magang</li>
+<li class="nav-header text-uppercase font-weight-bold text-muted px-3 mt-3 mb-2" style="letter-spacing: 0.5px; opacity: 0.6; font-size: 0.75rem;">Penempatan & Nilai</li>
 <li class="nav-item">
-    <a href="{{ route('admin.pengajuan.index') }}" class="nav-link {{ Request::is('admin/pengajuan*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-file-signature"></i><p>Pengajuan Magang</p>
+    <a href="{{ route('admin.penentuan_pembimbing.index') }}" class="nav-link {{ Request::is('admin/penentuan-pembimbing*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user-check"></i><p>Penentuan Pembimbing</p>
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ route('admin.peserta.index') }}" class="nav-link {{ Request::is('admin/peserta*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-user-graduate"></i><p>Data Peserta</p>
+    <a href="{{ route('admin.rekap_nilai.index') }}" class="nav-link {{ Request::is('admin/rekap-nilai*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-file-invoice"></i><p>Rekap Nilai & Sertifikat</p>
     </a>
 </li>
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <!-- Outer decorative rings -->
+  <circle cx="250" cy="250" r="240" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="250" cy="250" r="228" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  
+  <!-- Pentagon shape (segi lima) -->
+  <polygon points="250,30 460,188 380,450 120,450 40,188" 
+    fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- Inner pentagon -->
+  <polygon points="250,70 420,208 355,420 145,420 80,208" 
+    fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Blencong flame / suluh (obor) on top -->
+  <path d="M250,80 C240,95 225,112 230,130 C235,148 248,155 250,175 C252,155 265,148 270,130 C275,112 260,95 250,80Z" 
+    fill="#1a1a1a"/>
+  <path d="M250,100 C244,112 238,122 241,134 C244,146 249,150 250,162 C251,150 256,146 259,134 C262,122 256,112 250,100Z" 
+    fill="none" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Wings left -->
+  <path d="M210,230 Q180,190 145,185 Q115,182 100,200 Q95,215 105,225 Q120,235 140,232 Q160,228 180,235 Q195,240 210,248Z" 
+    fill="#1a1a1a"/>
+  <path d="M208,230 Q178,195 148,192 Q128,190 112,205" 
+    fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Wings right -->
+  <path d="M290,230 Q320,190 355,185 Q385,182 400,200 Q405,215 395,225 Q380,235 360,232 Q340,228 320,235 Q305,240 290,248Z" 
+    fill="#1a1a1a"/>
+  <path d="M292,230 Q322,195 352,192 Q372,190 388,205" 
+    fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Central book / shield body -->
+  <path d="M210,248 Q250,228 290,248 L300,290 Q280,305 250,310 Q220,305 200,290Z" 
+    fill="#1a1a1a"/>
+  
+  <!-- Book pages detail -->
+  <path d="M250,232 L250,308" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M215,252 Q250,240 285,252" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M218,265 Q250,253 282,265" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M220,278 Q250,266 280,278" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Small star at top of flame -->
+  <polygon points="250,60 253,70 263,70 255,76 258,86 250,81 242,86 245,76 237,70 247,70" 
+    fill="#1a1a1a"/>
+
+  <!-- Circular text path - top -->
+  <path id="topTextPath" 
+    d="M 62,250 A 188,188 0 0 1 438,250" 
+    fill="none" stroke="none"/>
+  <text font-family="Times New Roman, serif" font-size="26" font-weight="bold" fill="#1a1a1a" text-anchor="middle" letter-spacing="4">
+    <textPath href="#topTextPath" startOffset="50%">TUT WURI HANDAYANI</textPath>
+  </text>
+
+  <!-- Circular text path - bottom -->
+  <path id="botTextPath" 
+    d="M 62,250 A 188,188 0 0 0 438,250" 
+    fill="none" stroke="none"/>
+  <text font-family="Times New Roman, serif" font-size="22" font-weight="bold" fill="#1a1a1a" text-anchor="middle" letter-spacing="3">
+    <textPath href="#botTextPath" startOffset="50%">KEMENTERIAN PENDIDIKAN</textPath>
+  </text>
+
+  <!-- Decorative dots on circle -->
+  <circle cx="250" cy="62" r="4" fill="#1a1a1a"/>
+  <circle cx="250" cy="438" r="4" fill="#1a1a1a"/>
+  <circle cx="62" cy="250" r="4" fill="#1a1a1a"/>
+  <circle cx="438" cy="250" r="4" fill="#1a1a1a"/>
+</svg>

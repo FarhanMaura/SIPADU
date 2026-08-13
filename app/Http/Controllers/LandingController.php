@@ -42,34 +42,41 @@ class LandingController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'nama_instansi' => 'required|string|max:255',
-            'pic_nama'      => 'required|string|max:255',
-            'pic_email'     => 'required|email|max:255',
-            'pic_telp'      => 'required|string|max:20',
-            'jml_peserta'   => 'required|integer|min:1|max:500',
-            'tgl_mulai'     => 'required|date',
-            'tgl_selesai'   => 'required|date|after:tgl_mulai',
-            'file_surat'    => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
-            'file_peserta'  => 'required|file|mimes:xlsx,xls|max:5120',
-            'keterangan'    => 'nullable|string|max:2000',
+            'pic_nama'              => 'required|string|max:255',
+            'nim_nisn'              => 'required|string|max:100',
+            'jenis_peserta'         => 'required|string|max:100',
+            'jurusan'               => 'required|string|max:255',
+            'nama_instansi'         => 'required|string|max:255',
+            'pic_email'             => 'required|email|max:255',
+            'pic_telp'              => 'required|string|max:20',
+            'tgl_mulai'             => 'required|date',
+            'tgl_selesai'           => 'required|date|after:tgl_mulai',
+            'file_surat'            => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'file_transkrip'        => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'file_surat_pernyataan' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'file_peserta'          => 'nullable|file|mimes:xlsx,xls|max:5120',
+            'keterangan'            => 'nullable|string|max:2000',
         ], [
-            'nama_instansi.required' => 'Nama instansi wajib diisi.',
-            'pic_nama.required'      => 'Nama PIC wajib diisi.',
-            'pic_email.required'     => 'Email PIC wajib diisi.',
-            'pic_email.email'        => 'Format email PIC tidak valid.',
-            'pic_telp.required'      => 'No. HP PIC wajib diisi.',
-            'jml_peserta.required'   => 'Jumlah peserta wajib diisi.',
-            'jml_peserta.min'        => 'Jumlah peserta minimal 1.',
-            'jml_peserta.max'        => 'Jumlah peserta maksimal 500.',
-            'tgl_mulai.required'     => 'Tanggal mulai wajib diisi.',
-            'tgl_selesai.required'   => 'Tanggal selesai wajib diisi.',
-            'tgl_selesai.after'      => 'Tanggal selesai harus setelah tanggal mulai.',
-            'file_surat.required'    => 'Surat permohonan wajib diupload.',
-            'file_surat.mimes'       => 'Surat harus berformat PDF, JPG, atau PNG.',
-            'file_surat.max'         => 'Surat maksimal 5MB.',
-            'file_peserta.required'  => 'File daftar peserta wajib diupload.',
-            'file_peserta.mimes'     => 'Daftar peserta harus berformat Excel (.xlsx atau .xls).',
-            'file_peserta.max'       => 'File peserta maksimal 5MB.',
+            'pic_nama.required'              => 'Nama lengkap peserta wajib diisi.',
+            'nim_nisn.required'              => 'NIM / NISN wajib diisi.',
+            'jenis_peserta.required'         => 'Kategori / jenis peserta wajib dipilih.',
+            'jurusan.required'               => 'Jurusan / program studi wajib diisi.',
+            'nama_instansi.required'         => 'Nama sekolah / kampus asal wajib diisi.',
+            'pic_email.required'             => 'Email peserta wajib diisi.',
+            'pic_email.email'                => 'Format email peserta tidak valid.',
+            'pic_telp.required'              => 'No. HP / WhatsApp wajib diisi.',
+            'tgl_mulai.required'             => 'Tanggal mulai wajib diisi.',
+            'tgl_selesai.required'           => 'Tanggal selesai wajib diisi.',
+            'tgl_selesai.after'              => 'Tanggal selesai harus setelah tanggal mulai.',
+            'file_surat.required'            => 'Surat pengantar wajib diupload.',
+            'file_surat.mimes'               => 'Surat pengantar harus berformat PDF, JPG, atau PNG.',
+            'file_surat.max'                 => 'Surat pengantar maksimal 5MB.',
+            'file_transkrip.required'        => 'Transkrip nilai wajib diupload.',
+            'file_transkrip.mimes'           => 'Transkrip nilai harus berformat PDF, JPG, atau PNG.',
+            'file_transkrip.max'             => 'Transkrip nilai maksimal 5MB.',
+            'file_surat_pernyataan.required' => 'Surat pernyataan wajib diupload.',
+            'file_surat_pernyataan.mimes'    => 'Surat pernyataan harus berformat PDF, JPG, atau PNG.',
+            'file_surat_pernyataan.max'      => 'Surat pernyataan maksimal 5MB.',
         ]);
 
         if ($request->hasFile('file_surat')) {
@@ -80,18 +87,30 @@ class LandingController extends Controller
             $validated['file_peserta'] = $request->file('file_peserta')->store('pengajuan/peserta', 'local');
         }
 
-        $validated['nama_instansi'] = strip_tags($validated['nama_instansi']);
+        if ($request->hasFile('file_transkrip')) {
+            $validated['file_transkrip'] = $request->file('file_transkrip')->store('pengajuan/transkrip', 'local');
+        }
+
+        if ($request->hasFile('file_surat_pernyataan')) {
+            $validated['file_surat_pernyataan'] = $request->file('file_surat_pernyataan')->store('pengajuan/surat_pernyataan', 'local');
+        }
+
         $validated['pic_nama']      = strip_tags($validated['pic_nama']);
+        $validated['nim_nisn']      = strip_tags($validated['nim_nisn']);
+        $validated['jenis_peserta'] = strip_tags($validated['jenis_peserta']);
+        $validated['jurusan']       = strip_tags($validated['jurusan']);
+        $validated['nama_instansi'] = strip_tags($validated['nama_instansi']);
         if (!empty($validated['keterangan'])) {
             $validated['keterangan'] = strip_tags($validated['keterangan']);
         }
 
-        $validated['status'] = 'pending';
+        $validated['jml_peserta'] = 1; // Pengajuan individu
+        $validated['status']      = 'pending';
 
         Pengajuan::create($validated);
 
         return redirect()->route('pengajuan.form')
-            ->with('success', 'Pengajuan berhasil dikirim! Tim kami akan menghubungi ' . e($request->pic_nama) . ' dalam 3–5 hari kerja.');
+            ->with('success', 'Pengajuan magang berhasil dikirim! Tim kami akan mengkonfirmasi ke email ' . e($request->pic_email) . ' dalam 3–5 hari kerja.');
     }
 
     public function downloadSuratBalasan(Pengajuan $pengajuan)

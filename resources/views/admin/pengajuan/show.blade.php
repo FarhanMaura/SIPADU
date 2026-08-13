@@ -20,24 +20,32 @@
         <table style="width: 100%; text-align: left; border-collapse: collapse;">
             <tbody>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; width: 250px; color: #64748b; font-weight: 600;">Nama Instansi</th>
+                    <th style="padding: 1rem 0; width: 250px; color: #64748b; font-weight: 600;">Nama Lengkap Peserta</th>
+                    <td style="padding: 1rem 0; font-weight: 700; color: #0f172a; font-size: 1.05rem;">{{ $pengajuan->pic_nama }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">NIM / NIS / NISN</th>
+                    <td style="padding: 1rem 0; font-weight: 600; color: #1e293b;">{{ $pengajuan->nim_nisn ?? '-' }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Kategori Peserta</th>
+                    <td style="padding: 1rem 0;">{{ $pengajuan->jenis_peserta ?? '-' }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Jurusan / Program Studi</th>
+                    <td style="padding: 1rem 0; font-weight: 500;">{{ $pengajuan->jurusan ?? '-' }}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Asal Sekolah / Kampus</th>
                     <td style="padding: 1rem 0; font-weight: 500; color: #0f172a;">{{ $pengajuan->nama_instansi }}</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Nama PIC</th>
-                    <td style="padding: 1rem 0;">{{ $pengajuan->pic_nama }}</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Email PIC</th>
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Email Peserta</th>
                     <td style="padding: 1rem 0;"><code style="background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 4px; color: #334155;">{{ $pengajuan->pic_email }}</code></td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">No. HP PIC</th>
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">No. HP / WhatsApp</th>
                     <td style="padding: 1rem 0;">{{ $pengajuan->pic_telp }}</td>
-                </tr>
-                <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Jumlah Peserta</th>
-                    <td style="padding: 1rem 0; font-weight: 600;">{{ $pengajuan->jml_peserta }} <span style="font-weight: 400; color: #64748b;">orang</span></td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
                     <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Tanggal Mulai</th>
@@ -84,6 +92,26 @@
                         @if($pengajuan->file_surat)
                         <a href="{{ Storage::url($pengajuan->file_surat) }}" target="_blank" class="action-button" style="background: #0ea5e9; padding: 0.4rem 0.8rem; font-size: 0.85rem; box-shadow: none;">
                             <i class="fas fa-file-pdf"></i> Lihat File
+                        </a>
+                        @else <span style="color: #94a3b8;">-</span> @endif
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Transkrip Nilai</th>
+                    <td style="padding: 1rem 0;">
+                        @if($pengajuan->file_transkrip)
+                        <a href="{{ Storage::url($pengajuan->file_transkrip) }}" target="_blank" class="action-button" style="background: #8b5cf6; padding: 0.4rem 0.8rem; font-size: 0.85rem; box-shadow: none;">
+                            <i class="fas fa-file-alt"></i> Lihat Transkrip
+                        </a>
+                        @else <span style="color: #94a3b8;">-</span> @endif
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Surat Pernyataan</th>
+                    <td style="padding: 1rem 0;">
+                        @if($pengajuan->file_surat_pernyataan)
+                        <a href="{{ Storage::url($pengajuan->file_surat_pernyataan) }}" target="_blank" class="action-button" style="background: #ec4899; padding: 0.4rem 0.8rem; font-size: 0.85rem; box-shadow: none;">
+                            <i class="fas fa-file-signature"></i> Lihat Surat Pernyataan
                         </a>
                         @else <span style="color: #94a3b8;">-</span> @endif
                     </td>

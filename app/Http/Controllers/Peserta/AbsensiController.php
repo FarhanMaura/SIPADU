@@ -15,7 +15,11 @@ class AbsensiController extends Controller
         $peserta  = auth()->user()->peserta;
         $absensis = $peserta ? $peserta->absensis()->latest('tanggal')->paginate(30) : collect();
 
-        return view('peserta.absensi', compact('absensis'));
+        $sudahAbsenHariIni = $peserta
+            ? Absensi::where('peserta_id', $peserta->id)->whereDate('tanggal', today())->first()
+            : null;
+
+        return view('peserta.absensi', compact('absensis', 'sudahAbsenHariIni'));
     }
 
     public function selfAbsen(Request $request): RedirectResponse
@@ -23,7 +27,7 @@ class AbsensiController extends Controller
         $peserta = auth()->user()->peserta;
 
         if (!$peserta) {
-            return redirect()->route('dashboard')
+            return redirect()->route('peserta.absensi')
                 ->with('error', 'Data peserta tidak ditemukan. Hubungi admin.');
         }
 
@@ -33,7 +37,7 @@ class AbsensiController extends Controller
             ->exists();
 
         if ($sudahAbsen) {
-            return redirect()->route('dashboard')
+            return redirect()->route('peserta.absensi')
                 ->with('info', 'Anda sudah melakukan absensi hari ini.');
         }
 
@@ -56,7 +60,7 @@ class AbsensiController extends Controller
             default => $request->status,
         };
 
-        return redirect()->route('dashboard')
+        return redirect()->route('peserta.absensi')
             ->with('success', "Absensi hari ini berhasil dicatat: {$label}.");
     }
 }

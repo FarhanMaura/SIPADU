@@ -13,7 +13,7 @@ class PenilaianController extends Controller
         $peserta   = auth()->user()->peserta;
         $penilaian = $peserta?->penilaian;
 
-        return view('peserta.penilaian', compact('penilaian'));
+        return view('peserta.penilaian', compact('peserta', 'penilaian'));
     }
 
     public function sertifikat(): View
@@ -36,6 +36,6 @@ class PenilaianController extends Controller
         $pdf = Pdf::loadView('peserta.sertifikat_pdf', compact('peserta', 'penilaian'))
                   ->setPaper('a4', 'landscape');
 
-        return $pdf->download('Sertifikat_Magang_'.$peserta->nama.'.pdf');
+        return $pdf->download('Sertifikat_Dan_Nilai_Magang_'.$peserta->nama.'.pdf');
     }
 }

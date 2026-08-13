@@ -60,17 +60,28 @@
                     </a>
                 </div>
 
-                <div class="nav-label">MANAJEMEN MAGANG</div>
-                <a href="{{ route('admin.pengajuan.index') }}" class="nav-item {{ Request::is('admin/pengajuan*') ? 'active' : '' }}">
-                    <i class="fas fa-file-signature"></i> Pengajuan Magang
+                <div class="nav-label">PENEMPATAN & NILAI</div>
+                <a href="{{ route('admin.penentuan_pembimbing.index') }}" class="nav-item {{ Request::is('admin/penentuan-pembimbing*') ? 'active' : '' }}">
+                    <i class="fas fa-user-check"></i> Penentuan Pembimbing
                 </a>
-                <a href="{{ route('admin.peserta.index') }}" class="nav-item {{ Request::is('admin/peserta*') ? 'active' : '' }}">
-                    <i class="fas fa-users"></i> Data Peserta
+                <a href="{{ route('admin.rekap_nilai.index') }}" class="nav-item {{ Request::is('admin/rekap-nilai*') ? 'active' : '' }}">
+                    <i class="fas fa-file-invoice"></i> Rekap Nilai & Sertifikat
                 </a>
 
                 <div class="nav-label">KEAMANAN & SISTEM</div>
                 <a href="{{ route('admin.user.index') }}" class="nav-item {{ Request::is('admin/user*') ? 'active' : '' }}">
                     <i class="fas fa-shield-alt"></i> Kelola User
+                </a>
+            @endif
+
+            <!-- Role Kasubbag Sidebar Menu -->
+            @if(auth()->user()->role === \App\Models\User::ROLE_KASUBBAG)
+                <div class="nav-label">PENGAWASAN & VERIFIKASI</div>
+                <a href="{{ route('kasubbag.pengajuan.index') }}" class="nav-item {{ Request::is('kasubbag/pengajuan*') ? 'active' : '' }}">
+                    <i class="fas fa-file-signature"></i> Verifikasi Pengajuan
+                </a>
+                <a href="{{ route('kasubbag.peserta.index') }}" class="nav-item {{ Request::is('kasubbag/peserta*') ? 'active' : '' }}">
+                    <i class="fas fa-map-marked-alt"></i> Penempatan Peserta
                 </a>
             @endif
 
@@ -92,49 +103,39 @@
             @if(auth()->user()->role === \App\Models\User::ROLE_PESERTA)
                 <div class="nav-label">PORTAL MAHASISWA</div>
                 <a href="{{ route('peserta.status') }}" class="nav-item {{ Request::is('peserta/status*') ? 'active' : '' }}">
-                    <i class="fas fa-info-circle"></i> Status Pengajuan
+                    <i class="fas fa-search-location"></i> Melihat Penempatan
                 </a>
                 <a href="{{ route('peserta.absensi') }}" class="nav-item {{ Request::is('peserta/absensi*') ? 'active' : '' }}">
-                    <i class="fas fa-calendar-check"></i> Riwayat Absensi
+                    <i class="fas fa-calendar-check"></i> Presensi / Absensi
                 </a>
                 <a href="{{ route('peserta.penilaian') }}" class="nav-item {{ Request::is('peserta/penilaian*') ? 'active' : '' }}">
-                    <i class="fas fa-award"></i> Penilaian
+                    <i class="fas fa-award"></i> Hasil Penilaian
                 </a>
                 <a href="{{ route('peserta.sertifikat') }}" class="nav-item {{ Request::is('peserta/sertifikat*') ? 'active' : '' }}">
                     <i class="fas fa-certificate"></i> Sertifikat
                 </a>
             @endif
-            
-            <!-- Role Kasubbag Sidebar Menu -->
-            @if(auth()->user()->role === \App\Models\User::ROLE_KASUBBAG)
-                <div class="nav-label">PENGAWASAN & VERIFIKASI</div>
-                <a href="{{ route('admin.pengajuan.index') }}" class="nav-item {{ Request::is('admin/pengajuan*') ? 'active' : '' }}">
-                    <i class="fas fa-file-signature"></i> Verifikasi Pengajuan
-                </a>
-                <a href="{{ route('admin.peserta.index') }}" class="nav-item {{ Request::is('admin/peserta*') ? 'active' : '' }}">
-                    <i class="fas fa-users"></i> Penempatan Peserta
-                </a>
-            @endif
 
-            <div class="nav-label">AKUN</div>
             <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display: none;">
                 @csrf
             </form>
-            <a href="#" class="nav-item text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <a href="#" class="nav-item text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="margin-top: 1rem;">
                 <i class="fas fa-sign-out-alt text-danger"></i> Logout
             </a>
         </nav>
 
         <div class="user-status">
             <span class="dot"></span>
-            <span>{{ Auth::user()->name }}</span>
-            <span style="margin-left: auto; font-size: 0.8rem; color: #94a3b8;">
-                @if(Auth::user()->role === 1) Admin
-                @elseif(Auth::user()->role === 2) Pembimbing
-                @elseif(Auth::user()->role === 4) Kasubbag
-                @else Peserta
-                @endif
-            </span>
+            <div class="user-info">
+                <span class="user-name">{{ Auth::user()->name }}</span>
+                <span class="user-role">
+                    @if(Auth::user()->role === 1) Admin
+                    @elseif(Auth::user()->role === 2) Pembimbing
+                    @elseif(Auth::user()->role === 4) Kasubbag Umum & Kepegawaian
+                    @else Peserta
+                    @endif
+                </span>
+            </div>
         </div>
     </aside>
 

@@ -12,9 +12,10 @@ body {
     justify-content: center;
     background: linear-gradient(135deg, rgba(13,33,102,0.85) 0%, rgba(30,58,146,0.8) 60%, rgba(26,82,118,0.85) 100%), url('../images/herosection.jpeg') center/cover no-repeat;
     background-attachment: fixed;
-    padding: 1.5rem;
+    padding: 2.5rem 1.5rem;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* Background decoration */
@@ -334,9 +335,16 @@ body::after {
     background: #fef2f2 !important;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
+    body {
+        padding: 1.5rem 1rem;
+        align-items: flex-start;
+    }
+
     .login-container {
-        padding: 2rem 1.5rem;
+        padding: 2rem 1.25rem;
+        border-radius: 24px;
+        margin: auto;
     }
 
     .logo-text {
@@ -355,5 +363,11 @@ body::after {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
+    }
+}
+
+@media (max-height: 700px) {
+    body {
+        align-items: flex-start;
     }
 }

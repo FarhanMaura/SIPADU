@@ -27,7 +27,7 @@
                 <select name="pengajuan_id" class="form-control @error('pengajuan_id') is-invalid @enderror" required>
                     <option value="">-- Pilih Pengajuan --</option>
                     @foreach($pengajuans as $pj)
-                    <option value="{{ $pj->id }}" {{ old('pengajuan_id', $peserta->pengajuan_id) == $pj->id ? 'selected' : '' }}>{{ $pj->nama_instansi }} ({{ $pj->tgl_mulai?->format('d/m/Y') }})</option>
+                    <option value="{{ $pj->id }}" {{ old('pengajuan_id', $peserta->pengajuan_id) == $pj->id ? 'selected' : '' }}>{{ $pj->pic_nama }} — {{ $pj->nama_instansi }} @if($pj->nim_nisn)({{ $pj->nim_nisn }})@endif ({{ $pj->tgl_mulai?->format('d/m/Y') }})</option>
                     @endforeach
                 </select>
                 @error('pengajuan_id')<div class="invalid-feedback">{{ $message }}</div>@enderror

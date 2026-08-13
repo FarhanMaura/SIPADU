@@ -15,7 +15,18 @@ class AbsensiController extends Controller
     {
         $pembimbing = auth()->user()->pembimbing;
 
-        return $pembimbing ? $pembimbing->pesertas()->get() : collect();
+        if (! $pembimbing) {
+            return collect();
+        }
+
+        return Peserta::where(function ($q) use ($pembimbing) {
+            $q->where('pembimbing_id', $pembimbing->id);
+            if ($pembimbing->bidang_id) {
+                $q->orWhere('bidang_id', $pembimbing->bidang_id);
+            }
+        })
+        ->with(['instansi', 'bidang', 'pengajuan'])
+        ->get();
     }
 
     public function pesertaList(): View

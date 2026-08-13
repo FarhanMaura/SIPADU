@@ -1,14 +1,15 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Admin\BidangController;
 use App\Http\Controllers\Admin\PembimbingController;
 use App\Http\Controllers\Admin\InstansiController;
-use App\Http\Controllers\Admin\PengajuanController;
-use App\Http\Controllers\Admin\PesertaController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PenentuanPembimbingController;
+use App\Http\Controllers\Admin\RekapNilaiController;
+use App\Http\Controllers\Kasubbag\PengajuanController as KasubbagPengajuanController;
+use App\Http\Controllers\Kasubbag\PesertaController as KasubbagPesertaController;
 use App\Http\Controllers\Pembimbing\AbsensiController;
 use App\Http\Controllers\Pembimbing\PenilaianController;
 use Illuminate\Support\Facades\Route;
@@ -31,33 +32,43 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
 // ===================================================
-// ADMIN ROUTES
+// KASUBBAG ROUTES (Role 4)
+// ===================================================
+Route::middleware(['auth', 'role:kasubbag'])->prefix('kasubbag')->name('kasubbag.')->group(function () {
+    // Pengajuan
+    Route::resource('pengajuan', KasubbagPengajuanController::class)->only(['index', 'show']);
+    Route::patch('pengajuan/{pengajuan}/approve', [KasubbagPengajuanController::class, 'approve'])->name('pengajuan.approve');
+    Route::patch('pengajuan/{pengajuan}/reject', [KasubbagPengajuanController::class, 'reject'])->name('pengajuan.reject');
+    Route::get('pengajuan/{pengajuan}/file/{type}', [KasubbagPengajuanController::class, 'downloadFile'])->name('pengajuan.file');
+    Route::get('pengajuan/{pengajuan}/loa', [KasubbagPengajuanController::class, 'downloadLoa'])->name('pengajuan.loa');
+
+    // Peserta (Kelola & Tambah Peserta)
+    Route::resource('peserta', KasubbagPesertaController::class)->parameters(['peserta' => 'peserta']);
+    Route::post('peserta/import', [KasubbagPesertaController::class, 'import'])->name('peserta.import');
+});
+
+// ===================================================
+// ADMIN ROUTES (Role 1)
 // ===================================================
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-
     // Master Data
     Route::resource('bidang', BidangController::class);
     Route::resource('pembimbing', PembimbingController::class);
     Route::resource('instansi', InstansiController::class);
-
-    // Pengajuan
-    Route::resource('pengajuan', PengajuanController::class)->only(['index', 'show']);
-    Route::patch('pengajuan/{pengajuan}/approve', [PengajuanController::class, 'approve'])->name('pengajuan.approve');
-    Route::patch('pengajuan/{pengajuan}/reject', [PengajuanController::class, 'reject'])->name('pengajuan.reject');
-    Route::get('pengajuan/{pengajuan}/file/{type}', [PengajuanController::class, 'downloadFile'])->name('pengajuan.file');
-
-    // Peserta
-    Route::resource('peserta', PesertaController::class)->parameters(['peserta' => 'peserta']);
-    Route::post('peserta/import', [PesertaController::class, 'import'])->name('peserta.import');
-    Route::get('peserta/{peserta}/penempatan', [PesertaController::class, 'penempatan'])->name('peserta.penempatan');
-    Route::patch('peserta/{peserta}/penempatan', [PesertaController::class, 'savePenempatan'])->name('peserta.penempatan.save');
-
-    // User Management
     Route::resource('user', UserController::class)->except(['show']);
+
+    // Penentuan Pembimbing
+    Route::get('penentuan-pembimbing', [PenentuanPembimbingController::class, 'index'])->name('penentuan_pembimbing.index');
+    Route::patch('penentuan-pembimbing/{peserta}', [PenentuanPembimbingController::class, 'update'])->name('penentuan_pembimbing.update');
+
+    // Rekap Nilai & Cetak Sertifikat
+    Route::get('rekap-nilai', [RekapNilaiController::class, 'index'])->name('rekap_nilai.index');
+    Route::get('rekap-nilai/{peserta}/pdf', [RekapNilaiController::class, 'downloadNilaiPdf'])->name('rekap_nilai.pdf');
+    Route::get('rekap-nilai/{peserta}/sertifikat', [RekapNilaiController::class, 'downloadSertifikatPdf'])->name('rekap_nilai.sertifikat');
 });
 
 // ===================================================
-// PEMBIMBING ROUTES
+// PEMBIMBING ROUTES (Role 2)
 // ===================================================
 Route::middleware(['auth', 'role:pembimbing'])->prefix('pembimbing')->name('pembimbing.')->group(function () {
     Route::get('peserta', [AbsensiController::class, 'pesertaList'])->name('peserta.index');
@@ -66,7 +77,7 @@ Route::middleware(['auth', 'role:pembimbing'])->prefix('pembimbing')->name('pemb
 });
 
 // ===================================================
-// PESERTA ROUTES
+// PESERTA ROUTES (Role 3)
 // ===================================================
 Route::middleware(['auth', 'role:peserta'])->prefix('peserta')->name('peserta.')->group(function () {
     Route::get('status', [\App\Http\Controllers\Peserta\StatusController::class, 'index'])->name('status');
@@ -75,15 +86,6 @@ Route::middleware(['auth', 'role:peserta'])->prefix('peserta')->name('peserta.')
     Route::get('penilaian', [\App\Http\Controllers\Peserta\PenilaianController::class, 'index'])->name('penilaian');
     Route::get('sertifikat', [\App\Http\Controllers\Peserta\PenilaianController::class, 'sertifikat'])->name('sertifikat');
     Route::get('sertifikat/download', [\App\Http\Controllers\Peserta\PenilaianController::class, 'downloadSertifikat'])->name('sertifikat.download');
-});
-
-// ===================================================
-// PROFILE (semua role)
-// ===================================================
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
