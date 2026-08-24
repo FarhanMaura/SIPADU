@@ -30,12 +30,11 @@ class PesertaController extends Controller
             });
         }
 
-        $pesertas    = $query->paginate(15)->appends($request->query());
-        $pengajuans  = Pengajuan::where('status', 'approved')->get();
-        $bidangs     = Bidang::all();
-        $pembimbings = Pembimbing::with('bidang')->get();
+        $pesertas   = $query->paginate(15)->appends($request->query());
+        $pengajuans = Pengajuan::where('status', 'approved')->get();
+        $bidangs    = Bidang::all();
 
-        return view('kasubbag.peserta.index', compact('pesertas', 'pengajuans', 'bidangs', 'pembimbings'));
+        return view('kasubbag.peserta.index', compact('pesertas', 'pengajuans', 'bidangs'));
     }
 
     public function show(Peserta $peserta): View
@@ -47,11 +46,10 @@ class PesertaController extends Controller
 
     public function create(): View
     {
-        $pengajuans  = Pengajuan::where('status', 'approved')->get();
-        $bidangs     = Bidang::all();
-        $pembimbings = Pembimbing::with('bidang')->get();
+        $pengajuans = Pengajuan::where('status', 'approved')->get();
+        $bidangs    = Bidang::all();
 
-        return view('kasubbag.peserta.create', compact('pengajuans', 'bidangs', 'pembimbings'));
+        return view('kasubbag.peserta.create', compact('pengajuans', 'bidangs'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -59,7 +57,6 @@ class PesertaController extends Controller
         $request->validate([
             'pengajuan_id'  => 'required|exists:pengajuans,id',
             'bidang_id'     => 'nullable|exists:bidangs,id',
-            'pembimbing_id' => 'nullable|exists:pembimbings,id',
             'nim_nisn'      => 'nullable|string|max:50',
             'nama'          => 'required|string|max:255',
             'jurusan'       => 'nullable|string|max:255',
@@ -85,21 +82,12 @@ class PesertaController extends Controller
                 $userId = $user->id;
             }
 
-            $bidangId     = $request->bidang_id;
-            $pembimbingId = $request->pembimbing_id;
-            if ($bidangId && !$pembimbingId) {
-                $defaultPembimbing = Pembimbing::where('bidang_id', $bidangId)->first();
-                if ($defaultPembimbing) {
-                    $pembimbingId = $defaultPembimbing->id;
-                }
-            }
-
             Peserta::create([
                 'user_id'       => $userId,
                 'pengajuan_id'  => $request->pengajuan_id,
                 'instansi_id'   => $pengajuan->instansi_id,
-                'bidang_id'     => $bidangId,
-                'pembimbing_id' => $pembimbingId,
+                'bidang_id'     => $request->bidang_id,
+                'pembimbing_id' => null, // Pembimbing ditentukan oleh Administrator
                 'nim_nisn'      => $request->nim_nisn,
                 'nama'          => $request->nama,
                 'jurusan'       => $request->jurusan,
@@ -111,16 +99,15 @@ class PesertaController extends Controller
         });
 
         return redirect()->route('kasubbag.peserta.index')
-            ->with('success', 'Peserta magang berhasil ditambahkan.');
+            ->with('success', 'Peserta magang berhasil ditambahkan dan ditempatkan ke bidang.');
     }
 
     public function edit(Peserta $peserta): View
     {
-        $pengajuans  = Pengajuan::where('status', 'approved')->get();
-        $bidangs     = Bidang::all();
-        $pembimbings = Pembimbing::with('bidang')->get();
+        $pengajuans = Pengajuan::where('status', 'approved')->get();
+        $bidangs    = Bidang::all();
 
-        return view('kasubbag.peserta.edit', compact('peserta', 'pengajuans', 'bidangs', 'pembimbings'));
+        return view('kasubbag.peserta.edit', compact('peserta', 'pengajuans', 'bidangs'));
     }
 
     public function update(Request $request, Peserta $peserta): RedirectResponse
@@ -128,7 +115,6 @@ class PesertaController extends Controller
         $request->validate([
             'pengajuan_id'  => 'required|exists:pengajuans,id',
             'bidang_id'     => 'nullable|exists:bidangs,id',
-            'pembimbing_id' => 'nullable|exists:pembimbings,id',
             'nim_nisn'      => 'nullable|string|max:50',
             'nama'          => 'required|string|max:255',
             'jurusan'       => 'nullable|string|max:255',
@@ -140,20 +126,10 @@ class PesertaController extends Controller
 
         $pengajuan = Pengajuan::find($request->pengajuan_id);
 
-        $bidangId     = $request->bidang_id;
-        $pembimbingId = $request->pembimbing_id;
-        if ($bidangId && !$pembimbingId) {
-            $defaultPembimbing = Pembimbing::where('bidang_id', $bidangId)->first();
-            if ($defaultPembimbing) {
-                $pembimbingId = $defaultPembimbing->id;
-            }
-        }
-
         $peserta->update([
             'pengajuan_id'  => $pengajuan->id,
             'instansi_id'   => $pengajuan->instansi_id,
-            'bidang_id'     => $bidangId,
-            'pembimbing_id' => $pembimbingId,
+            'bidang_id'     => $request->bidang_id,
             'nim_nisn'      => $request->nim_nisn,
             'nama'          => $request->nama,
             'jurusan'       => $request->jurusan,
@@ -164,7 +140,7 @@ class PesertaController extends Controller
         ]);
 
         return redirect()->route('kasubbag.peserta.index')
-            ->with('success', 'Data & penempatan peserta berhasil diperbarui.');
+            ->with('success', 'Data & bidang penempatan peserta berhasil diperbarui.');
     }
 
     public function destroy(Peserta $peserta): RedirectResponse

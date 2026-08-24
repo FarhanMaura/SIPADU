@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPADU — Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang</title>
+    <title>SIMAG-DISDIKPROV SUMSEL — Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -317,7 +317,7 @@
                         </div>
                         <div class="flex items-center gap-2 text-white/80 text-sm">
                             <i class="fas fa-envelope w-4"></i>
-                            <span>info@sipadu.go.id</span>
+                            <span>info@SIMAG-DISDIKPROV SUMSEL.go.id</span>
                         </div>
                         <div class="flex items-center gap-2 text-white/80 text-sm">
                             <i class="fas fa-phone w-4"></i>
@@ -348,7 +348,7 @@
                 </div>
             </div>
             <div class="border-t border-white/20 mt-8 pt-6 text-center">
-                <p class="text-white/60 text-xs">&copy; {{ date('Y') }} SIPADU. Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang.</p>
+                <p class="text-white/60 text-xs">&copy; {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang.</p>
             </div>
         </div>
     </footer>

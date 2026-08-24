@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'SIPADU'),
+    'name' => env('APP_NAME', 'SIMAG-DISDIKPROV SUMSEL'),
 
     /*
     |--------------------------------------------------------------------------

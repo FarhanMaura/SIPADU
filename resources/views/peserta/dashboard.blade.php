@@ -23,6 +23,25 @@
 </div>
 @endif
 
+@if($peserta->pengajuan?->status === 'approved')
+<div class="table-container mb-4" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 1px solid #86efac; border-radius: 20px;">
+    <div style="padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 45px; height: 45px; border-radius: 12px; background: #16a34a; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                <i class="fas fa-file-signature"></i>
+            </div>
+            <div>
+                <h4 style="margin: 0 0 0.2rem 0; color: #166534; font-weight: 700; font-size: 1rem;">Surat Balasan / Letter of Acceptance (LoA) Resmi</h4>
+                <p style="margin: 0; color: #15803d; font-size: 0.85rem;">Dokumen penerimaan magang Anda dari Dinas Pendidikan Prov. Sumsel telah siap diunduh.</p>
+            </div>
+        </div>
+        <a href="{{ route('peserta.loa.download') }}" class="action-button" style="background: #16a34a; padding: 0.6rem 1.25rem; font-weight: 600; font-size: 0.875rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);">
+            <i class="fas fa-download"></i> Unduh LoA PDF
+        </a>
+    </div>
+</div>
+@endif
+
 <!-- Quick Callout to Absensi Page -->
 <div class="table-container mb-4" style="border: 2px solid {{ $sudahAbsenHariIni ? '#86efac' : '#fcd34d' }}; border-radius: 20px;">
     <div style="padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">

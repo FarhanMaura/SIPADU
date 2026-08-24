@@ -22,7 +22,7 @@ class AdminSeeder extends Seeder
         );
 
         \App\Models\User::firstOrCreate(
-            ['email' => 'kasubbag@sipadu.go.id'],
+            ['email' => 'kasubbag@SIMAG-DISDIKPROV SUMSEL.go.id'],
             [
                 'name'     => 'Kasubbag Umum dan Kepegawaian',
                 'password' => bcrypt('password'),

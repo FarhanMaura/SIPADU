@@ -5,26 +5,24 @@
     <title>Surat Balasan LoA - {{ $pengajuan->nama_instansi }}</title>
     <style>
         @page {
-            margin: 2.2cm 2cm 2cm 2.5cm;
+            margin: 1.5cm 2cm 1.5cm 2.2cm;
         }
         body {
             font-family: 'Times New Roman', Times, serif;
             font-size: 11pt;
-            line-height: 1.4;
+            line-height: 1.35;
             color: #000;
         }
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            border-bottom: 3px double #000;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 2px;
         }
         .header-table td {
             vertical-align: middle;
         }
         .logo {
-            width: 80px;
+            width: 78px;
             height: auto;
         }
         .header-text {
@@ -35,187 +33,214 @@
             font-size: 13pt;
             font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .header-text h2 {
             margin: 2px 0;
             font-size: 15pt;
             font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .header-text p {
             margin: 0;
-            font-size: 9.5pt;
+            font-size: 8.5pt;
+            line-height: 1.3;
+        }
+        .header-line {
+            border-bottom: 3px double #000;
+            margin-bottom: 12px;
+            margin-top: 4px;
+        }
+        .date-box {
+            text-align: right;
+            margin-bottom: 10px;
+            font-size: 11pt;
         }
         .meta-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            font-size: 11pt;
         }
         .meta-table td {
             vertical-align: top;
-            padding: 2px 0;
+            padding: 1px 0;
         }
         .content {
             text-align: justify;
-            margin-bottom: 25px;
+            font-size: 11pt;
+            line-height: 1.4;
         }
         .content p {
-            margin-bottom: 12px;
-            text-indent: 35px;
+            margin-bottom: 8px;
+            text-indent: 38px;
         }
-        .peserta-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 12px 0;
+        .ketentuan-list {
+            margin: 4px 0 10px 0;
+            padding-left: 20px;
+            text-align: justify;
         }
-        .peserta-table th, .peserta-table td {
-            border: 1px solid #000;
-            padding: 5px 8px;
-            font-size: 10pt;
-        }
-        .peserta-table th {
-            background-color: #f2f2f2;
-            text-align: center;
-            font-weight: bold;
+        .ketentuan-list li {
+            margin-bottom: 5px;
+            padding-left: 4px;
+            line-height: 1.35;
         }
         .signature-table {
             width: 100%;
-            margin-top: 30px;
+            margin-top: 15px;
             border-collapse: collapse;
-        }
-        .signature-table td {
-            vertical-align: top;
         }
         .signature-box {
             text-align: center;
             width: 250px;
             float: right;
         }
-        .signature-space {
-            height: 65px;
+        .tembusan {
+            margin-top: 15px;
+            font-size: 9.5pt;
+            line-height: 1.3;
+        }
+        .tembusan ol {
+            margin: 2px 0 0 0;
+            padding-left: 18px;
         }
     </style>
 </head>
 <body>
 
-    <!-- KOP SURAT RESMI PEMPROV SUMSEL -->
+    @php
+        $logoSumselPath = public_path('images/logo_sumsel.png');
+        if (!file_exists($logoSumselPath)) {
+            $logoSumselPath = public_path('images/logo_sumsel.jpg');
+        }
+        $logoSumselSrc = file_exists($logoSumselPath)
+            ? 'data:image/' . (pathinfo($logoSumselPath, PATHINFO_EXTENSION) === 'png' ? 'png' : 'jpeg') . ';base64,' . base64_encode(file_get_contents($logoSumselPath))
+            : '';
+
+        $stempelPath = public_path('images/stempel_ttd_disdik.png');
+        $stempelSrc = file_exists($stempelPath)
+            ? 'data:image/png;base64,' . base64_encode(file_get_contents($stempelPath))
+            : '';
+
+        $romawiMap = [
+            1 => 'I', 2 => 'II', 3 => 'III', 4 => 'IV', 5 => 'V', 6 => 'VI',
+            7 => 'VII', 8 => 'VIII', 9 => 'IX', 10 => 'X', 11 => 'XI', 12 => 'XII'
+        ];
+        $bulanRomawi = $romawiMap[(int)date('n')];
+
+        $pesertaPertama = $pengajuan->pesertas->first();
+        $bidangPenempatan = $pesertaPertama?->bidang?->nama;
+    @endphp
+
+    <!-- KOP SURAT RESMI PEMERINTAH PROVINSI SUMATERA SELATAN -->
     <table class="header-table">
         <tr>
-            <td width="15%" style="text-align: center;">
-                <img src="{{ public_path('images/logo_sumsel.png') }}" class="logo" alt="Logo Sumsel" onerror="this.style.display='none'">
+            <td width="14%" style="text-align: center; vertical-align: middle;">
+                @if($logoSumselSrc)
+                    <img src="{{ $logoSumselSrc }}" class="logo" alt="Logo Sumsel">
+                @else
+                    <img src="{{ public_path('images/logo_sumsel.png') }}" class="logo" alt="Logo Sumsel" onerror="this.style.display='none'">
+                @endif
             </td>
-            <td width="85%" class="header-text">
+            <td width="86%" class="header-text">
                 <h3>PEMERINTAH PROVINSI SUMATERA SELATAN</h3>
                 <h2>DINAS PENDIDIKAN</h2>
-                <p>Jalan Kapten A. Rivai Palembang Provinsi Sumatera Selatan</p>
-                <p>Telepon : (0711) 352288 - 354122 Faximile : (0711) 357483 Kode Pos 30126</p>
-                <p>Email : sumsel@sumselprov.go.id | Website : www.sumselprov.go.id</p>
+                <p>Jalan Kapten A. Rivai No. 47 Palembang, Provinsi Sumatera Selatan</p>
+                <p>Telepon (0711) 354137 – 311089, Faksmile (0711) 311089 Kode Pos 30126</p>
+                <p>Laman: http://disdikss.sumselprov.go.id, Pos-el: disdiksumselprov47@gmail.com</p>
             </td>
         </tr>
     </table>
+    <div class="header-line"></div>
 
     <!-- TANGGAL SURAT -->
-    <div style="text-align: right; margin-bottom: 15px;">
-        Palembang, {{ now()->translatedFormat('d F Y') }}
+    <div class="date-box">
+        {{ now()->translatedFormat('d F Y') }}
     </div>
 
     <!-- METADATA SURAT -->
     <table class="meta-table">
         <tr>
-            <td width="15%">Nomor</td>
+            <td width="12%">Nomor</td>
             <td width="2%">:</td>
-            <td width="53%">400.3/ {{ sprintf('%04d', $pengajuan->id) }} /Disdik/{{ date('Y') }}</td>
+            <td width="86%">420/{{ 10000 + $pengajuan->id }}/Set.3-Disdik.SS/{{ $bulanRomawi }}/{{ date('Y') }}</td>
         </tr>
         <tr>
             <td>Sifat</td>
             <td>:</td>
-            <td>Segera</td>
+            <td>Biasa</td>
         </tr>
         <tr>
-            <td>Lampiran</td>
+            <td>Hal</td>
             <td>:</td>
-            <td>1 (satu) eksp.</td>
-        </tr>
-        <tr>
-            <td>Perihal</td>
-            <td>:</td>
-            <td><strong>Penyampaian Nama-nama Peserta Giat Magang pada Dinas Pendidikan Provinsi Sumatera Selatan</strong></td>
+            <td><strong>Praktek Kerja Lapangan</strong></td>
         </tr>
     </table>
 
-    <div style="margin-bottom: 15px;">
-        Kepada Yth.<br>
-        <strong>Para Pimpinan / Kepala {{ $pengajuan->nama_instansi }}</strong><br>
-        u.p. {{ $pengajuan->pic_nama }} ({{ $pengajuan->pic_email }})<br>
-        di -<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Palembang / Tempat</strong>
+    <!-- TUJUAN SURAT -->
+    <div style="margin-top: 10px; margin-bottom: 12px; font-size: 11pt; line-height: 1.35;">
+        Yth. Pimpinan / Dekan / Kepala {{ $pengajuan->instansi?->nama ?? $pengajuan->nama_instansi }}<br>
+        di<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Palembang</strong>
     </div>
 
     <!-- ISI SURAT -->
     <div class="content">
         <p>
-            Menindaklanjuti permohonan magang dari <strong>{{ $pengajuan->nama_instansi }}</strong> mengenai pelaksanaan kegiatan Magang / Praktik Kerja Lapangan (PKL) bagi mahasiswa / peserta didik di lingkungan Dinas Pendidikan Provinsi Sumatera Selatan.
+            Memperhatikan permohonan magang dari {{ $pengajuan->instansi?->nama ?? $pengajuan->nama_instansi }} perihal Permohonan Izin Magang / Praktek Kerja Lapangan (PKL). Kami pada prinsipnya menyetujui Mahasiswa / Siswa tersebut ({{ $pengajuan->pic_nama }}@if($pengajuan->pesertas->count() > 1) dkk ({{ $pengajuan->pesertas->count() }} orang)@endif) untuk melaksanakan Praktek Kerja Lapangan di Dinas Pendidikan Provinsi Sumatera Selatan dengan ketentuan sebagai berikut :
         </p>
 
-        <p>
-            Berkaitan dengan hal tersebut di atas, Pemerintah Provinsi Sumatera Selatan melalui Dinas Pendidikan Provinsi Sumatera Selatan menyampaikan bahwa permohonan magang untuk sejumlah <strong>{{ $pengajuan->jml_peserta }} orang peserta</strong> terhitung dari tanggal <strong>{{ $pengajuan->tgl_mulai?->translatedFormat('d F Y') }}</strong> sampai dengan <strong>{{ $pengajuan->tgl_selesai?->translatedFormat('d F Y') }}</strong> dinyatakan <strong>DISETUJUI / DITERIMA</strong>.
-        </p>
+        <ol class="ketentuan-list">
+            <li>
+                Untuk Pengaturan jadwal dan tugas dapat diatur bersama dengan Bidang {{ $bidangPenempatan ?? 'Umum dan Kepegawaian' }} Dinas Pendidikan Provinsi Sumatera Selatan terhitung tanggal {{ $pengajuan->tgl_mulai?->translatedFormat('d F Y') }} s/d {{ $pengajuan->tgl_selesai?->translatedFormat('d F Y') }};
+            </li>
+            <li>
+                Setelah selesai melaksanakan Praktek Kerja Lapangan agar menyampaikan laporan kepada kami;
+            </li>
+            <li>
+                Tetap mematuhi dan mempedomani Tata Tertib serta Disiplin Kerja yang telah ditetapkan oleh Pemerintah;
+            </li>
+            <li>
+                Pengambilan data di Dinas Pendidikan Provinsi Sumatera Selatan tidak untuk dipublikasi, hanya untuk kepentingan sendiri;
+            </li>
+            <li>
+                Agar setiap Mahasiswa / Siswa membuat surat pernyataan cukup diatas materai dan diketahui oleh pihak Unit Kerja asal yang isinya akan mematuhi semua peraturan yang telah ditetapkan pada Dinas Pendidikan Provinsi Sumatera Selatan.
+            </li>
+        </ol>
 
-        <p style="text-indent: 0; margin-bottom: 5px;">Adapun rincian peserta magang yang diterima adalah sebagai berikut:</p>
-        <table class="peserta-table">
-            <thead>
-                <tr>
-                    <th width="30">NO</th>
-                    <th>NAMA PESERTA</th>
-                    <th>NIM / NISN</th>
-                    <th>JURUSAN / PRODI</th>
-                    <th>INSTANSI / KAMPUS</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if($pengajuan->pesertas->count() > 0)
-                    @foreach($pengajuan->pesertas as $index => $peserta)
-                    <tr>
-                        <td style="text-align: center;">{{ $index + 1 }}</td>
-                        <td><strong>{{ $peserta->nama }}</strong></td>
-                        <td>{{ $peserta->nim_nisn ?? '-' }}</td>
-                        <td>{{ $peserta->jurusan ?? '-' }}</td>
-                        <td>{{ $peserta->instansi?->nama ?? $pengajuan->nama_instansi }}</td>
-                    </tr>
-                    @endforeach
-                @else
-                    <tr>
-                        <td style="text-align: center;">1</td>
-                        <td><strong>{{ $pengajuan->pic_nama }}</strong></td>
-                        <td>{{ $pengajuan->nim_nisn ?? '-' }}</td>
-                        <td>{{ $pengajuan->jurusan ?? '-' }}</td>
-                        <td>{{ $pengajuan->nama_instansi }}</td>
-                    </tr>
-                @endif
-            </tbody>
-        </table>
-
-        <p>
-            Peserta magang diwajibkan mematuhi seluruh peraturan kedisiplinan dan tata tertib yang berlaku di lingkungan Dinas Pendidikan Provinsi Sumatera Selatan serta mengikuti arahan pembinaan dari Kasubbag Umum dan Kepegawaian.
-        </p>
-
-        <p>
-            Demikian surat balasan penerimaan magang (Letter of Acceptance) ini disampaikan untuk dapat dipergunakan sebagaimana mestinya. Atas perhatian dan kerjasamanya diucapkan terima kasih.
+        <p style="text-indent: 0; margin-top: 8px; margin-bottom: 12px;">
+            Demikian atas kerjasamanya diucapkan terima kasih.
         </p>
     </div>
 
-    <!-- TANDA TANGAN KASUBBAG -->
+    <!-- TANDA TANGAN PLT. SEKRETARIS & STEMPEL RESMI -->
     <table class="signature-table">
         <tr>
-            <td width="55%"></td>
-            <td width="45%">
+            <td width="50%">
+                <!-- TEMBUSAN -->
+                <div class="tembusan">
+                    <strong>Tembusan:</strong>
+                    <ol>
+                        <li>Kepala Dinas Pendidikan Provinsi Sumatera Selatan;</li>
+                        <li>Kasubbag Umum dan Kepegawaian;</li>
+                        <li>Arsip.</li>
+                    </ol>
+                </div>
+            </td>
+            <td width="50%">
                 <div class="signature-box">
-                    a.n. Kepala Dinas Pendidikan Prov. Sumsel<br>
-                    <strong>Kasubbag Umum dan Kepegawaian,</strong>
-                    <div class="signature-space"></div>
-                    <strong><u>Misral, S.Sn., M.Sn.</u></strong><br>
-                    Penata Tingkat I, III/d<br>
-                    NIP. 19680604 200801 1 016
+                    <div>Plt. Sekretaris,</div>
+                    <div style="height: 75px; margin: 3px 0; position: relative;">
+                        @if($stempelSrc)
+                            <img src="{{ $stempelSrc }}" style="height: 75px; width: auto; display: inline-block;" alt="Stempel & TTD">
+                        @else
+                            <div style="height: 65px;"></div>
+                        @endif
+                    </div>
+                    <div style="font-weight: bold; font-size: 11pt; text-decoration: underline;">Dra. Poniyem, M.Pd.</div>
+                    <div style="font-size: 10pt;">Pembina Tingkat I, IV/b</div>
+                    <div style="font-size: 10pt;">NIP 196812261994032001</div>
                 </div>
             </td>
         </tr>

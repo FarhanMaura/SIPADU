@@ -65,6 +65,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('rekap-nilai', [RekapNilaiController::class, 'index'])->name('rekap_nilai.index');
     Route::get('rekap-nilai/{peserta}/pdf', [RekapNilaiController::class, 'downloadNilaiPdf'])->name('rekap_nilai.pdf');
     Route::get('rekap-nilai/{peserta}/sertifikat', [RekapNilaiController::class, 'downloadSertifikatPdf'])->name('rekap_nilai.sertifikat');
+    Route::get('rekap-nilai/{peserta}/loa', [RekapNilaiController::class, 'downloadLoaPdf'])->name('rekap_nilai.loa');
 });
 
 // ===================================================
@@ -72,6 +73,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 // ===================================================
 Route::middleware(['auth', 'role:pembimbing'])->prefix('pembimbing')->name('pembimbing.')->group(function () {
     Route::get('peserta', [AbsensiController::class, 'pesertaList'])->name('peserta.index');
+    Route::get('peserta/{peserta}/loa', [AbsensiController::class, 'downloadLoa'])->name('peserta.loa');
     Route::resource('absensi', AbsensiController::class);
     Route::resource('penilaian', PenilaianController::class);
 });
@@ -81,8 +83,10 @@ Route::middleware(['auth', 'role:pembimbing'])->prefix('pembimbing')->name('pemb
 // ===================================================
 Route::middleware(['auth', 'role:peserta'])->prefix('peserta')->name('peserta.')->group(function () {
     Route::get('status', [\App\Http\Controllers\Peserta\StatusController::class, 'index'])->name('status');
+    Route::get('loa/download', [\App\Http\Controllers\Peserta\StatusController::class, 'downloadLoa'])->name('loa.download');
     Route::get('absensi', [\App\Http\Controllers\Peserta\AbsensiController::class, 'index'])->name('absensi');
     Route::post('absensi/self', [\App\Http\Controllers\Peserta\AbsensiController::class, 'selfAbsen'])->name('absensi.self');
+    Route::put('absensi/logbook', [\App\Http\Controllers\Peserta\AbsensiController::class, 'updateTodayLogbook'])->name('absensi.logbook');
     Route::get('penilaian', [\App\Http\Controllers\Peserta\PenilaianController::class, 'index'])->name('penilaian');
     Route::get('sertifikat', [\App\Http\Controllers\Peserta\PenilaianController::class, 'sertifikat'])->name('sertifikat');
     Route::get('sertifikat/download', [\App\Http\Controllers\Peserta\PenilaianController::class, 'downloadSertifikat'])->name('sertifikat.download');

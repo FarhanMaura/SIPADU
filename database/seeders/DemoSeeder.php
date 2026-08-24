@@ -17,77 +17,123 @@ class DemoSeeder extends Seeder
     public function run(): void
     {
         // =========================================
-        // MASTER DATA: Bidang (dari Excel, col TEMPAT PKL)
+        // =========================================
+        // MASTER DATA: Bidang (Sesuai Surat Tugas Resmi Disdik Sumsel)
         // =========================================
         $bidangs = [];
-        $bidang_subbagian_umum_dan_kepegawaian = Bidang::create(['nama' => 'Subbagian Umum dan Kepegawaian', 'deskripsi' => null]);
-        $bidangs['Subbagian Umum dan Kepegawaian'] = $bidang_subbagian_umum_dan_kepegawaian;
-        $bidang_subbagian_keuangan = Bidang::create(['nama' => 'Subbagian Keuangan', 'deskripsi' => null]);
-        $bidangs['Subbagian Keuangan'] = $bidang_subbagian_keuangan;
-        $bidang_seksi_peserta_didik_smk = Bidang::create(['nama' => 'Seksi Peserta Didik SMK', 'deskripsi' => null]);
-        $bidangs['Seksi Peserta Didik SMK'] = $bidang_seksi_peserta_didik_smk;
-        $bidang_seksi_tugas_pembantuan = Bidang::create(['nama' => 'Seksi Tugas Pembantuan', 'deskripsi' => null]);
-        $bidangs['Seksi Tugas Pembantuan'] = $bidang_seksi_tugas_pembantuan;
-        $bidang_sapras = Bidang::create(['nama' => 'SAPRAS', 'deskripsi' => null]);
-        $bidangs['SAPRAS'] = $bidang_sapras;
-        $bidang_seksi_kurikulum_dan_peserta_di = Bidang::create(['nama' => 'Seksi Kurikulum dan Peserta Didik', 'deskripsi' => null]);
-        $bidangs['Seksi Kurikulum dan Peserta Didik'] = $bidang_seksi_kurikulum_dan_peserta_di;
-        $bidang_subbagian_perencanaan_evaluasi = Bidang::create(['nama' => 'Subbagian Perencanaan Evaluasi dan Pelaporan', 'deskripsi' => null]);
-        $bidangs['Subbagian Perencanaan Evaluasi dan Pelaporan'] = $bidang_subbagian_perencanaan_evaluasi;
-        $bidang_seksi_ptk_sma = Bidang::create(['nama' => 'Seksi PTK SMA', 'deskripsi' => null]);
-        $bidangs['Seksi PTK SMA'] = $bidang_seksi_ptk_sma;
-        $bidang_seksi_kurikulum_sma = Bidang::create(['nama' => 'Seksi Kurikulum SMA', 'deskripsi' => null]);
-        $bidangs['Seksi Kurikulum SMA'] = $bidang_seksi_kurikulum_sma;
-        $bidang_seksi_peserta_didik_sma = Bidang::create(['nama' => 'Seksi Peserta Didik SMA', 'deskripsi' => null]);
-        $bidangs['Seksi Peserta Didik SMA'] = $bidang_seksi_peserta_didik_sma;
-        $bidang_seksi_ptk_smk = Bidang::create(['nama' => 'Seksi PTK SMK', 'deskripsi' => null]);
-        $bidangs['Seksi PTK SMK'] = $bidang_seksi_ptk_smk;
-        $bidang_seksi_kurikulum_smk = Bidang::create(['nama' => 'Seksi Kurikulum SMK', 'deskripsi' => null]);
-        $bidangs['Seksi Kurikulum SMK'] = $bidang_seksi_kurikulum_smk;
-        $bidang_seksi_sarana_prasarana_pklk = Bidang::create(['nama' => 'Seksi Sarana Prasarana PKLK', 'deskripsi' => null]);
-        $bidangs['Seksi Sarana Prasarana PKLK'] = $bidang_seksi_sarana_prasarana_pklk;
+        $officialBidangNames = [
+            'Subbagian Perencanaan Evaluasi dan Pelaporan',
+            'Subbagian Umum dan Kepegawaian',
+            'Seksi Kurikulum SMA',
+            'Seksi Peserta Didik SMA',
+            'Seksi Peserta Didik SMK',
+            'Seksi PTK SMK',
+            'Seksi PTK PKLK',
+            'Seksi Kurikulum dan Peserta Didik',
+            'Seksi Tugas Pembantuan',
+        ];
+
+        foreach ($officialBidangNames as $namaBidang) {
+            $b = Bidang::firstOrCreate(['nama' => $namaBidang], ['deskripsi' => null]);
+            $bidangs[$namaBidang] = $b;
+        }
 
         // =========================================
         // MASTER DATA: Instansi (dari Excel, col UNIT KERJA ASAL)
         // =========================================
         $instansis = [];
-        $instansi_stia_bala_putra_dewa = Instansi::create(['nama' => 'STIA Bala Putra Dewa', 'alamat' => null, 'telp' => null, 'email' => null]);
+        $instansi_stia_bala_putra_dewa = Instansi::firstOrCreate(['nama' => 'STIA Bala Putra Dewa'], ['alamat' => null, 'telp' => null, 'email' => null]);
         $instansis['STIA Bala Putra Dewa'] = $instansi_stia_bala_putra_dewa;
-        $instansi_smkn_bakti_ibu_3 = Instansi::create(['nama' => 'SMKN BAKTI IBU 3', 'alamat' => null, 'telp' => null, 'email' => null]);
+        $instansi_smkn_bakti_ibu_3 = Instansi::firstOrCreate(['nama' => 'SMKN BAKTI IBU 3'], ['alamat' => null, 'telp' => null, 'email' => null]);
         $instansis['SMKN BAKTI IBU 3'] = $instansi_smkn_bakti_ibu_3;
-        $instansi_polsri = Instansi::create(['nama' => 'POLSRI', 'alamat' => null, 'telp' => null, 'email' => null]);
+        $instansi_polsri = Instansi::firstOrCreate(['nama' => 'POLSRI'], ['alamat' => null, 'telp' => null, 'email' => null]);
         $instansis['POLSRI'] = $instansi_polsri;
-        $instansi_smk_negeri_2_palembang = Instansi::create(['nama' => 'SMK Negeri 2 Palembang', 'alamat' => null, 'telp' => null, 'email' => null]);
+        $instansi_smk_negeri_2_palembang = Instansi::firstOrCreate(['nama' => 'SMK Negeri 2 Palembang'], ['alamat' => null, 'telp' => null, 'email' => null]);
         $instansis['SMK Negeri 2 Palembang'] = $instansi_smk_negeri_2_palembang;
-        $instansi_uin_raden_fatah_palembang = Instansi::create(['nama' => 'UIN Raden Fatah Palembang', 'alamat' => null, 'telp' => null, 'email' => null]);
+        $instansi_uin_raden_fatah_palembang = Instansi::firstOrCreate(['nama' => 'UIN Raden Fatah Palembang'], ['alamat' => null, 'telp' => null, 'email' => null]);
         $instansis['UIN Raden Fatah Palembang'] = $instansi_uin_raden_fatah_palembang;
-        $instansi_universitas_bina_darma_palemba = Instansi::create(['nama' => 'Universitas Bina Darma Palembang', 'alamat' => null, 'telp' => null, 'email' => null]);
+        $instansi_universitas_bina_darma_palemba = Instansi::firstOrCreate(['nama' => 'Universitas Bina Darma Palembang'], ['alamat' => null, 'telp' => null, 'email' => null]);
         $instansis['Universitas Bina Darma Palembang'] = $instansi_universitas_bina_darma_palemba;
-        $instansi_smk_bistek_palembang = Instansi::create(['nama' => 'SMK Bistek Palembang', 'alamat' => null, 'telp' => null, 'email' => null]);
+        $instansi_smk_bistek_palembang = Instansi::firstOrCreate(['nama' => 'SMK Bistek Palembang'], ['alamat' => null, 'telp' => null, 'email' => null]);
         $instansis['SMK Bistek Palembang'] = $instansi_smk_bistek_palembang;
-        $instansi_smk_bina_jaya_palembang = Instansi::create(['nama' => 'SMK Bina Jaya Palembang', 'alamat' => null, 'telp' => null, 'email' => null]);
+        $instansi_smk_bina_jaya_palembang = Instansi::firstOrCreate(['nama' => 'SMK Bina Jaya Palembang'], ['alamat' => null, 'telp' => null, 'email' => null]);
         $instansis['SMK Bina Jaya Palembang'] = $instansi_smk_bina_jaya_palembang;
-        $instansi_smk_pembina_1_palembang = Instansi::create(['nama' => 'SMK Pembina 1 Palembang', 'alamat' => null, 'telp' => null, 'email' => null]);
+        $instansi_smk_pembina_1_palembang = Instansi::firstOrCreate(['nama' => 'SMK Pembina 1 Palembang'], ['alamat' => null, 'telp' => null, 'email' => null]);
         $instansis['SMK Pembina 1 Palembang'] = $instansi_smk_pembina_1_palembang;
 
         // =========================================
-        // PEMBIMBING (satu default per bidang)
+        // PEMBIMBING (Sesuai Surat Tugas Resmi Disdik Sumsel)
         // =========================================
+        $realPembimbingMap = [
+            'Subbagian Umum dan Kepegawaian' => [
+                'nama' => 'Rizki Warohmah, S.Pd.',
+                'nip'  => '198805122014022001',
+                'email'=> 'rizki.warohmah@disdik.sumselprov.go.id',
+            ],
+            'Subbagian Perencanaan Evaluasi dan Pelaporan' => [
+                'nama' => 'Hendri Aprian Mutisilu, S.T.',
+                'nip'  => '198004152009011009',
+                'email'=> 'hendri.aprian@disdik.sumselprov.go.id',
+            ],
+            'Seksi Kurikulum SMA' => [
+                'nama' => 'Iwan Afrianto, S.Pd.',
+                'nip'  => '198207192008011005',
+                'email'=> 'iwan.afrianto@disdik.sumselprov.go.id',
+            ],
+            'Seksi Peserta Didik SMA' => [
+                'nama' => 'Iwan Afrianto, S.Pd.',
+                'nip'  => '198207192008011005',
+                'email'=> 'iwan.afrianto.sma@disdik.sumselprov.go.id',
+            ],
+            'Seksi Peserta Didik SMK' => [
+                'nama' => 'Likwanyu, S.Pd., M.M.',
+                'nip'  => '197609142006041008',
+                'email'=> 'likwanyu@disdik.sumselprov.go.id',
+            ],
+            'Seksi PTK SMK' => [
+                'nama' => 'Dewi Puspa Sari, S.Pd.',
+                'nip'  => '198411222010012018',
+                'email'=> 'dewi.puspasari@disdik.sumselprov.go.id',
+            ],
+            'Seksi PTK PKLK' => [
+                'nama' => 'Rifan Setiawan, S.Pd., M.Pd.',
+                'nip'  => '198603202011011012',
+                'email'=> 'rifan.setiawan@disdik.sumselprov.go.id',
+            ],
+            'Seksi Kurikulum dan Peserta Didik' => [
+                'nama' => 'Dwi Oktaria, AB., M.Pd.',
+                'nip'  => '198310052009022004',
+                'email'=> 'dwi.oktaria@disdik.sumselprov.go.id',
+            ],
+            'Seksi Tugas Pembantuan' => [
+                'nama' => 'Tri Indah Lestari, M.Pd.',
+                'nip'  => '198501182010012022',
+                'email'=> 'tri.indahlestari@disdik.sumselprov.go.id',
+            ],
+        ];
+
         $defaultPembimbing = [];
         foreach ($bidangs as $namaBidang => $bidangObj) {
-            $userPemb = User::create([
-                'name'     => 'Pembimbing ' . $bidangObj->nama,
-                'email'    => 'pemb_' . $bidangObj->id . '@magang.id',
-                'password' => Hash::make('password'),
-                'role'     => User::ROLE_PEMBIMBING,
-            ]);
-            $pemb = Pembimbing::create([
-                'user_id'   => $userPemb->id,
-                'bidang_id' => $bidangObj->id,
-                'nip'       => null,
-                'nama'      => 'Pembimbing ' . $bidangObj->nama,
-                'no_hp'     => null,
-            ]);
+            $dataPemb = $realPembimbingMap[$namaBidang];
+
+            $userPemb = User::firstOrCreate(
+                ['email' => $dataPemb['email']],
+                [
+                    'name'     => $dataPemb['nama'],
+                    'password' => Hash::make('password'),
+                    'role'     => User::ROLE_PEMBIMBING,
+                ]
+            );
+
+            $pemb = Pembimbing::firstOrCreate(
+                ['user_id' => $userPemb->id],
+                [
+                    'bidang_id' => $bidangObj->id,
+                    'nip'       => $dataPemb['nip'],
+                    'nama'      => $dataPemb['nama'],
+                    'no_hp'     => null,
+                ]
+            );
             $defaultPembimbing[$namaBidang] = $pemb;
         }
 

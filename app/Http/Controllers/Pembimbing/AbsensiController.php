@@ -97,4 +97,24 @@ class AbsensiController extends Controller
         return redirect()->route('pembimbing.absensi.index')
             ->with('success', 'Data absensi berhasil dihapus.');
     }
+
+    public function downloadLoa(Peserta $peserta)
+    {
+        $pembimbing = auth()->user()->pembimbing;
+        if (! $pembimbing || ($peserta->pembimbing_id !== $pembimbing->id && $peserta->bidang_id !== $pembimbing->bidang_id)) {
+            abort(403, 'Anda tidak memiliki hak akses untuk data peserta ini.');
+        }
+
+        $pengajuan = $peserta->pengajuan;
+        if (! $pengajuan || $pengajuan->status !== 'approved') {
+            return redirect()->back()->with('error', 'Surat balasan (LoA) belum tersedia untuk peserta ini.');
+        }
+
+        $pengajuan->load('pesertas');
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.loa_pdf', compact('pengajuan'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('LoA_Surat_Balasan_' . str_replace(' ', '_', $peserta->nama) . '.pdf');
+    }
 }

@@ -58,4 +58,20 @@ class RekapNilaiController extends Controller
 
         return $pdf->download('Sertifikat_Dan_Nilai_Magang_' . str_replace(' ', '_', $peserta->nama) . '.pdf');
     }
+
+    public function downloadLoaPdf(Peserta $peserta)
+    {
+        $pengajuan = $peserta->pengajuan;
+
+        if (!$pengajuan || $pengajuan->status !== 'approved') {
+            return redirect()->back()->with('error', 'Surat balasan (LoA) belum tersedia untuk pengajuan peserta ini.');
+        }
+
+        $pengajuan->load('pesertas');
+
+        $pdf = Pdf::loadView('pdf.loa_pdf', compact('pengajuan'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('LoA_Surat_Balasan_' . str_replace(' ', '_', $peserta->nama) . '.pdf');
+    }
 }

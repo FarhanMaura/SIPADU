@@ -64,18 +64,23 @@
                         @endif
                     </td>
                     <td>
-                        @if($penilaian)
-                            <div style="display: flex; gap: 0.3rem; flex-wrap: wrap;">
+                        <div style="display: flex; gap: 0.3rem; flex-wrap: wrap;">
+                            @if($peserta->pengajuan_id && $peserta->pengajuan?->status === 'approved')
+                                <a href="{{ route('admin.rekap_nilai.loa', $peserta) }}" class="edit" style="background: #dcfce7; color: #15803d; padding: 0.35rem 0.6rem; font-size: 0.8rem;" title="Download LoA PDF (Surat Balasan)">
+                                    <i class="fas fa-file-signature"></i> LoA
+                                </a>
+                            @endif
+                            @if($penilaian)
                                 <a href="{{ route('admin.rekap_nilai.pdf', $peserta) }}" class="edit" style="background: #e0f2fe; color: #0284c7; padding: 0.35rem 0.6rem; font-size: 0.8rem;" title="Download PDF Daftar Nilai">
                                     <i class="fas fa-file-pdf"></i> Daftar Nilai
                                 </a>
                                 <a href="{{ route('admin.rekap_nilai.sertifikat', $peserta) }}" class="edit" style="background: #fef3c7; color: #b45309; padding: 0.35rem 0.6rem; font-size: 0.8rem;" title="Download PDF Sertifikat">
                                     <i class="fas fa-certificate"></i> Sertifikat
                                 </a>
-                            </div>
-                        @else
-                            <span style="font-size: 0.8rem; color: #94a3b8;"><i class="fas fa-lock mr-1"></i> Penilaian Belum Tersedia</span>
-                        @endif
+                            @else
+                                <span style="font-size: 0.8rem; color: #94a3b8; display: inline-flex; align-items: center;"><i class="fas fa-lock mr-1"></i> Nilai Belum Ada</span>
+                            @endif
+                        </div>
                     </td>
                 </tr>
                 @empty

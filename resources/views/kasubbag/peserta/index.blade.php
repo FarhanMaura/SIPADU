@@ -151,29 +151,20 @@
                                     <i class="fas fa-map-marked-alt text-primary mr-1"></i> Penempatan {{ Str::limit($peserta->nama, 15) }}
                                 </div>
 
-                                <div style="margin-bottom: 0.5rem;">
-                                    <label style="font-size: 0.725rem; font-weight: 600; color: #475569; display: block; margin-bottom: 0.2rem;">Pilih Bidang (Admin):</label>
+                                <div style="margin-bottom: 0.75rem;">
+                                    <label style="font-size: 0.725rem; font-weight: 600; color: #475569; display: block; margin-bottom: 0.2rem;">Pilih Bidang Penempatan:</label>
                                     <select name="bidang_id" class="form-control" style="font-size: 0.8rem; padding: 0.35rem 0.5rem; height: auto;" required>
                                         <option value="">-- Pilih Bidang Penempatan --</option>
                                         @foreach($bidangs as $b)
                                             <option value="{{ $b->id }}" {{ $peserta->bidang_id == $b->id ? 'selected' : '' }}>{{ $b->nama }}</option>
                                         @endforeach
                                     </select>
-                                </div>
-
-                                <div style="margin-bottom: 0.6rem;">
-                                    <label style="font-size: 0.725rem; font-weight: 600; color: #475569; display: block; margin-bottom: 0.2rem;">Pilih Pembimbing:</label>
-                                    <select name="pembimbing_id" class="form-control" style="font-size: 0.8rem; padding: 0.35rem 0.5rem; height: auto;">
-                                        <option value="">-- Pilih Pembimbing (Opsional) --</option>
-                                        @foreach($pembimbings as $pem)
-                                            <option value="{{ $pem->id }}" {{ $peserta->pembimbing_id == $pem->id ? 'selected' : '' }}>{{ $pem->nama }} @if($pem->bidang)({{ $pem->bidang->nama }})@endif</option>
-                                        @endforeach
-                                    </select>
+                                    <small style="font-size: 0.7rem; color: #64748b; margin-top: 0.2rem; display: block;">Pembimbing akan ditentukan oleh Admin.</small>
                                 </div>
 
                                 <div style="display: flex; gap: 0.3rem;">
                                     <button type="submit" style="font-size: 0.75rem; padding: 0.35rem 0.75rem; background: #16a34a; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; flex: 1;">
-                                        <i class="fas fa-check mr-1"></i> Simpan
+                                        <i class="fas fa-check mr-1"></i> Simpan Bidang
                                     </button>
                                     <button type="button" onclick="togglePenempatanModal('penempatan-{{ $peserta->id }}')" style="font-size: 0.75rem; padding: 0.35rem 0.5rem; background: #cbd5e1; color: #334155; border: none; border-radius: 6px; cursor: pointer;">
                                         Batal
@@ -197,6 +188,9 @@
                     </td>
                     <td>
                         <div class="action-icons">
+                            @if($peserta->pengajuan_id)
+                                <a href="{{ route('kasubbag.pengajuan.loa', $peserta->pengajuan_id) }}" class="edit" style="background: #dcfce7; color: #15803d; border-color: #bbf7d0;" title="Unduh LoA PDF (Surat Balasan)"><i class="fas fa-file-pdf"></i> LoA</a>
+                            @endif
                             <a href="{{ route('kasubbag.peserta.edit', $peserta) }}" class="edit" title="Edit & Tempatkan"><i class="fas fa-pen"></i> Edit</a>
                             <form action="{{ route('kasubbag.peserta.destroy', $peserta) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')

@@ -72,7 +72,12 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('kasubbag.pengajuan.show', $p->id) }}" class="btn-action btn-detail" title="Detail"><i class="fas fa-eye"></i></a>
+                        <div style="display: flex; gap: 0.35rem;">
+                            <a href="{{ route('kasubbag.pengajuan.show', $p->id) }}" class="btn-action btn-detail" title="Detail"><i class="fas fa-eye"></i></a>
+                            @if($p->status === 'approved')
+                                <a href="{{ route('kasubbag.pengajuan.loa', $p->id) }}" class="btn-action" style="background: #dcfce7; color: #15803d;" title="Unduh LoA PDF"><i class="fas fa-file-pdf"></i></a>
+                            @endif
+                        </div>
                     </td>
                 </tr>
                 @empty

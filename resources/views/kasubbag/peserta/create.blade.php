@@ -76,34 +76,24 @@
                 </div>
             </div>
 
-            <!-- Penempatan Bidang & Pembimbing -->
+            <!-- Penempatan Bidang -->
             <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid #f1f5f9;">
                 <h4 style="margin-bottom: 1rem; color: #0f172a; font-size: 0.95rem; font-weight: 700;">
-                    <i class="fas fa-map-marker-alt text-primary mr-1"></i> Penempatan Bidang & Pembimbing (Sesuai Bidang Admin)
+                    <i class="fas fa-map-marker-alt text-primary mr-1"></i> Penempatan Bidang Kerja
                 </h4>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem;">
-                    <div>
-                        <label style="font-weight: 600; font-size: 0.875rem; color: #334155; margin-bottom: 0.4rem; display: block;">Bidang Penempatan</label>
-                        <select name="bidang_id" class="form-control">
-                            <option value="">-- Belum Ditempatkan (Pilih Bidang) --</option>
-                            @foreach($bidangs as $b)
-                                <option value="{{ $b->id }}" {{ old('bidang_id') == $b->id ? 'selected' : '' }}>
-                                    {{ $b->nama }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div>
-                        <label style="font-weight: 600; font-size: 0.875rem; color: #334155; margin-bottom: 0.4rem; display: block;">Pembimbing Magang (Opsional)</label>
-                        <select name="pembimbing_id" class="form-control">
-                            <option value="">-- Belum Ditentukan (Pilih Pembimbing) --</option>
-                            @foreach($pembimbings as $pem)
-                                <option value="{{ $pem->id }}" {{ old('pembimbing_id') == $pem->id ? 'selected' : '' }}>
-                                    {{ $pem->nama }} @if($pem->bidang)({{ $pem->bidang->nama }})@endif
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                <div style="max-width: 500px;">
+                    <label style="font-weight: 600; font-size: 0.875rem; color: #334155; margin-bottom: 0.4rem; display: block;">Bidang Penempatan</label>
+                    <select name="bidang_id" class="form-control">
+                        <option value="">-- Belum Ditempatkan (Pilih Bidang) --</option>
+                        @foreach($bidangs as $b)
+                            <option value="{{ $b->id }}" {{ old('bidang_id') == $b->id ? 'selected' : '' }}>
+                                {{ $b->nama }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <small style="font-size: 0.75rem; color: #64748b; margin-top: 0.35rem; display: block;">
+                        <i class="fas fa-info-circle mr-1"></i> Pembimbing lapangan akan ditentukan oleh Administrator setelah penempatan bidang.
+                    </small>
                 </div>
             </div>
 

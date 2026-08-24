@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SIPADU · @yield('title', 'Dashboard')</title>
+    <title>SIMAG-DISDIKPROV SUMSEL · @yield('title', 'Dashboard')</title>
     
     <!-- Preload DNS & Assets untuk mempercepat load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,7 +34,7 @@
             <div class="logo-icon" style="background:transparent; box-shadow:none; padding:0;">
                 <img src="{{ asset('images/logo.jpeg') }}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" alt="Logo">
             </div>
-            <div class="logo-text">SIPA<span>DU</span></div>
+            <div class="logo-text">SIMAG-DISDIKPROV<span>SUMSEL</span></div>
         </div>
 
         <nav class="nav-section">
@@ -180,7 +180,7 @@
 
         <!-- Copyright -->
         <div class="copyright">
-            <i class="far fa-copyright"></i> {{ date('Y') }} SIPADU. All rights reserved.
+            <i class="far fa-copyright"></i> {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. All rights reserved.
         </div>
     </main>
 

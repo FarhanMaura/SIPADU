@@ -42,15 +42,24 @@ class AbsensiController extends Controller
         }
 
         $request->validate([
-            'status'     => 'required|in:hadir,izin,sakit',
-            'keterangan' => 'nullable|string|max:500',
+            'status'        => 'required|in:hadir,izin,sakit',
+            'keterangan'    => 'nullable|string|max:500',
+            'logbook'       => 'nullable|string|max:3000',
+            'foto_kegiatan' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
         ]);
 
+        $fotoPath = null;
+        if ($request->hasFile('foto_kegiatan')) {
+            $fotoPath = $request->file('foto_kegiatan')->store('absensi_foto', 'public');
+        }
+
         Absensi::create([
-            'peserta_id' => $peserta->id,
-            'tanggal'    => today(),
-            'status'     => $request->status,
-            'keterangan' => $request->keterangan,
+            'peserta_id'    => $peserta->id,
+            'tanggal'       => today(),
+            'status'        => $request->status,
+            'keterangan'    => $request->keterangan,
+            'logbook'       => $request->logbook,
+            'foto_kegiatan' => $fotoPath,
         ]);
 
         $label = match($request->status) {
@@ -62,5 +71,43 @@ class AbsensiController extends Controller
 
         return redirect()->route('peserta.absensi')
             ->with('success', "Absensi hari ini berhasil dicatat: {$label}.");
+    }
+
+    public function updateTodayLogbook(Request $request): RedirectResponse
+    {
+        $peserta = auth()->user()->peserta;
+
+        if (!$peserta) {
+            return redirect()->route('peserta.absensi')
+                ->with('error', 'Data peserta tidak ditemukan.');
+        }
+
+        $absensi = Absensi::where('peserta_id', $peserta->id)
+            ->whereDate('tanggal', today())
+            ->first();
+
+        if (!$absensi) {
+            return redirect()->route('peserta.absensi')
+                ->with('error', 'Belum ada data presensi hari ini untuk diperbarui.');
+        }
+
+        $request->validate([
+            'logbook'       => 'nullable|string|max:3000',
+            'foto_kegiatan' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
+        ]);
+
+        if ($request->hasFile('foto_kegiatan')) {
+            $fotoPath = $request->file('foto_kegiatan')->store('absensi_foto', 'public');
+            $absensi->foto_kegiatan = $fotoPath;
+        }
+
+        if ($request->filled('logbook')) {
+            $absensi->logbook = $request->logbook;
+        }
+
+        $absensi->save();
+
+        return redirect()->route('peserta.absensi')
+            ->with('success', 'Logbook kegiatan harian berhasil diperbarui.');
     }
 }
