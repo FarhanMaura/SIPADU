@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMAG-DISDIKPROV SUMSEL — Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang</title>
+    <title>SIMAG-DISDIKPROV SUMSEL — Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,8 +22,8 @@
                         <img src="{{ asset('images/logo.jpeg') }}" class="w-full h-full object-cover rounded-full" alt="Logo">
                     </div>
                     <div class="leading-tight">
-                        <span class="logo-text font-bold text-base">SIPA<span class="logo-accent text-accent">DU</span></span>
-                        <div class="logo-text text-xs opacity-80 hidden sm:block" style="font-size:10px">Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang</div>
+                        <span class="logo-text font-bold text-base">SIMAG-DISDIKPROV<span class="logo-accent text-accent"> SUMSEL</span></span>
+                        <div class="logo-text text-xs opacity-80 hidden sm:block" style="font-size:10px">Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan</div>
                     </div>
                 </a>
 
@@ -305,23 +305,23 @@
                         <div class="w-9 h-9 bg-accent rounded-lg flex items-center justify-center">
                             <i class="fas fa-graduation-cap text-navy text-lg"></i>
                         </div>
-                        <span class="text-white font-bold text-lg">SIPA<span class="text-accent">DU</span></span>
+                        <span class="text-white font-bold text-lg">SIMAG-DISDIKPROV<span class="text-accent"> SUMSEL</span></span>
                     </div>
                     <p class="text-white/80 text-sm leading-relaxed mb-4">
-                        Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang — platform digital untuk mengelola program magang secara efisien dan terstruktur.
+                        Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan — platform digital resmi untuk mengelola pendaftaran, penempatan, absensi, dan sertifikasi program magang secara terintegrasi.
                     </p>
                     <div class="space-y-2">
                         <div class="flex items-center gap-2 text-white/80 text-sm">
                             <i class="fas fa-map-marker-alt w-4"></i>
-                            <span>Jl. Contoh No. 1, Kota Sample</span>
+                            <span>Jalan Kapten A. Rivai No. 47 Palembang, Sumatera Selatan</span>
                         </div>
                         <div class="flex items-center gap-2 text-white/80 text-sm">
                             <i class="fas fa-envelope w-4"></i>
-                            <span>info@SIMAG-DISDIKPROV SUMSEL.go.id</span>
+                            <span>disdiksumselprov47@gmail.com</span>
                         </div>
                         <div class="flex items-center gap-2 text-white/80 text-sm">
                             <i class="fas fa-phone w-4"></i>
-                            <span>(021) 123-4567</span>
+                            <span>(0711) 354137</span>
                         </div>
                     </div>
                 </div>
@@ -348,7 +348,7 @@
                 </div>
             </div>
             <div class="border-t border-white/20 mt-8 pt-6 text-center">
-                <p class="text-white/60 text-xs">&copy; {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang.</p>
+                <p class="text-white/60 text-xs">&copy; {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan.</p>
             </div>
         </div>
     </footer>

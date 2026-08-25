@@ -391,13 +391,13 @@ class BlackboxTestingTest extends TestCase
             'nip'       => '198501012010011001',
             'nama'      => 'Bambang Supriyanto, M.M.',
             'no_hp'     => '081298765432',
-            'email'     => 'bambang@SIMAG-DISDIKPROV SUMSEL.go.id',
+            'email'     => 'bambang@disdik.sumselprov.go.id',
             'password'  => 'password123',
         ]);
 
         $response->assertRedirect(route('admin.pembimbing.index'));
         $this->assertDatabaseHas('pembimbings', ['nama' => 'Bambang Supriyanto, M.M.']);
-        $this->assertDatabaseHas('users', ['email' => 'bambang@SIMAG-DISDIKPROV SUMSEL.go.id', 'role' => User::ROLE_PEMBIMBING]);
+        $this->assertDatabaseHas('users', ['email' => 'bambang@disdik.sumselprov.go.id', 'role' => User::ROLE_PEMBIMBING]);
     }
 
     public function test_TC_ADM_03_admin_cannot_delete_self(): void

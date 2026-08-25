@@ -6,7 +6,7 @@
     <style>
         @page {
             size: A4 landscape;
-            margin: 0;
+            margin: 0mm;
         }
 
         * {
@@ -15,60 +15,44 @@
             padding: 0;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
             font-family: 'Times New Roman', Times, serif;
+            color: #000000;
             background: #ffffff;
-            color: #000;
+            font-size: 10pt;
         }
 
         /* ================= PAGE 1: HALAMAN DEPAN (PIAGAM PENGHARGAAN) ================= */
-        .page-front {
-            width: 297mm;
-            height: 210mm;
-            padding: 6mm 10mm;
-            box-sizing: border-box;
-            background: #ebba16;
+        .page-1-table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            background-color: #f3c72b;
             page-break-after: always;
-            overflow: hidden;
         }
 
-        .sertifikat-front {
-            background: linear-gradient(160deg, #f7c93a 0%, #e8b020 40%, #d4990a 100%);
-            border-radius: 8px;
-            padding: 16px 22px;
-            position: relative;
-            border: 3px solid #c9960b;
-            height: 198mm;
-            overflow: hidden;
+        .page-1-cell {
+            padding: 2.5mm 3.5mm;
+            vertical-align: middle;
         }
 
-        /* DOUBLE BORDER DALAM */
-        .border-inner {
-            position: absolute;
-            top: 6px; left: 6px; right: 6px; bottom: 6px;
-            border: 1.5px solid rgba(180, 130, 10, 0.5);
-            border-radius: 4px;
-            pointer-events: none;
+        .cert-frame-outer {
+            background-color: #d4990a;
+            border: 3px solid #78350f;
+            padding: 2mm;
         }
 
-        .border-inner2 {
-            position: absolute;
-            top: 9px; left: 9px; right: 9px; bottom: 9px;
-            border: 1px solid rgba(255, 230, 100, 0.6);
-            border-radius: 3px;
-            pointer-events: none;
+        .cert-frame-inner {
+            background-color: #fffef5;
+            border: 1.5px solid #92400e;
+            padding: 4mm 7mm 3.5mm 7mm;
         }
 
-        .content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* HEADER TABLE: LOGO KIRI, TEKS TENGAH */
         .header-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 4px;
         }
 
         .header-table td {
@@ -76,231 +60,252 @@
             padding: 0;
         }
 
-        .header-table .logo-td {
-            width: 75px;
+        .logo-col {
+            width: 80px;
             text-align: left;
         }
 
-        .header-table .logo-td img {
-            width: 70px;
+        .logo-col img {
+            width: 72px;
             height: auto;
             display: block;
         }
 
-        .header-table .text-td {
+        .kop-text-col {
             text-align: center;
         }
 
-        .header-table .text-td .provinsi {
-            font-size: 13pt;
+        .provinsi-text {
+            font-size: 14pt;
             font-weight: bold;
             text-transform: uppercase;
-            color: #1a1a1a;
+            color: #111827;
             letter-spacing: 0.5px;
-            line-height: 1.3;
+            line-height: 1.15;
         }
 
-        .header-table .text-td .dinas {
-            font-size: 18.5pt;
+        .dinas-text {
+            font-size: 20pt;
             font-weight: bold;
             text-transform: uppercase;
-            color: #1a1a1a;
+            color: #111827;
             letter-spacing: 1.5px;
-            line-height: 1.2;
-            margin-top: 2px;
+            line-height: 1.15;
+            margin-top: 1px;
         }
 
-        .header-table .spacer-td {
-            width: 75px;
+        .alamat-text {
+            font-size: 8.5pt;
+            font-style: italic;
+            color: #374151;
+            margin-top: 1px;
         }
 
-        /* DIVIDER */
-        .divider {
-            border-top: 2.5px solid #8a6000;
-            border-bottom: 1px solid rgba(139, 96, 0, 0.4);
-            height: 4px;
-            margin-bottom: 8px;
+        .spacer-col {
+            width: 80px;
         }
 
-        /* TITLE */
-        .title {
+        .divider-line {
+            border-top: 2.5px solid #78350f;
+            border-bottom: 1px solid #78350f;
+            height: 3px;
+            margin: 3px 0 5px 0;
+        }
+
+        .title-wrapper {
             text-align: center;
-            margin-bottom: 8px;
+            margin: 2px 0 5px 0;
         }
 
-        .title h1 {
-            font-size: 22pt;
+        .title-wrapper h1 {
+            font-size: 24pt;
             font-weight: bold;
             letter-spacing: 2px;
             margin: 0;
-            color: #1a1a1a;
+            color: #111827;
             text-transform: uppercase;
         }
 
-        .title .nomor {
+        .title-wrapper .nomor-surat {
             font-size: 10.5pt;
             font-style: italic;
             font-weight: bold;
-            margin-top: 2px;
-            color: #1a1a1a;
+            margin-top: 1px;
+            color: #1f2937;
         }
 
-        /* WHITE BOX */
-        .white-box {
-            background: #ffffff;
-            border-radius: 14px;
-            padding: 14px 22px 12px 22px;
-            position: relative;
+        .white-card {
+            background-color: #ffffff;
+            border: 1.5px solid #ca8a04;
+            border-radius: 10px;
+            padding: 5mm 9mm 4mm 9mm;
         }
 
-        .intro {
-            font-size: 10.5pt;
+        .intro-sentence {
+            font-size: 11pt;
             color: #000;
-            margin-bottom: 8px;
-            line-height: 1.4;
+            margin-bottom: 3px;
+            line-height: 1.25;
         }
 
-        .detail-table {
+        .peserta-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10.5pt;
+            font-size: 11pt;
             color: #000;
-            margin-bottom: 8px;
+            margin: 4px 0 6px 0;
         }
 
-        .detail-table td {
+        .peserta-table td {
             padding: 2.5px 0;
             vertical-align: top;
         }
 
-        .detail-table .lbl {
-            width: 22%;
-            font-weight: normal;
+        .peserta-table .label-cell {
+            width: 25%;
         }
 
-        .detail-table .cln {
+        .peserta-table .colon-cell {
             width: 3%;
-            font-weight: normal;
         }
 
-        .detail-table .val {
-            width: 75%;
+        .peserta-table .value-cell {
+            width: 72%;
             font-weight: bold;
             text-transform: uppercase;
         }
 
-        .narration {
-            font-size: 10pt;
+        .narration-sentence {
+            font-size: 10.5pt;
             line-height: 1.5;
             text-align: justify;
             color: #000;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
-        /* TTD TABLE */
-        .ttd-table {
+        .ttd-layout-table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .ttd-table td {
+        .ttd-layout-table td {
             padding: 0;
             vertical-align: top;
         }
 
-        .ttd-table .left {
+        .ttd-left-space {
             width: 55%;
         }
 
-        .ttd-table .right {
+        .ttd-right-box {
             width: 45%;
             text-align: center;
             font-size: 10pt;
             color: #000;
+            line-height: 1.25;
         }
 
-        .stamp-sig-box {
-            height: 48px;
-            position: relative;
-            margin: 2px 0;
+        .stamp-sig-wrap {
+            height: 58px;
+            margin: 1px 0;
+            text-align: center;
+        }
+
+        .stamp-sig-wrap img {
+            height: 58px;
+            max-width: 180px;
+            object-fit: contain;
         }
 
         /* ================= PAGE 2: HALAMAN BELAKANG (DAFTAR NILAI) ================= */
-        .page-back {
-            width: 297mm;
-            height: 210mm;
-            padding: 12mm 18mm;
-            box-sizing: border-box;
-            background: #ffffff;
-            overflow: hidden;
+        .page-2-table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
         }
 
-        .sertifikat-back {
-            background: #ffffff;
-            color: #000;
+        .page-2-cell {
+            padding: 3mm 4mm;
+            vertical-align: middle;
         }
 
-        .title-back {
+        .page-2-border {
+            border: 2.5px solid #334155;
+            padding: 6mm 10mm;
+        }
+
+        .title-back-area {
             text-align: center;
             font-weight: bold;
             font-size: 13.5pt;
-            margin-bottom: 14px;
-            line-height: 1.4;
+            margin-bottom: 8px;
+            line-height: 1.3;
             text-transform: uppercase;
+            color: #0f172a;
         }
 
-        .meta-table {
+        .meta-info-table {
             width: 100%;
             border-collapse: collapse;
             font-weight: bold;
-            font-size: 10.5pt;
-            margin-bottom: 12px;
+            font-size: 10pt;
+            margin-bottom: 8px;
+            color: #1e293b;
         }
 
-        .meta-table td {
-            padding: 3px 0;
+        .meta-info-table td {
+            padding: 2px 0;
             vertical-align: top;
         }
 
-        .score-table {
+        .score-data-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 9.5pt;
-            table-layout: fixed;
+            margin: 8px 0 10px 0;
         }
 
-        .score-table th,
-        .score-table td {
+        .score-data-table th,
+        .score-data-table td {
             border: 1px solid #000;
-            padding: 5.5px 8px;
-            word-wrap: break-word;
+            padding: 4px 6px;
         }
 
-        .score-table th {
-            background: #f8fafc;
+        .score-data-table th {
+            background-color: #f1f5f9;
             font-weight: bold;
             text-transform: uppercase;
             text-align: center;
+            font-size: 9pt;
         }
 
-        .score-table .text-left {
-            text-align: left;
-        }
-
-        .score-table .text-center {
+        .score-data-table .text-center {
             text-align: center;
         }
 
-        .score-table .bg-light {
-            background: #f8fafc;
-        }
-
-        .score-table .bg-blue-light {
-            background: #eff6ff;
-        }
-
-        .score-table .font-bold {
+        .score-data-table .font-bold {
             font-weight: bold;
+        }
+
+        .score-data-table .bg-total {
+            background-color: #f8fafc;
+        }
+
+        .score-data-table .bg-final {
+            background-color: #e0f2fe;
+        }
+
+        .footer-eval-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9.5pt;
+            margin-top: 10px;
+        }
+
+        .footer-eval-table td {
+            vertical-align: top;
+            padding: 0;
         }
 
         .alert-box {
@@ -319,15 +324,15 @@
 @if($peserta && $penilaian)
 
 @php
-    if (!function_exists('terbilangAngkaFinalPdf')) {
-        function terbilangAngkaFinalPdf($angka) {
+    if (!function_exists('terbilangAngkaSertifikat')) {
+        function terbilangAngkaSertifikat($angka) {
             $angka = (int) round($angka);
             $baca = array('', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan', 'Sepuluh', 'Sebelas');
             if ($angka < 12) return $baca[$angka];
-            elseif ($angka < 20) return terbilangAngkaFinalPdf($angka - 10) . ' Belas';
-            elseif ($angka < 100) return terbilangAngkaFinalPdf(floor($angka / 10)) . ' Puluh' . ($angka % 10 != 0 ? ' ' . terbilangAngkaFinalPdf($angka % 10) : '');
-            elseif ($angka < 200) return 'Seratus' . ($angka - 100 != 0 ? ' ' . terbilangAngkaFinalPdf($angka - 100) : '');
-            elseif ($angka < 1000) return terbilangAngkaFinalPdf(floor($angka / 100)) . ' Ratus' . ($angka % 100 != 0 ? ' ' . terbilangAngkaFinalPdf($angka % 100) : '');
+            elseif ($angka < 20) return terbilangAngkaSertifikat($angka - 10) . ' Belas';
+            elseif ($angka < 100) return terbilangAngkaSertifikat(floor($angka / 10)) . ' Puluh' . ($angka % 10 != 0 ? ' ' . terbilangAngkaSertifikat($angka % 10) : '');
+            elseif ($angka < 200) return 'Seratus' . ($angka - 100 != 0 ? ' ' . terbilangAngkaSertifikat($angka - 100) : '');
+            elseif ($angka < 1000) return terbilangAngkaSertifikat(floor($angka / 100)) . ' Ratus' . ($angka % 100 != 0 ? ' ' . terbilangAngkaSertifikat($angka % 100) : '');
             return (string)$angka;
         }
     }
@@ -343,261 +348,268 @@
     $jumlah = $kedisiplinan + $kerapian + $kebersihan + $tanggungjawab + $kerjasama + $kreativitas + $kejujuran;
     $rataRata = round($jumlah / 7, 2);
 
-    // LOGO
-    $logoSumselSvgPath = public_path('images/logosumsel_resmi.svg');
-    $logoSumselFallbackPath = public_path('images/logo_sumsel.svg');
-    if (file_exists($logoSumselSvgPath)) {
-        $logoSumselSrc = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($logoSumselSvgPath));
-    } elseif (file_exists($logoSumselFallbackPath)) {
-        $logoSumselSrc = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($logoSumselFallbackPath));
+    $predikat = 'Baik';
+    if ($rataRata >= 90) {
+        $predikat = 'Amat Baik';
+    } elseif ($rataRata >= 80) {
+        $predikat = 'Baik';
+    } elseif ($rataRata >= 70) {
+        $predikat = 'Cukup';
     } else {
-        $logoSumselSrc = asset('images/logosumsel_resmi.svg');
+        $predikat = 'Kurang';
     }
 
-    // WATERMARK
-    $tutwuriJpgPath = public_path('images/tutwuri_handayani.jpg');
-    $tutwuriSvgPath = public_path('images/tutwuri_watermark.svg');
-    if (file_exists($tutwuriJpgPath)) {
-        $tutwuriSrc = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($tutwuriJpgPath));
-    } elseif (file_exists($tutwuriSvgPath)) {
-        $tutwuriSrc = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($tutwuriSvgPath));
-    } else {
-        $tutwuriSrc = asset('images/tutwuri_handayani.jpg');
+    // LOGO SUMSEL BASE64
+    $logoSumselPath = public_path('images/logo_sumsel.png');
+    if (!file_exists($logoSumselPath)) {
+        $logoSumselPath = public_path('images/logo_sumsel.jpg');
     }
+    $logoSumselSrc = file_exists($logoSumselPath)
+        ? 'data:image/png;base64,' . base64_encode(file_get_contents($logoSumselPath))
+        : '';
 
-    $tglMulaiFormatted = $peserta->tgl_mulai ? \Carbon\Carbon::parse($peserta->tgl_mulai)->translatedFormat('d F Y') : '16 Oktober 2025';
-    $tglSelesaiFormatted = $peserta->tgl_selesai ? \Carbon\Carbon::parse($peserta->tgl_selesai)->translatedFormat('d F Y') : '31 Desember 2025';
-    $tglSertifikatFormatted = $penilaian->created_at ? \Carbon\Carbon::parse($penilaian->created_at)->translatedFormat('d F Y') : '10 Maret 2026';
-    $noSertifikat = $peserta->no_sertifikat ?? '420/5679/Set.3-Disdik.SS/III/2026';
+    // STEMPEL & TTD RESMI BASE64
+    $ttdPath = public_path('images/stempel_ttd_disdik.png');
+    if (!file_exists($ttdPath)) {
+        $ttdPath = public_path('images/ttd_stempel_disdik.png');
+    }
+    $ttdSrc = file_exists($ttdPath)
+        ? 'data:image/png;base64,' . base64_encode(file_get_contents($ttdPath))
+        : '';
+
+    $tglMulaiFormatted = $peserta->tgl_mulai ? \Carbon\Carbon::parse($peserta->tgl_mulai)->translatedFormat('d F Y') : '01 Januari 2026';
+    $tglSelesaiFormatted = $peserta->tgl_selesai ? \Carbon\Carbon::parse($peserta->tgl_selesai)->translatedFormat('d F Y') : '31 Desember 2026';
+    $tglSertifikatFormatted = $penilaian->created_at ? \Carbon\Carbon::parse($penilaian->created_at)->translatedFormat('d F Y') : now()->translatedFormat('d F Y');
+    
+    // Nomor Sertifikat
+    $nomorRaw = $penilaian->no_sertifikat ?? $peserta->no_sertifikat ?? '5152';
+    $noSertifikat = str_contains($nomorRaw, '/') ? $nomorRaw : "420/{$nomorRaw}/Set.3-Disdik.SS/III/2026";
 @endphp
 
 <!-- ========================================================= -->
 <!-- HALAMAN DEPAN: PIAGAM PENGHARGAAN -->
 <!-- ========================================================= -->
-<div class="page-front">
-    <div class="sertifikat-front">
-        <div class="border-inner"></div>
-        <div class="border-inner2"></div>
-
-        <div class="content">
-            <!-- HEADER TABLE -->
-            <table class="header-table">
-                <tr>
-                    <td class="logo-td">
-                        <img src="{{ $logoSumselSrc }}" alt="Logo Sumatera Selatan">
-                    </td>
-                    <td class="text-td">
-                        <div class="provinsi">PEMERINTAH PROVINSI SUMATERA SELATAN</div>
-                        <div class="dinas">DINAS PENDIDIKAN</div>
-                    </td>
-                    <td class="spacer-td"></td>
-                </tr>
-            </table>
-
-            <div class="divider"></div>
-
-            <!-- TITLE -->
-            <div class="title">
-                <h1>PIAGAM PENGHARGAAN</h1>
-                <div class="nomor">Nomor: {{ $noSertifikat }}</div>
-            </div>
-
-            <!-- WHITE BOX -->
-            <div class="white-area">
-                <!-- WATERMARK TUT WURI HANDAYANI (DOMPDF FLOW-BASED) -->
-                @if($tutwuriSrc)
-                    <div style="text-align: center; margin-bottom: -150px; padding-top: 10px; opacity: 0.10;">
-                        <img src="{{ $tutwuriSrc }}" style="width: 170px; height: 170px;" alt="Tut Wuri Handayani">
-                    </div>
-                @endif
-
-                <div style="position: relative; z-index: 2;">
-                    <div class="intro">
-                        Kepala Dinas Pendidikan Provinsi Sumatera Selatan memberikan penghargaan kepada:
-                    </div>
-
-                    <table class="detail-table">
-                        <tbody>
-                            <tr>
-                                <td class="lbl">Nama</td>
-                                <td class="cln">:</td>
-                                <td class="val">{{ strtoupper($peserta->nama) }}</td>
-                            </tr>
-                            <tr>
-                                <td class="lbl">NIS/NISN</td>
-                                <td class="cln">:</td>
-                                <td class="val" style="text-transform: none;">{{ $peserta->nim_nisn ?? '-' }}</td>
-                            </tr>
-                            <tr>
-                                <td class="lbl">Asal Sekolah</td>
-                                <td class="cln">:</td>
-                                <td class="val">{{ strtoupper($peserta->instansi?->nama ?? $peserta->asal_sekolah ?? '-') }}</td>
-                            </tr>
-                            <tr>
-                                <td class="lbl">Jurusan/Prodi</td>
-                                <td class="cln">:</td>
-                                <td class="val">{{ strtoupper($peserta->jurusan ?? '-') }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="narration">
-                        yang telah mengikuti program pelatihan dalam pelaksanaan Praktik Kerja Lapangan (PKL) di Dinas Pendidikan
-                        Provinsi Sumatera Selatan yang dilaksanakan dari tanggal {{ $tglMulaiFormatted }} sampai dengan {{ $tglSelesaiFormatted }}.
-                    </div>
-
-                    <!-- TANDA TANGAN -->
-                    <table class="ttd-table">
+<table class="page-1-table">
+    <tr>
+        <td class="page-1-cell">
+            <div class="cert-frame-outer">
+                <div class="cert-frame-inner">
+                    <!-- HEADER TABLE -->
+                    <table class="header-table">
                         <tr>
-                            <td class="left"></td>
-                            <td class="right">
-                                Palembang, {{ $tglSertifikatFormatted }}<br>
-                                a.n. <strong>Kepala Dinas Pendidikan</strong><br>
-                                <strong>Sekretaris,</strong><br>
-
-                                <div class="stamp-sig-box">
-                                    <table style="width: 100%; border-collapse: collapse;">
-                                        <tr>
-                                            <td style="width: 45%; text-align: center; vertical-align: middle; padding: 0;">
-                                                <!-- STEMPEL -->
-                                                <div style="
-                                                    width: 65px;
-                                                    height: 65px;
-                                                    border-radius: 50%;
-                                                    border: 2px dashed #1d4ed8;
-                                                    text-align: center;
-                                                    padding: 2px;
-                                                    opacity: 0.82;
-                                                    display: inline-block;
-                                                ">
-                                                    <div style="font-size: 4pt; font-weight: bold; color: #1d4ed8; line-height: 1.2;">
-                                                        PEMERINTAH<br>PROVINSI<br>
-                                                        <span style="display: block; border-top: 1px solid #1d4ed8; margin: 1px 0;"></span>
-                                                        SUMATERA<br>SELATAN<br>
-                                                        <span style="display: block; border-top: 1px solid #1d4ed8; margin: 1px 0;"></span>
-                                                        DINAS PENDIDIKAN
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td style="width: 55%; text-align: center; vertical-align: middle; padding: 0;">
-                                                <!-- TTD SVG -->
-                                                <svg viewBox="0 0 110 38" width="100" height="36">
-                                                    <path d="M 8 30 C 28 8, 26 34, 44 12 C 55 2, 50 30, 68 16 C 84 6, 76 30, 108 20" fill="none" stroke="#0f172a" stroke-width="2.0" stroke-linecap="round"/>
-                                                    <path d="M 28 22 L 85 24" fill="none" stroke="#0f172a" stroke-width="1.5"/>
-                                                </svg>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-
-                                <strong><u>Misral, S.Sn., M.Sn.</u></strong><br>
-                                Penata Tingkat I, III/d<br>
-                                NIP 196806042008011016
+                            <td class="logo-col">
+                                @if($logoSumselSrc)
+                                    <img src="{{ $logoSumselSrc }}" alt="Logo Sumatera Selatan">
+                                @endif
                             </td>
+                            <td class="kop-text-col">
+                                <div class="provinsi-text">PEMERINTAH PROVINSI SUMATERA SELATAN</div>
+                                <div class="dinas-text">DINAS PENDIDIKAN</div>
+                                <div class="alamat-text">Jalan Kapten A. Rivai No. 47 Palembang, Pos-el: disdiksumselprov47@gmail.com</div>
+                            </td>
+                            <td class="spacer-col"></td>
                         </tr>
                     </table>
 
+                    <div class="divider-line"></div>
+
+                    <!-- TITLE -->
+                    <div class="title-wrapper">
+                        <h1>PIAGAM PENGHARGAAN</h1>
+                        <div class="nomor-surat">Nomor: {{ $noSertifikat }}</div>
+                    </div>
+
+                    <!-- WHITE BOX -->
+                    <div class="white-card">
+                        <div class="intro-sentence">
+                            Kepala Dinas Pendidikan Provinsi Sumatera Selatan memberikan penghargaan kepada:
+                        </div>
+
+                        <table class="peserta-table">
+                            <tbody>
+                                <tr>
+                                    <td class="label-cell">Nama</td>
+                                    <td class="colon-cell">:</td>
+                                    <td class="value-cell">{{ strtoupper($peserta->nama) }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="label-cell">NISN / NIM</td>
+                                    <td class="colon-cell">:</td>
+                                    <td class="value-cell" style="text-transform: none;">{{ $peserta->nim_nisn ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="label-cell">Asal Sekolah / Perguruan Tinggi</td>
+                                    <td class="colon-cell">:</td>
+                                    <td class="value-cell">{{ strtoupper($peserta->instansi?->nama ?? $peserta->asal_sekolah ?? '-') }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="label-cell">Jurusan / Program Studi</td>
+                                    <td class="colon-cell">:</td>
+                                    <td class="value-cell">{{ strtoupper($peserta->jurusan ?? '-') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="narration-sentence">
+                            yang telah mengikuti program pelatihan dalam pelaksanaan <strong>Praktik Kerja Lapangan (PKL) / Magang</strong> di Dinas Pendidikan
+                            Provinsi Sumatera Selatan yang dilaksanakan dari tanggal {{ $tglMulaiFormatted }} sampai dengan {{ $tglSelesaiFormatted }} dengan predikat kelulusan <strong>{{ strtoupper($predikat) }}</strong>.
+                        </div>
+
+                        <!-- TANDA TANGAN -->
+                        <table class="ttd-layout-table">
+                            <tr>
+                                <td class="ttd-left-space"></td>
+                                <td class="ttd-right-box">
+                                    Palembang, {{ $tglSertifikatFormatted }}<br>
+                                    a.n. <strong>Kepala Dinas Pendidikan</strong><br>
+                                    <strong>Plt. Sekretaris,</strong><br>
+
+                                    <div class="stamp-sig-wrap">
+                                        @if($ttdSrc)
+                                            <img src="{{ $ttdSrc }}" alt="Stempel & TTD">
+                                        @else
+                                            <div style="height: 58px;"></div>
+                                        @endif
+                                    </div>
+
+                                    <strong><u>Dra. PONIYEM, M.Pd.</u></strong><br>
+                                    Pembina Utama Muda, IV/c<br>
+                                    NIP. 196806042008012016
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+        </td>
+    </tr>
+</table>
 
 <!-- ========================================================= -->
 <!-- HALAMAN BELAKANG: DAFTAR NILAI -->
 <!-- ========================================================= -->
-<div class="page-back">
-    <div class="sertifikat-back">
-        <div class="title-back">
-            DAFTAR NILAI MAHASISWA<br>PRAKTIK KERJA LAPANGAN
-        </div>
+<table class="page-2-table">
+    <tr>
+        <td class="page-2-cell">
+            <div class="page-2-border">
+                <div class="title-back-area">
+                    DAFTAR NILAI PRAKTIK KERJA LAPANGAN (PKL)<br>DINAS PENDIDIKAN PROVINSI SUMATERA SELATAN
+                </div>
 
-        <table class="meta-table">
-            <tbody>
-                <tr>
-                    <td style="width: 30%;">NAMA</td>
-                    <td style="width: 3%;">:</td>
-                    <td style="width: 67%;">{{ strtoupper($peserta->nama) }}</td>
-                </tr>
-                <tr>
-                    <td>JURUSAN / PROGRAM STUDI</td>
-                    <td>:</td>
-                    <td>{{ strtoupper($peserta->jurusan ?? '-') }}</td>
-                </tr>
-                <tr>
-                    <td>TEMPAT PKL</td>
-                    <td>:</td>
-                    <td>Dinas Pendidikan Provinsi Sumatera Selatan</td>
-                </tr>
-            </tbody>
-        </table>
+                <table class="meta-info-table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 28%; padding: 2px 0;">NAMA</td>
+                            <td style="width: 2%;">:</td>
+                            <td style="width: 70%;">{{ strtoupper($peserta->nama) }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 2px 0;">NISN / NIM</td>
+                            <td>:</td>
+                            <td>{{ $peserta->nim_nisn ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 2px 0;">JURUSAN / PROGRAM STUDI</td>
+                            <td>:</td>
+                            <td>{{ strtoupper($peserta->jurusan ?? '-') }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 2px 0;">TEMPAT MAGANG / PKL</td>
+                            <td>:</td>
+                            <td>Dinas Pendidikan Provinsi Sumatera Selatan</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <table class="score-table">
-            <thead>
-                <tr>
-                    <th style="width: 6%;">NO</th>
-                    <th style="width: 44%;">BIDANG PEKERJAAN<br>YANG DILATIHKAN</th>
-                    <th style="width: 22%;">DENGAN<br>ANGKA</th>
-                    <th style="width: 28%;">DENGAN HURUF</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-left">Kedisiplinan</td>
-                    <td class="text-center">{{ $kedisiplinan }}</td>
-                    <td class="text-center">{{ terbilangAngkaFinalPdf($kedisiplinan) }}</td>
-                </tr>
-                <tr>
-                    <td class="text-center">2</td>
-                    <td class="text-left">Kerapian</td>
-                    <td class="text-center">{{ $kerapian }}</td>
-                    <td class="text-center">{{ terbilangAngkaFinalPdf($kerapian) }}</td>
-                </tr>
-                <tr>
-                    <td class="text-center">3</td>
-                    <td class="text-left">Kebersihan</td>
-                    <td class="text-center">{{ $kebersihan }}</td>
-                    <td class="text-center">{{ terbilangAngkaFinalPdf($kebersihan) }}</td>
-                </tr>
-                <tr>
-                    <td class="text-center">4</td>
-                    <td class="text-left">Tanggung jawab</td>
-                    <td class="text-center">{{ $tanggungjawab }}</td>
-                    <td class="text-center">{{ terbilangAngkaFinalPdf($tanggungjawab) }}</td>
-                </tr>
-                <tr>
-                    <td class="text-center">5</td>
-                    <td class="text-left">Kerjasama</td>
-                    <td class="text-center">{{ $kerjasama }}</td>
-                    <td class="text-center">{{ terbilangAngkaFinalPdf($kerjasama) }}</td>
-                </tr>
-                <tr>
-                    <td class="text-center">6</td>
-                    <td class="text-left">Kreativitas</td>
-                    <td class="text-center">{{ $kreativitas }}</td>
-                    <td class="text-center">{{ terbilangAngkaFinalPdf($kreativitas) }}</td>
-                </tr>
-                <tr>
-                    <td class="text-center">7</td>
-                    <td class="text-left">Kejujuran</td>
-                    <td class="text-center">{{ $kejujuran }}</td>
-                    <td class="text-center">{{ terbilangAngkaFinalPdf($kejujuran) }}</td>
-                </tr>
-                <tr class="bg-light font-bold">
-                    <td colspan="2" class="text-left">JUMLAH</td>
-                    <td class="text-center">{{ $jumlah }}</td>
-                    <td class="text-center">{{ terbilangAngkaFinalPdf($jumlah) }}</td>
-                </tr>
-                <tr class="bg-blue-light font-bold">
-                    <td colspan="2" class="text-left">RATA-RATA</td>
-                    <td class="text-center">{{ $rataRata }}</td>
-                    <td class="text-center">{{ terbilangAngkaFinalPdf($rataRata) }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+                <table class="score-data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 7%;">NO</th>
+                            <th style="width: 45%;">BIDANG PEKERJAAN / ASPEK PENILAIAN</th>
+                            <th style="width: 18%;">NILAI ANGKA</th>
+                            <th style="width: 30%;">DENGAN HURUF</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>Kedisiplinan</td>
+                            <td class="text-center font-bold">{{ $kedisiplinan }}</td>
+                            <td class="text-center">{{ terbilangAngkaSertifikat($kedisiplinan) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>Kerapian</td>
+                            <td class="text-center font-bold">{{ $kerapian }}</td>
+                            <td class="text-center">{{ terbilangAngkaSertifikat($kerapian) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>Kebersihan</td>
+                            <td class="text-center font-bold">{{ $kebersihan }}</td>
+                            <td class="text-center">{{ terbilangAngkaSertifikat($kebersihan) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">4</td>
+                            <td>Tanggung Jawab</td>
+                            <td class="text-center font-bold">{{ $tanggungjawab }}</td>
+                            <td class="text-center">{{ terbilangAngkaSertifikat($tanggungjawab) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">5</td>
+                            <td>Kerjasama</td>
+                            <td class="text-center font-bold">{{ $kerjasama }}</td>
+                            <td class="text-center">{{ terbilangAngkaSertifikat($kerjasama) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">6</td>
+                            <td>Kreativitas</td>
+                            <td class="text-center font-bold">{{ $kreativitas }}</td>
+                            <td class="text-center">{{ terbilangAngkaSertifikat($kreativitas) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">7</td>
+                            <td>Kejujuran</td>
+                            <td class="text-center font-bold">{{ $kejujuran }}</td>
+                            <td class="text-center">{{ terbilangAngkaSertifikat($kejujuran) }}</td>
+                        </tr>
+                        <tr class="bg-total font-bold">
+                            <td colspan="2" class="text-center">JUMLAH</td>
+                            <td class="text-center font-bold">{{ $jumlah }}</td>
+                            <td class="text-center">{{ terbilangAngkaSertifikat($jumlah) }}</td>
+                        </tr>
+                        <tr class="bg-final font-bold">
+                            <td colspan="2" class="text-center">RATA-RATA (NILAI AKHIR)</td>
+                            <td class="text-center font-bold">{{ $rataRata }}</td>
+                            <td class="text-center">{{ terbilangAngkaSertifikat($rataRata) }} ({{ $predikat }})</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- TTD PEMBIMBING LAPANGAN -->
+                <table class="footer-eval-table">
+                    <tr>
+                        <td style="width: 55%;">
+                            <div style="font-size: 8.5pt; color: #475569; padding-top: 4px; line-height: 1.35;">
+                                <strong>Keterangan Predikat:</strong><br>
+                                85 - 100 : Amat Baik (A)<br>
+                                75 - 84 &nbsp; : Baik (B)<br>
+                                60 - 74 &nbsp; : Cukup (C)
+                            </div>
+                        </td>
+                        <td style="width: 45%; text-align: center;">
+                            Palembang, {{ $tglSertifikatFormatted }}<br>
+                            Pembimbing Lapangan,<br>
+                            <div style="height: 48px;"></div>
+                            <strong><u>{{ $peserta->pembimbing?->nama ?? 'Pembimbing Lapangan' }}</u></strong><br>
+                            NIP. {{ $peserta->pembimbing?->nip ?? '-' }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
 
 @elseif(!$penilaian)
 <div class="alert-box">

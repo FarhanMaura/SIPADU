@@ -1,5 +1,5 @@
 # LAPORAN HASIL PENGUJIAN BLACK BOX TESTING
-## SISTEM INFORMASI PENDAFTARAN DAN ADMINISTRASI MAGANG / PKL TERPADU (SIMAG-DISDIKPROV SUMSEL)
+## SISTEM INFORMASI MAGANG DINAS PENDIDIKAN SUMATERA SELATAN (SIMAG-DISDIKPROV SUMSEL)
 
 ---
 
@@ -7,7 +7,7 @@
 
 | Item | Deskripsi |
 | :--- | :--- |
-| **Nama Aplikasi / Sistem** | **SIMAG-DISDIKPROV SUMSEL** (Sistem Informasi Pendaftaran dan Administrasi Magang / PKL) |
+| **Nama Aplikasi / Sistem** | **SIMAG-DISDIKPROV SUMSEL** (Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan) |
 | **Instansi / Unit Kerja** | Fakultas Ekonomi dan Bisnis / Dinas Pendidikan Provinsi Sumatera Selatan |
 | **Metodologi Pengujian** | **Black Box Testing** (Equivalence Partitioning, Boundary Value Analysis, Decision Table, State Transition, Error Guessing) |
 | **Standar Acuan** | IEEE 829 Standard for Software Test Documentation |

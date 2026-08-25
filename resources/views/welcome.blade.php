@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMAG-DISDIKPROV SUMSEL — Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang</title>
+    <title>SIMAG-DISDIKPROV SUMSEL — Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
             <div style="width:40px; height:40px; overflow:hidden; border-radius:50%;">
                 <img src="{{ asset('images/logo.jpeg') }}" style="width:100%; height:100%; object-fit:cover;" alt="Logo">
             </div>
-            SIPA<span>DU</span>
+            SIMAG-DISDIKPROV<span>SUMSEL</span>
         </a>
         <div class="nav-links">
             @auth
@@ -36,7 +36,7 @@
             <div class="badge"><i class="fas fa-star text-yellow-400"></i> Platform Magang Resmi Terpadu</div>
             <h1 class="hero-title">Kelola Program Magang Menjadi Lebih <span>Mudah & Efektif</span></h1>
             <p class="hero-subtitle">
-                SIMAG-DISDIKPROV SUMSEL (Sistem Informasi Pengelolaan Aktivitas & Data Unit Magang) membantu mempermudah proses pendaftaran, pemantauan, dan penilaian kegiatan magang secara digital.
+                SIMAG-DISDIKPROV SUMSEL (Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan) membantu mempermudah proses pendaftaran, pemantauan, dan penilaian kegiatan magang secara digital.
             </p>
             <div class="hero-actions">
                 @auth

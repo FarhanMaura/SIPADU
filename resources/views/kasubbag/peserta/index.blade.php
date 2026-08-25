@@ -5,13 +5,8 @@
 <!-- Header -->
 <div class="page-header">
     <div class="page-title">
-        <h1><i class="fas fa-user-graduate"></i> Kelola & Tambah Peserta Magang</h1>
+        <h1><i class="fas fa-user-graduate"></i> Kelola Peserta Magang</h1>
         <p><i class="fas fa-chevron-right"></i> Kasubbag <i class="fas fa-chevron-right"></i> Peserta Magang</p>
-    </div>
-    <div>
-        <a href="{{ route('kasubbag.peserta.create') }}" class="action-button">
-            <i class="fas fa-plus-circle"></i> Tambah Peserta Baru
-        </a>
     </div>
 </div>
 
@@ -31,11 +26,6 @@
         <div class="stat-icon"><i class="fas fa-user-slash"></i></div>
         <div class="stat-label">Belum Ditempatkan</div>
         <div class="stat-value">{{ $pesertas->whereNull('bidang_id')->count() }}</div>
-    </div>
-    <div class="stat-card" style="cursor: pointer;" onclick="var el = document.getElementById('import-form'); el.style.display = el.style.display === 'none' ? 'block' : 'none';">
-        <div class="stat-icon"><i class="fas fa-file-excel"></i></div>
-        <div class="stat-label">Import Excel</div>
-        <div class="stat-value" style="font-size: 1.2rem; margin-top:1rem; color: #16a34a;">Klik Disini</div>
     </div>
 </div>
 

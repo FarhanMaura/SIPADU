@@ -1,6 +1,4 @@
 // Landing page JS
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
 // Smooth scroll to section
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

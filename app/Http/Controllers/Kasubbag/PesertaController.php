@@ -82,12 +82,16 @@ class PesertaController extends Controller
                 $userId = $user->id;
             }
 
+            $defaultPembimbing = $request->bidang_id
+                ? Pembimbing::where('bidang_id', $request->bidang_id)->first()
+                : null;
+
             Peserta::create([
                 'user_id'       => $userId,
                 'pengajuan_id'  => $request->pengajuan_id,
                 'instansi_id'   => $pengajuan->instansi_id,
                 'bidang_id'     => $request->bidang_id,
-                'pembimbing_id' => null, // Pembimbing ditentukan oleh Administrator
+                'pembimbing_id' => $defaultPembimbing?->id, // Otomatis diset ke pembimbing bidang tersebut
                 'nim_nisn'      => $request->nim_nisn,
                 'nama'          => $request->nama,
                 'jurusan'       => $request->jurusan,
@@ -126,7 +130,7 @@ class PesertaController extends Controller
 
         $pengajuan = Pengajuan::find($request->pengajuan_id);
 
-        $peserta->update([
+        $updateData = [
             'pengajuan_id'  => $pengajuan->id,
             'instansi_id'   => $pengajuan->instansi_id,
             'bidang_id'     => $request->bidang_id,
@@ -137,7 +141,19 @@ class PesertaController extends Controller
             'tgl_mulai'     => $request->tgl_mulai,
             'tgl_selesai'   => $request->tgl_selesai,
             'status'        => $request->status ?? $peserta->status,
-        ]);
+        ];
+
+        // Jika bidang diubah atau pembimbing belum ditentukan, otomatis tentukan pembimbing bidang tersebut
+        if ($request->bidang_id && ($peserta->bidang_id != $request->bidang_id || !$peserta->pembimbing_id)) {
+            $defaultPembimbing = Pembimbing::where('bidang_id', $request->bidang_id)->first();
+            if ($defaultPembimbing) {
+                $updateData['pembimbing_id'] = $defaultPembimbing->id;
+            }
+        } elseif (!$request->bidang_id) {
+            $updateData['pembimbing_id'] = null;
+        }
+
+        $peserta->update($updateData);
 
         return redirect()->route('kasubbag.peserta.index')
             ->with('success', 'Data & bidang penempatan peserta berhasil diperbarui.');

@@ -180,7 +180,7 @@
 
         <!-- Copyright -->
         <div class="copyright">
-            <i class="far fa-copyright"></i> {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. All rights reserved.
+            <i class="far fa-copyright"></i> {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL · Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan.
         </div>
     </main>
 
