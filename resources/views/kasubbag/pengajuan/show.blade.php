@@ -19,13 +19,17 @@
             <a href="{{ route('kasubbag.pengajuan.loa', $pengajuan) }}" class="action-button" style="background: #16a34a; box-shadow: none;">
                 <i class="fas fa-file-pdf"></i> Download Surat Balasan (LoA PDF)
             </a>
+        @elseif($pengajuan->status === 'rejected')
+            <a href="{{ route('kasubbag.pengajuan.loa', $pengajuan) }}" class="action-button" style="background: #dc2626; box-shadow: none;">
+                <i class="fas fa-file-pdf"></i> Download Surat Penolakan (PDF)
+            </a>
         @endif
     </div>
     <div style="padding: 1.5rem;">
         <table style="width: 100%; text-align: left; border-collapse: collapse;">
             <tbody>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; width: 250px; color: #64748b; font-weight: 600;">Nama Lengkap Peserta</th>
+                    <th style="padding: 1rem 0; width: 250px; color: #64748b; font-weight: 600;">Nama Lengkap Peserta Magang</th>
                     <td style="padding: 1rem 0; font-weight: 700; color: #0f172a; font-size: 1.05rem;">{{ $pengajuan->pic_nama }}</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
@@ -45,7 +49,7 @@
                     <td style="padding: 1rem 0; font-weight: 500; color: #0f172a;">{{ $pengajuan->nama_instansi }}</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Email Peserta</th>
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Email Peserta Magang</th>
                     <td style="padding: 1rem 0;"><code style="background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 4px; color: #334155;">{{ $pengajuan->pic_email }}</code></td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
@@ -70,6 +74,18 @@
                         @endif
                     </td>
                 </tr>
+                @if($pengajuan->status === 'rejected' && $pengajuan->keterangan_reject)
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #dc2626; font-weight: 600;">Alasan Penolakan</th>
+                    <td style="padding: 1rem 0; color: #dc2626; font-weight: 500;">{{ $pengajuan->keterangan_reject }}</td>
+                </tr>
+                @endif
+                @if($pengajuan->rekomendasi_instansi)
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #0284c7; font-weight: 600;">Rekomendasi Pengalihan Instansi</th>
+                    <td style="padding: 1rem 0; color: #0284c7; font-weight: 500;">{{ $pengajuan->rekomendasi_instansi }}</td>
+                </tr>
+                @endif
                 @if($pengajuan->file_surat)
                 <tr style="border-bottom: 1px solid #f0f4fa;">
                     <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Surat Permohonan Instansi</th>

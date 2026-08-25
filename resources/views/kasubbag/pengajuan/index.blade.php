@@ -34,7 +34,7 @@
     <div class="table-toolbar">
         <h3><i class="fas fa-list-ul"></i> Berkas Pengajuan Masuk</h3>
         <form action="{{ route('kasubbag.pengajuan.index') }}" method="GET" style="display: flex; gap: 0.5rem;">
-            <input type="text" name="search" class="form-control" placeholder="Cari instansi / PIC..." value="{{ request('search') }}" style="border-radius: 8px; padding: 0.4rem 0.8rem;">
+            <input type="text" name="search" class="form-control" placeholder="Cari instansi / peserta..." value="{{ request('search') }}" style="border-radius: 8px; padding: 0.4rem 0.8rem;">
             <button type="submit" class="action-button" style="padding: 0.4rem 0.8rem;"><i class="fas fa-search"></i></button>
         </form>
     </div>
@@ -99,8 +99,12 @@
                                 <i class="fas fa-eye"></i> Detail
                             </a>
                             @if($p->status === 'approved')
-                                <a href="{{ route('kasubbag.pengajuan.loa', $p) }}" class="edit" style="background: #dcfce7; color: #15803d; padding: 0.35rem 0.6rem;" title="Cetak LoA">
+                                <a href="{{ route('kasubbag.pengajuan.loa', $p) }}" class="edit" style="background: #dcfce7; color: #15803d; padding: 0.35rem 0.6rem;" title="Cetak LoA Penerimaan">
                                     <i class="fas fa-file-pdf"></i> LoA PDF
+                                </a>
+                            @elseif($p->status === 'rejected')
+                                <a href="{{ route('kasubbag.pengajuan.loa', $p) }}" class="edit" style="background: #fee2e2; color: #b91c1c; padding: 0.35rem 0.6rem;" title="Cetak Surat Penolakan">
+                                    <i class="fas fa-file-pdf"></i> Penolakan PDF
                                 </a>
                             @endif
                         </div>

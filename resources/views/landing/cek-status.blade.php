@@ -18,7 +18,7 @@
                 <div class="w-8 h-8 rounded-full overflow-hidden">
                     <img src="{{ asset('images/logo.jpeg') }}" class="w-full h-full object-cover" alt="Logo">
                 </div>
-                <span class="text-white font-bold text-lg">SIPA<span style="color:#F9DC5C">DU</span></span>
+                <span class="text-white font-bold text-lg">SIMAG-DISDIKPROV<span style="color:#F9DC5C"> SUMSEL</span></span>
             </a>
             <a href="{{ route('landing') }}" class="text-white/70 hover:text-white text-sm transition">
                 <i class="fas fa-arrow-left mr-1"></i> Beranda
@@ -34,17 +34,17 @@
                 <i class="fas fa-search"></i> CEK STATUS PENGAJUAN
             </div>
             <h1 class="text-3xl font-bold text-gray-900 mb-2">Status Pengajuan Magang</h1>
-            <p class="text-gray-500 text-sm">Masukkan email PIC yang digunakan saat mengajukan permohonan magang.</p>
+            <p class="text-gray-500 text-sm">Masukkan email peserta magang yang digunakan saat mengajukan permohonan magang.</p>
         </div>
 
         <!-- Form Pencarian -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
             <form action="{{ route('status.cek') }}" method="POST">
                 @csrf
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email PIC <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email Peserta Magang <span class="text-red-500">*</span></label>
                 <div class="flex gap-3">
                     <input type="email" name="email" value="{{ old('email', $email ?? '') }}" required
-                        placeholder="email@instansi.com"
+                        placeholder="email.peserta@gmail.com"
                         class="flex-1 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                     <button type="submit"
                         class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-xl transition text-sm whitespace-nowrap">
@@ -101,7 +101,7 @@
                         <div class="px-6 py-5">
                             <div class="grid grid-cols-2 gap-4 text-sm">
                                 <div>
-                                    <span class="text-gray-400 text-xs uppercase tracking-wide">PIC</span>
+                                    <span class="text-gray-400 text-xs uppercase tracking-wide">Peserta Magang</span>
                                     <p class="font-medium text-gray-800 mt-0.5">{{ $p->pic_nama }}</p>
                                 </div>
                                 <div>
@@ -130,14 +130,14 @@
                             <div class="mt-4 bg-emerald-50 border border-emerald-100 rounded-xl p-4">
                                 <p class="text-emerald-800 text-sm font-medium">
                                     <i class="fas fa-check-circle text-emerald-500 mr-1"></i>
-                                    Pengajuan Anda telah <strong>disetujui</strong> oleh Dinas Pendidikan Provinsi Sumatera Selatan setelah koordinasi dengan Kasubbag Umum dan Kepegawaian (Jurusan Sesuai). Surat balasan telah diterbitkan.
+                                    Pengajuan Anda telah <strong>disetujui</strong> oleh Dinas Pendidikan Provinsi Sumatera Selatan setelah koordinasi dengan Kasubbag Umum dan Kepegawaian (Jurusan Sesuai). Surat balasan penerimaan telah diterbitkan.
                                 </p>
                                 <div class="mt-2 text-emerald-700 text-xs bg-emerald-100/60 p-2.5 rounded-lg border border-emerald-200">
                                     <strong><i class="fas fa-info-circle mr-1"></i> Petunjuk Hari Pertama:</strong> Peserta wajib mengikuti <strong>pembinaan oleh Kasubbag Umum dan Kepegawaian</strong> sebelum penempatan bidang dan pembagian pembimbing oleh atasan bidang.
                                 </div>
                                 <div class="mt-3">
                                     <a href="{{ route('pengajuan.surat_balasan', $p) }}" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-sm">
-                                        <i class="fas fa-file-pdf"></i> Unduh Surat Balasan Resmi (PDF)
+                                        <i class="fas fa-file-pdf"></i> Unduh Surat Balasan Resmi (LoA PDF)
                                     </a>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
                             <div class="mt-4 bg-red-50 border border-red-100 rounded-xl p-4">
                                 <p class="text-red-800 text-sm font-medium mb-1">
                                     <i class="fas fa-times-circle text-red-500 mr-1"></i>
-                                    Pengajuan Anda <strong>tidak dapat diterima di Dinas Pendidikan</strong> karena ketidaksesuaian jurusan dengan kebutuhan dinas.
+                                    Pengajuan Anda <strong>tidak dapat diterima di Dinas Pendidikan</strong> karena keterbatasan kuota / ketidaksesuaian formasi bidang kebutuhan dinas.
                                 </p>
                                 @if($p->keterangan_reject)
                                 <p class="text-red-700 text-sm mt-1"><strong>Alasan / Pertimbangan:</strong> {{ $p->keterangan_reject }}</p>
@@ -159,13 +159,20 @@
                                     <p>Sesuai pertimbangan bidang ilmu peserta, kami menyarankan / mengalihkan permohonan magang ke <strong>{{ $p->rekomendasi_instansi }}</strong>.</p>
                                 </div>
                                 @endif
-                                <p class="text-red-600 text-xs mt-2">Untuk informasi lebih lanjut, silakan hubungi Kasubbag Umum & Kepegawaian / Admin Dinas Pendidikan.</p>
+
+                                <div class="mt-3">
+                                    <a href="{{ route('pengajuan.surat_balasan', $p) }}" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-sm">
+                                        <i class="fas fa-file-pdf"></i> Unduh Surat Balasan Penolakan (PDF)
+                                    </a>
+                                </div>
+
+                                <p class="text-red-600 text-xs mt-3">Untuk informasi lebih lanjut, silakan hubungi Kasubbag Umum & Kepegawaian / Admin Dinas Pendidikan.</p>
                             </div>
                             @else
                             <div class="mt-4 bg-amber-50 border border-amber-100 rounded-xl p-4">
                                 <p class="text-amber-800 text-sm">
                                     <i class="fas fa-clock text-amber-500 mr-1"></i>
-                                    Surat permohonan telah diterima Admin dan sedang dalam proses <strong>koordinasi & verifikasi kesesuaian jurusan bersama Kasubbag Umum dan Kepegawaian</strong> (Estimasi 3–5 hari kerja).
+                                    Surat permohonan telah diterima Admin dan sedang dalam proses <strong>koordinasi & verifikasi kesesuaian jurusan bersama Kasubbag Umum dan Kepegawaian</strong> (Estimasi 1–3 hari kerja).
                                 </p>
                             </div>
                             @endif
@@ -178,8 +185,21 @@
 
     </main>
 
-    <footer class="border-t border-gray-100 py-6 text-center text-gray-400 text-sm mt-8">
-        &copy; {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. Semua hak dilindungi.
+    <footer class="border-t border-gray-100 py-8 text-center text-gray-500 text-sm mt-8 bg-white">
+        <div class="max-w-2xl mx-auto px-4 space-y-3">
+            <div class="flex flex-wrap items-center justify-center gap-6 text-sm">
+                <a href="https://www.instagram.com/disdik_provsumsel?igsi=eTU1dDJweHA2eGR5" target="_blank" class="hover:text-pink-600 transition flex items-center gap-1.5 font-medium">
+                    <i class="fab fa-instagram text-base text-pink-600"></i> @disdik_provsumsel
+                </a>
+                <a href="https://www.youtube.com/@dinaspendidikanprovsumsel" target="_blank" class="hover:text-red-600 transition flex items-center gap-1.5 font-medium">
+                    <i class="fab fa-youtube text-base text-red-600"></i> Dinas Pendidikan Sumsel
+                </a>
+                <a href="mailto:wardik.sumsel@gmail.com" class="hover:text-blue-600 transition flex items-center gap-1.5 font-medium">
+                    <i class="fas fa-envelope text-base text-blue-600"></i> wardik.sumsel@gmail.com
+                </a>
+            </div>
+            <p class="text-xs text-gray-400">&copy; {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. Dinas Pendidikan Provinsi Sumatera Selatan.</p>
+        </div>
     </footer>
 
 </body>

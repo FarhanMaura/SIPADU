@@ -160,12 +160,18 @@ class BlackboxTestingTest extends TestCase
             'status'                => 'pending',
         ]);
 
-        // Pengajuan belum approved -> tidak bisa unduh LoA
+        // Pengajuan belum approved / masih pending -> tidak bisa unduh LoA
         $responsePending = $this->get(route('pengajuan.surat_balasan', $pengajuanPending));
         $responsePending->assertRedirect();
         $responsePending->assertSessionHas('error');
 
-        // Setelah approved -> bisa unduh LoA (PDF generated)
+        // Setelah rejected -> bisa unduh Surat Balasan Penolakan (PDF generated)
+        $pengajuanPending->update(['status' => 'rejected', 'keterangan_reject' => 'Kuota magang penuh']);
+        $responseRejected = $this->get(route('pengajuan.surat_balasan', $pengajuanPending));
+        $responseRejected->assertStatus(200);
+        $responseRejected->assertHeader('content-type', 'application/pdf');
+
+        // Setelah approved -> bisa unduh LoA Penerimaan (PDF generated)
         $pengajuanPending->update(['status' => 'approved']);
         $responseApproved = $this->get(route('pengajuan.surat_balasan', $pengajuanPending));
         $responseApproved->assertStatus(200);
@@ -284,6 +290,11 @@ class BlackboxTestingTest extends TestCase
         $pengajuan->refresh();
         $this->assertEquals('rejected', $pengajuan->status);
         $this->assertEquals('Kuota magang bidang terkait pada periode ini sudah penuh.', $pengajuan->keterangan_reject);
+
+        // Kasubbag dapat mengunduh Surat Penolakan Magang (LoA Penolakan PDF)
+        $responseLoaReject = $this->actingAs($kasubbag)->get(route('kasubbag.pengajuan.loa', $pengajuan));
+        $responseLoaReject->assertStatus(200);
+        $responseLoaReject->assertHeader('content-type', 'application/pdf');
     }
 
     public function test_TC_KSB_04_kasubbag_crud_peserta(): void

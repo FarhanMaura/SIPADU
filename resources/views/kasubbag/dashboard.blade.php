@@ -55,7 +55,7 @@
             <thead>
                 <tr>
                     <th>Instansi / Kampus</th>
-                    <th>PIC & Kontak</th>
+                    <th>Peserta & Kontak</th>
                     <th>Status Verifikasi</th>
                     <th>Aksi</th>
                 </tr>
@@ -76,6 +76,8 @@
                             <a href="{{ route('kasubbag.pengajuan.show', $p->id) }}" class="btn-action btn-detail" title="Detail"><i class="fas fa-eye"></i></a>
                             @if($p->status === 'approved')
                                 <a href="{{ route('kasubbag.pengajuan.loa', $p->id) }}" class="btn-action" style="background: #dcfce7; color: #15803d;" title="Unduh LoA PDF"><i class="fas fa-file-pdf"></i></a>
+                            @elseif($p->status === 'rejected')
+                                <a href="{{ route('kasubbag.pengajuan.loa', $p->id) }}" class="btn-action" style="background: #fee2e2; color: #b91c1c;" title="Unduh Surat Penolakan PDF"><i class="fas fa-file-pdf"></i></a>
                             @endif
                         </div>
                     </td>

@@ -110,13 +110,20 @@ class LandingController extends Controller
         Pengajuan::create($validated);
 
         return redirect()->route('pengajuan.form')
-            ->with('success', 'Pengajuan magang berhasil dikirim! Tim kami akan mengkonfirmasi ke email ' . e($request->pic_email) . ' dalam 3–5 hari kerja.');
+            ->with('success', 'Pengajuan magang berhasil dikirim! Tim kami akan memverifikasi dan mengkonfirmasi ke email ' . e($request->pic_email) . ' dalam 1–3 hari kerja.');
     }
 
     public function downloadSuratBalasan(Pengajuan $pengajuan)
     {
-        if ($pengajuan->status !== 'approved') {
-            return redirect()->back()->with('error', 'Surat balasan belum tersedia untuk pengajuan yang belum disetujui.');
+        if ($pengajuan->status === 'pending') {
+            return redirect()->back()->with('error', 'Surat balasan belum tersedia untuk pengajuan yang masih dalam proses verifikasi.');
+        }
+
+        if ($pengajuan->status === 'rejected') {
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.loa_penolakan_pdf', compact('pengajuan'))
+                ->setPaper('a4', 'portrait');
+
+            return $pdf->download('Surat_Penolakan_Magang_' . str_replace(' ', '_', $pengajuan->nama_instansi) . '.pdf');
         }
 
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('emails.surat_balasan_pdf', compact('pengajuan'))

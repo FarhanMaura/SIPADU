@@ -94,11 +94,20 @@ class PengajuanController extends Controller
 
     public function downloadLoa(Pengajuan $pengajuan)
     {
-        if ($pengajuan->status !== 'approved') {
-            return redirect()->back()->with('error', 'Surat balasan (LoA) hanya tersedia untuk pengajuan yang sudah disetujui.');
+        if ($pengajuan->status === 'pending') {
+            return redirect()->back()->with('error', 'Surat balasan (LoA) belum tersedia untuk pengajuan yang masih berstatus pending.');
         }
 
         $pengajuan->load('pesertas');
+
+        if ($pengajuan->status === 'rejected') {
+            $pdf = Pdf::loadView('pdf.loa_penolakan_pdf', compact('pengajuan'))
+                ->setPaper('a4', 'portrait');
+
+            $filename = 'Surat_Penolakan_Magang_' . str_replace(' ', '_', $pengajuan->nama_instansi) . '.pdf';
+
+            return $pdf->download($filename);
+        }
 
         $pdf = Pdf::loadView('pdf.loa_pdf', compact('pengajuan'))
             ->setPaper('a4', 'portrait');

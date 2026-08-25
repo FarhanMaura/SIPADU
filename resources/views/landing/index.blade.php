@@ -128,7 +128,7 @@
             <div class="ticker-wrap flex-1 overflow-hidden">
                 <span class="ticker-content text-white text-sm">
                     ✦ Penerimaan peserta magang dibuka setiap bulan &nbsp;&nbsp;&nbsp;
-                    ✦ Proses verifikasi pengajuan 3–5 hari kerja &nbsp;&nbsp;&nbsp;
+                    ✦ Proses verifikasi pengajuan 1–3 hari kerja &nbsp;&nbsp;&nbsp;
                     ✦ Peserta yang diterima akan mendapatkan akun portal magang &nbsp;&nbsp;&nbsp;
                     ✦ Hubungi kami untuk informasi lebih lanjut &nbsp;&nbsp;&nbsp;
                 </span>
@@ -197,14 +197,14 @@
                 <!-- Persyaratan (featured, span 3) -->
                 <div class="lg:col-span-3 fade-in">
                     <h2 class="section-title">Berkas & Persyaratan Pengajuan</h2>
-                    <p class="text-gray-600 text-sm mb-4">Pihak sekolah/kampus mengajukan permohonan magang kepada <strong>Dinas Pendidikan Provinsi Sumatera Selatan</strong> dengan mengunggah <strong>Surat Pengantar</strong> yang wajib memuat:</p>
+                    <p class="text-gray-600 text-sm mb-4">Pihak pemohon / instansi sekolah/kampus mengajukan permohonan magang kepada <strong>Dinas Pendidikan Provinsi Sumatera Selatan</strong> dengan mengunggah berkas persyaratan wajib:</p>
                     <ul class="space-y-3">
                         @foreach([
-                            ['Daftar Nama & Jumlah Peserta Magang', 'Data lengkap peserta dari sekolah / perguruan tinggi'],
-                            ['NIM / NIS Peserta', 'Nomor Induk Mahasiswa / Nomor Induk Siswa aktif'],
-                            ['Nomor Kontak Aktif', 'Nomor telepon/HP PIC atau peserta yang dapat dihubungi'],
-                            ['Jadwal Pelaksanaan Magang', 'Tanggal pasti mulai dan selesai magang'],
-                            ['File Daftar Peserta (Excel)', 'Rekapitulasi berkas peserta berformat .xlsx / .xls'],
+                            ['Surat Pengantar / Permohonan Magang', 'Surat resmi dari instansi asal memuat data diri, NIM/NIS, & periode magang'],
+                            ['Transkrip Nilai / Rapor Akademik', 'Bukti capaian akademik terbaru pemohon (PDF / Gambar)'],
+                            ['Surat Pernyataan Komitmen', 'Surat pernyataan bersedia mengikuti program magang hingga selesai'],
+                            ['Nomor Kontak & Email Aktif', 'Nomor HP/WhatsApp & Email aktif peserta magang untuk koordinasi'],
+                            ['File Daftar Peserta (Excel)', 'Rekapitulasi berkas peserta berformat .xlsx / .xls (opsional)'],
                         ] as $req)
                         <li class="info-card flex items-start gap-3 py-3">
                             <i class="fas fa-bullhorn text-navy mt-0.5 flex-shrink-0"></i>
@@ -226,12 +226,12 @@
                     <h2 class="section-title">Proses & Ketentuan</h2>
                     <ul class="space-y-3">
                         @foreach([
-                            ['Verifikasi berkoordinasi dengan Kasubbag Umum dan Kepegawaian'],
-                            ['Pertimbangan diterima berdasarkan kesesuaian jurusan peserta'],
-                            ['Peserta dengan jurusan tidak sesuai dialihkan/disarankan ke instansi yang relevan'],
+                            ['Verifikasi berkas oleh Kasubbag Umum & Kepegawaian (1–3 hari kerja)'],
+                            ['Pertimbangan penerimaan berdasarkan kesesuaian formasi & kuota bidang'],
+                            ['Penerbitan Surat Balasan resmi (LoA Penerimaan / Surat Penolakan)'],
                             ['Hari pertama diawali Pembinaan oleh Kasubbag Umum & Kepegawaian'],
-                            ['Atasan bidang menentukan Pembimbing berdasarkan tugas yang diberikan'],
-                            ['Sertifikat diterbitkan Admin setelah rekap penilaian disetujui Kasubbag'],
+                            ['Penugasan Pembimbing Lapangan di bidang penempatan yang sesuai'],
+                            ['Penerbitan e-Sertifikat & Nilai resmi setelah evaluasi kinerja selesai'],
                         ] as $info)
                         <li class="info-card flex items-center gap-3 py-3">
                             <span class="w-2 h-2 bg-navy rounded-full flex-shrink-0"></span>
@@ -248,7 +248,7 @@
         </div>
     </section>
 
-    <!-- ===== ALUR MAGANG ===== -->
+    <!-- ===== ALUR RESMI MAGANG ===== -->
     <section id="alur" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="fade-in text-center mb-12">
@@ -257,10 +257,10 @@
             </div>
             <div class="grid md:grid-cols-4 gap-6 fade-in">
                 @foreach([
-                    ['01','fa-file-alt','1. Pengajuan Berkas','Sekolah/kampus mengunggah surat pengantar memuat daftar nama, NIM/NIS, nomor kontak, & jadwal magang.'],
-                    ['02','fa-user-check','2. Verifikasi Kasubbag','Admin & Kasubbag Umum Kepegawaian meninjau kesesuaian jurusan. Diterbitkan surat balasan atau arahan pengalihan instansi.'],
-                    ['03','fa-chalkboard-teacher','3. Pembinaan & Penempatan','Hari pertama ikuti pembinaan Kasubbag Umum Kepegawaian. Atasan bidang menentukan pembimbing sesuai tugas.'],
-                    ['04','fa-award','4. Penilaian & Sertifikat','Pembimbing menilai kinerja di bidang. Rekap disampaikan ke Kasubbag, lalu admin menerbitkan Sertifikat Magang.'],
+                    ['01','fa-file-signature','1. Pengajuan Berkas Online','Pemohon mengisi formulir pendaftaran dan mengunggah surat permohonan, transkrip nilai, & surat pernyataan.'],
+                    ['02','fa-user-check','2. Verifikasi & Penerbitan LoA','Kasubbag Umum & Kepegawaian memverifikasi berkas (1–3 hari kerja). Sistem menerbitkan Surat Balasan (LoA / Penolakan).'],
+                    ['03','fa-chalkboard-teacher','3. Pembinaan & Penempatan Bidang','Peserta diterima mengikuti pembinaan awal Kasubbag pada hari pertama, lalu atasan bidang menugaskan Pembimbing Lapangan.'],
+                    ['04','fa-award','4. Pelaksanaan, Penilaian & Sertifikat','Peserta melakukan presensi dan logbook harian, dievaluasi oleh pembimbing, lalu e-Sertifikat resmi diterbitkan.'],
                 ] as $step)
                 <div class="card-hover text-center bg-gray-50 rounded-xl p-6 border border-gray-100 flex flex-col justify-between">
                     <div>
@@ -307,31 +307,43 @@
                         </div>
                         <span class="text-white font-bold text-lg">SIMAG-DISDIKPROV<span class="text-accent"> SUMSEL</span></span>
                     </div>
-                    <p class="text-white/80 text-sm leading-relaxed mb-4">
-                        Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan — platform digital resmi untuk mengelola pendaftaran, penempatan, absensi, dan sertifikasi program magang secara terintegrasi.
+                    <p class="text-white/90 text-sm leading-relaxed mb-4">
+                        Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan — platform digital resmi untuk mengelola pendaftaran, verifikasi, penempatan, absensi logbook, dan sertifikasi program magang secara terintegrasi.
                     </p>
-                    <div class="space-y-2">
-                        <div class="flex items-center gap-2 text-white/80 text-sm">
-                            <i class="fas fa-map-marker-alt w-4"></i>
-                            <span>Jalan Kapten A. Rivai No. 47 Palembang, Sumatera Selatan</span>
+                    <div class="space-y-2.5">
+                        <div class="flex items-center gap-2.5 text-white/90 text-sm">
+                            <i class="fas fa-map-marker-alt w-4 text-accent"></i>
+                            <span>Jalan Kapten A. Rivai No. 47 Palembang, Sumatera Selatan 30126</span>
                         </div>
-                        <div class="flex items-center gap-2 text-white/80 text-sm">
-                            <i class="fas fa-envelope w-4"></i>
-                            <span>disdiksumselprov47@gmail.com</span>
+                        <div class="flex items-center gap-2.5 text-white/90 text-sm">
+                            <i class="fas fa-envelope w-4 text-accent"></i>
+                            <a href="mailto:wardik.sumsel@gmail.com" class="hover:underline">wardik.sumsel@gmail.com</a>
                         </div>
-                        <div class="flex items-center gap-2 text-white/80 text-sm">
-                            <i class="fas fa-phone w-4"></i>
-                            <span>(0711) 354137</span>
+                        <div class="flex items-center gap-2.5 text-white/90 text-sm">
+                            <i class="fas fa-phone w-4 text-accent"></i>
+                            <span>(0711) 354137 – 311089</span>
                         </div>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="flex items-center gap-4 mt-5">
+                        <a href="https://www.instagram.com/disdik_provsumsel?igsi=eTU1dDJweHA2eGR5" target="_blank"
+                            class="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition backdrop-blur-sm">
+                            <i class="fab fa-instagram text-pink-300 text-sm"></i> @disdik_provsumsel
+                        </a>
+                        <a href="https://www.youtube.com/@dinaspendidikanprovsumsel" target="_blank"
+                            class="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition backdrop-blur-sm">
+                            <i class="fab fa-youtube text-red-300 text-sm"></i> Dinas Pendidikan Sumsel
+                        </a>
                     </div>
                 </div>
 
                 <!-- Kolom 2: Layanan -->
                 <div>
-                    <h6 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Layanan</h6>
+                    <h6 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Layanan Portal</h6>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('pengajuan.form') }}" class="text-white/80 text-sm hover-glow transition">Ajukan Magang</a></li>
-                        <li><a href="{{ route('status.form') }}" class="text-white/80 text-sm hover-glow transition">Cek Status Pengajuan</a></li>
+                        <li><a href="{{ route('pengajuan.form') }}" class="text-white/80 text-sm hover-glow transition">Ajukan Magang Mandiri</a></li>
+                        <li><a href="{{ route('status.form') }}" class="text-white/80 text-sm hover-glow transition">Cek Status & Unduh LoA</a></li>
                         <li><a href="{{ route('login') }}" class="text-white/80 text-sm hover-glow transition">Login Portal Peserta</a></li>
                         <li><a href="{{ route('login') }}" class="text-white/80 text-sm hover-glow transition">Login Portal Pembimbing</a></li>
                     </ul>
@@ -339,16 +351,18 @@
 
                 <!-- Kolom 3: Informasi -->
                 <div>
-                    <h6 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Informasi</h6>
+                    <h6 class="text-white font-bold text-sm mb-4 uppercase tracking-wider">Informasi & Bantuan</h6>
                     <ul class="space-y-2">
                         <li><a href="#tentang" class="text-white/80 text-sm hover-glow transition">Tentang Program</a></li>
-                        <li><a href="#persyaratan" class="text-white/80 text-sm hover-glow transition">Persyaratan</a></li>
-                        <li><a href="#alur" class="text-white/80 text-sm hover-glow transition">Alur Magang</a></li>
+                        <li><a href="#persyaratan" class="text-white/80 text-sm hover-glow transition">Berkas & Persyaratan</a></li>
+                        <li><a href="#alur" class="text-white/80 text-sm hover-glow transition">Alur Resmi Magang</a></li>
+                        <li><a href="https://www.instagram.com/disdik_provsumsel?igsi=eTU1dDJweHA2eGR5" target="_blank" class="text-white/80 text-sm hover-glow transition">Instagram Resmi</a></li>
+                        <li><a href="https://www.youtube.com/@dinaspendidikanprovsumsel" target="_blank" class="text-white/80 text-sm hover-glow transition">YouTube Resmi</a></li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-white/20 mt-8 pt-6 text-center">
-                <p class="text-white/60 text-xs">&copy; {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. Sistem Informasi Magang Dinas Pendidikan Sumatera Selatan.</p>
+                <p class="text-white/80 text-xs">&copy; {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. Sistem Informasi Magang Dinas Pendidikan Provinsi Sumatera Selatan.</p>
             </div>
         </div>
     </footer>

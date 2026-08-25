@@ -18,7 +18,7 @@
                 <div class="w-8 h-8 rounded-full overflow-hidden">
                     <img src="{{ asset('images/logo.jpeg') }}" class="w-full h-full object-cover" alt="Logo">
                 </div>
-                <span class="text-white font-bold text-lg">SIPA<span style="color:#F9DC5C">DU</span></span>
+                <span class="text-white font-bold text-lg">SIMAG-DISDIKPROV<span style="color:#F9DC5C"> SUMSEL</span></span>
             </a>
             <a href="{{ route('landing') }}" class="text-white/70 hover:text-white text-sm transition">
                 <i class="fas fa-arrow-left mr-1"></i> Beranda
@@ -64,12 +64,12 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
                 <h2 class="font-semibold text-gray-900 mb-5 flex items-center gap-2">
                     <span class="w-6 h-6 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center font-bold">1</span>
-                    Data Diri Peserta (Pemohon)
+                    Data Diri Peserta Magang (Pemohon)
                 </h2>
                 <div class="space-y-4">
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Nama Lengkap Peserta <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Nama Lengkap Peserta Magang <span class="text-red-500">*</span></label>
                             <input type="text" name="pic_nama" value="{{ old('pic_nama') }}" required placeholder="Contoh: Ahmad Rizki"
                                 class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                         </div>
@@ -106,7 +106,7 @@
 
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Email Aktif Peserta <span class="text-red-500">*</span></label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1.5">Email Peserta Magang <span class="text-red-500">*</span></label>
                             <input type="email" name="pic_email" value="{{ old('pic_email') }}" required placeholder="email.peserta@gmail.com"
                                 class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
                         </div>
@@ -185,8 +185,21 @@
         </form>
     </main>
 
-    <footer class="border-t border-gray-100 py-6 text-center text-gray-400 text-sm mt-8">
-        &copy; {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. Semua hak dilindungi.
+    <footer class="border-t border-gray-100 py-8 text-center text-gray-500 text-sm mt-8 bg-white">
+        <div class="max-w-2xl mx-auto px-4 space-y-3">
+            <div class="flex flex-wrap items-center justify-center gap-6 text-sm">
+                <a href="https://www.instagram.com/disdik_provsumsel?igsi=eTU1dDJweHA2eGR5" target="_blank" class="hover:text-pink-600 transition flex items-center gap-1.5 font-medium">
+                    <i class="fab fa-instagram text-base text-pink-600"></i> @disdik_provsumsel
+                </a>
+                <a href="https://www.youtube.com/@dinaspendidikanprovsumsel" target="_blank" class="hover:text-red-600 transition flex items-center gap-1.5 font-medium">
+                    <i class="fab fa-youtube text-base text-red-600"></i> Dinas Pendidikan Sumsel
+                </a>
+                <a href="mailto:wardik.sumsel@gmail.com" class="hover:text-blue-600 transition flex items-center gap-1.5 font-medium">
+                    <i class="fas fa-envelope text-base text-blue-600"></i> wardik.sumsel@gmail.com
+                </a>
+            </div>
+            <p class="text-xs text-gray-400">&copy; {{ date('Y') }} SIMAG-DISDIKPROV SUMSEL. Dinas Pendidikan Provinsi Sumatera Selatan.</p>
+        </div>
     </footer>
 </body>
 </html>
