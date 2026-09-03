@@ -30,31 +30,31 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
                 <div class="form-group">
                     <label style="font-weight: 600;">1. Kedisiplinan <span class="text-danger">*</span></label>
-                    <input type="number" name="kedisiplinan" class="form-control" value="{{ old('kedisiplinan', $penilaian->kedisiplinan ?? 88) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
+                    <input type="number" name="kedisiplinan" class="form-control" value="{{ old('kedisiplinan', $penilaian->kedisiplinan ?? 0) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
                 </div>
                 <div class="form-group">
                     <label style="font-weight: 600;">2. Kerapian <span class="text-danger">*</span></label>
-                    <input type="number" name="kerapian" class="form-control" value="{{ old('kerapian', $penilaian->kerapian ?? 88) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
+                    <input type="number" name="kerapian" class="form-control" value="{{ old('kerapian', $penilaian->kerapian ?? 0) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
                 </div>
                 <div class="form-group">
                     <label style="font-weight: 600;">3. Kebersihan <span class="text-danger">*</span></label>
-                    <input type="number" name="kebersihan" class="form-control" value="{{ old('kebersihan', $penilaian->kebersihan ?? 85) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
+                    <input type="number" name="kebersihan" class="form-control" value="{{ old('kebersihan', $penilaian->kebersihan ?? 0) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
                 </div>
                 <div class="form-group">
                     <label style="font-weight: 600;">4. Tanggung Jawab <span class="text-danger">*</span></label>
-                    <input type="number" name="tanggung_jawab" class="form-control" value="{{ old('tanggung_jawab', $penilaian->tanggung_jawab ?? 92) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
+                    <input type="number" name="tanggung_jawab" class="form-control" value="{{ old('tanggung_jawab', $penilaian->tanggung_jawab ?? 0) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
                 </div>
                 <div class="form-group">
                     <label style="font-weight: 600;">5. Kerjasama <span class="text-danger">*</span></label>
-                    <input type="number" name="kerjasama" class="form-control" value="{{ old('kerjasama', $penilaian->kerjasama ?? 89) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
+                    <input type="number" name="kerjasama" class="form-control" value="{{ old('kerjasama', $penilaian->kerjasama ?? 0) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
                 </div>
                 <div class="form-group">
                     <label style="font-weight: 600;">6. Kreativitas <span class="text-danger">*</span></label>
-                    <input type="number" name="kreativitas" class="form-control" value="{{ old('kreativitas', $penilaian->kreativitas ?? 87) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
+                    <input type="number" name="kreativitas" class="form-control" value="{{ old('kreativitas', $penilaian->kreativitas ?? 0) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
                 </div>
                 <div class="form-group" style="grid-column: span 2;">
                     <label style="font-weight: 600;">7. Kejujuran <span class="text-danger">*</span></label>
-                    <input type="number" name="kejujuran" class="form-control" value="{{ old('kejujuran', $penilaian->kejujuran ?? 90) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
+                    <input type="number" name="kejujuran" class="form-control" value="{{ old('kejujuran', $penilaian->kejujuran ?? 0) }}" min="0" max="100" step="1" required style="border-radius: 8px;">
                 </div>
             </div>
 

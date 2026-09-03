@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Admin\BidangController;
 use App\Http\Controllers\Admin\PembimbingController;
+use App\Http\Controllers\Admin\PesertaController as AdminPesertaController;
 use App\Http\Controllers\Admin\InstansiController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PenentuanPembimbingController;
@@ -54,7 +55,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Master Data
     Route::resource('bidang', BidangController::class);
     Route::resource('pembimbing', PembimbingController::class);
-    Route::resource('instansi', InstansiController::class);
+    Route::resource('peserta', AdminPesertaController::class);
+    Route::patch('peserta/{peserta}/toggle-status', [AdminPesertaController::class, 'toggleStatus'])->name('peserta.toggle_status');
+    Route::post('peserta/import', [AdminPesertaController::class, 'import'])->name('peserta.import');
+    Route::get('peserta/{peserta}/penempatan', [AdminPesertaController::class, 'penempatan'])->name('peserta.penempatan');
+    Route::put('peserta/{peserta}/penempatan', [AdminPesertaController::class, 'savePenempatan'])->name('peserta.savePenempatan');
+    Route::get('instansi', fn() => redirect()->route('admin.peserta.index'))->name('instansi.index');
+    Route::resource('instansi', InstansiController::class)->except(['index']);
     Route::resource('user', UserController::class)->except(['show']);
 
     // Penentuan Pembimbing

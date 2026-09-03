@@ -61,6 +61,13 @@
                 <label>Tanggal Selesai</label>
                 <input type="date" name="tgl_selesai" class="form-control" value="{{ old('tgl_selesai') }}">
             </div>
+            <div class="form-group">
+                <label>Status Magang</label>
+                <select name="status" class="form-control">
+                    <option value="aktif" {{ old('status', 'aktif') === 'aktif' ? 'selected' : '' }}>🟢 Sedang Magang (Aktif)</option>
+                    <option value="selesai" {{ old('status') === 'selesai' ? 'selected' : '' }}>⚪ Selesai Magang</option>
+                </select>
+            </div>
             <hr>
             <div class="mb-3">
                 <h5 class="mb-1">Akun Login Peserta (Opsional)</h5>

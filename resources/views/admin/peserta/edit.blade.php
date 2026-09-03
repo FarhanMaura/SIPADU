@@ -62,10 +62,10 @@
                 <input type="date" name="tgl_selesai" class="form-control" value="{{ old('tgl_selesai', $peserta->tgl_selesai?->format('Y-m-d')) }}">
             </div>
             <div class="form-group">
-                <label>Status</label>
+                <label>Status Magang</label>
                 <select name="status" class="form-control">
-                    <option value="aktif" {{ old('status', $peserta->status) === 'aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="selesai" {{ old('status', $peserta->status) === 'selesai' ? 'selected' : '' }}>Selesai</option>
+                    <option value="aktif" {{ old('status', $peserta->status) === 'aktif' ? 'selected' : '' }}>🟢 Sedang Magang (Aktif)</option>
+                    <option value="selesai" {{ old('status', $peserta->status) === 'selesai' ? 'selected' : '' }}>⚪ Selesai Magang</option>
                 </select>
             </div>
         </div>

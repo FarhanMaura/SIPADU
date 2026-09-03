@@ -64,7 +64,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
                 <h2 class="font-semibold text-gray-900 mb-5 flex items-center gap-2">
                     <span class="w-6 h-6 bg-blue-600 text-white rounded-full text-xs flex items-center justify-center font-bold">1</span>
-                    Data Diri Peserta Magang (Pemohon)
+                    Data Diri Calon Peserta Magang (Pemohon)
                 </h2>
                 <div class="space-y-4">
                     <div class="grid md:grid-cols-2 gap-4">

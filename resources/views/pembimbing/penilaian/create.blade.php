@@ -29,31 +29,31 @@
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
         <div class="form-group">
             <label>Kedisiplinan</label>
-            <input type="number" name="kedisiplinan" class="form-control" value="{{ old('kedisiplinan', 85) }}" min="0" max="100" step="1">
+            <input type="number" name="kedisiplinan" class="form-control" value="{{ old('kedisiplinan', 0) }}" min="0" max="100" step="1">
         </div>
         <div class="form-group">
             <label>Kerapian</label>
-            <input type="number" name="kerapian" class="form-control" value="{{ old('kerapian', 85) }}" min="0" max="100" step="1">
+            <input type="number" name="kerapian" class="form-control" value="{{ old('kerapian', 0) }}" min="0" max="100" step="1">
         </div>
         <div class="form-group">
             <label>Kebersihan</label>
-            <input type="number" name="kebersihan" class="form-control" value="{{ old('kebersihan', 85) }}" min="0" max="100" step="1">
+            <input type="number" name="kebersihan" class="form-control" value="{{ old('kebersihan', 0) }}" min="0" max="100" step="1">
         </div>
         <div class="form-group">
             <label>Tanggung Jawab</label>
-            <input type="number" name="tanggung_jawab" class="form-control" value="{{ old('tanggung_jawab', 85) }}" min="0" max="100" step="1">
+            <input type="number" name="tanggung_jawab" class="form-control" value="{{ old('tanggung_jawab', 0) }}" min="0" max="100" step="1">
         </div>
         <div class="form-group">
             <label>Kerjasama</label>
-            <input type="number" name="kerjasama" class="form-control" value="{{ old('kerjasama', 85) }}" min="0" max="100" step="1">
+            <input type="number" name="kerjasama" class="form-control" value="{{ old('kerjasama', 0) }}" min="0" max="100" step="1">
         </div>
         <div class="form-group">
             <label>Kreativitas</label>
-            <input type="number" name="kreativitas" class="form-control" value="{{ old('kreativitas', 85) }}" min="0" max="100" step="1">
+            <input type="number" name="kreativitas" class="form-control" value="{{ old('kreativitas', 0) }}" min="0" max="100" step="1">
         </div>
         <div class="form-group" style="grid-column: span 2;">
             <label>Kejujuran</label>
-            <input type="number" name="kejujuran" class="form-control" value="{{ old('kejujuran', 85) }}" min="0" max="100" step="1">
+            <input type="number" name="kejujuran" class="form-control" value="{{ old('kejujuran', 0) }}" min="0" max="100" step="1">
         </div>
     </div>
 

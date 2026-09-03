@@ -45,7 +45,7 @@
             <!-- Role Admin Sidebar Menu -->
             @if(auth()->user()->role === \App\Models\User::ROLE_ADMIN)
                 <div class="nav-label">MASTER DATA</div>
-                <div class="nav-item {{ Request::is('admin/bidang*') || Request::is('admin/pembimbing*') || Request::is('admin/instansi*') ? 'active' : '' }}">
+                <div class="nav-item {{ Request::is('admin/bidang*') || Request::is('admin/pembimbing*') || Request::is('admin/peserta*') || Request::is('admin/instansi*') ? 'active' : '' }}">
                     <i class="fas fa-layer-group"></i> Data Master
                 </div>
                 <div class="sub-nav">
@@ -55,8 +55,8 @@
                     <a href="{{ route('admin.pembimbing.index') }}" class="nav-item {{ Request::is('admin/pembimbing*') ? 'active' : '' }}">
                         Pembimbing
                     </a>
-                    <a href="{{ route('admin.instansi.index') }}" class="nav-item {{ Request::is('admin/instansi*') ? 'active' : '' }}">
-                        Instansi
+                    <a href="{{ route('admin.peserta.index') }}" class="nav-item {{ Request::is('admin/peserta*') || Request::is('admin/instansi*') ? 'active' : '' }}">
+                        Peserta Magang
                     </a>
                 </div>
 

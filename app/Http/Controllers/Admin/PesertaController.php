@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bidang;
+use App\Models\Instansi;
 use App\Models\Pembimbing;
 use App\Models\Peserta;
 use App\Models\Pengajuan;
@@ -20,6 +21,17 @@ class PesertaController extends Controller
     {
         $query = Peserta::with(['instansi', 'bidang', 'pembimbing']);
 
+        // Filter berdasarkan Instansi Asal
+        if ($instansiId = $request->input('instansi_id')) {
+            $query->where('instansi_id', $instansiId);
+        }
+
+        // Filter berdasarkan Status Magang (aktif / sedang magang, selesai)
+        if ($status = $request->input('status')) {
+            $query->where('status', $status);
+        }
+
+        // Filter Pencarian
         if ($search = $request->input('search')) {
             $searchSanitized = str_replace(['%', '_'], ['\%', '\_'], $search);
             $query->where(function ($q) use ($searchSanitized) {
@@ -30,10 +42,25 @@ class PesertaController extends Controller
             });
         }
 
-        $pesertas   = $query->paginate(15)->appends($request->query());
-        $pengajuans = Pengajuan::where('status', 'approved')->get();
+        $pesertas      = $query->latest()->paginate(15)->appends($request->query());
+        $instansis     = Instansi::orderBy('nama')->get();
+        $pengajuans    = Pengajuan::where('status', 'approved')->get();
 
-        return view('admin.peserta.index', compact('pesertas', 'pengajuans'));
+        // Statistik ringkasan
+        $totalPeserta  = Peserta::count();
+        $totalAktif    = Peserta::where('status', 'aktif')->count();
+        $totalSelesai  = Peserta::where('status', 'selesai')->count();
+        $totalInstansi = Instansi::count();
+
+        return view('admin.peserta.index', compact(
+            'pesertas',
+            'instansis',
+            'pengajuans',
+            'totalPeserta',
+            'totalAktif',
+            'totalSelesai',
+            'totalInstansi'
+        ));
     }
 
     public function show(Peserta $peserta): View
@@ -171,6 +198,17 @@ class PesertaController extends Controller
 
         return redirect()->route('admin.peserta.index')
             ->with('success', 'Data peserta berhasil diperbarui.');
+    }
+
+    public function toggleStatus(Peserta $peserta): RedirectResponse
+    {
+        $newStatus = ($peserta->status === 'aktif') ? 'selesai' : 'aktif';
+        $peserta->update(['status' => $newStatus]);
+
+        $statusText = ($newStatus === 'selesai') ? 'Selesai Magang' : 'Sedang Magang (Aktif)';
+
+        return redirect()->back()
+            ->with('success', "Status peserta '{$peserta->nama}' berhasil diubah menjadi: {$statusText}.");
     }
 
     public function destroy(Peserta $peserta): RedirectResponse
