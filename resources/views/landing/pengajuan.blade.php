@@ -34,6 +34,9 @@
             </div>
             <h1 class="text-3xl font-bold text-gray-900 mb-2">Permohonan Magang Dinas Pendidikan Prov. Sumsel</h1>
             <p class="text-gray-500 text-sm max-w-xl mx-auto">Pengajuan permohonan magang mandiri oleh peserta didik/mahasiswa kepada Dinas Pendidikan Provinsi Sumatera Selatan. Pastikan seluruh berkas kelengkapan diunggah dengan benar.</p>
+            <div class="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-800 text-xs px-4 py-2 rounded-xl">
+                <i class="fas fa-id-badge mr-1 text-blue-600"></i> Ingin mendaftar magang sekaligus membuat akun login portal? <a href="{{ route('register') }}" class="font-bold underline text-blue-700 hover:text-blue-900">Klik di sini untuk Registrasi Akun Mandiri</a>
+            </div>
         </div>
 
         @if(session('success'))

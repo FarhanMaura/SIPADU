@@ -14,19 +14,98 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <style>
-        .login-container {
-            max-width: 520px;
-        }
-
-        /* Custom Searchable Dropdown Styling */
-        .custom-select-container {
+        .register-container {
+            background: white;
+            border-radius: 32px;
+            padding: 2.5rem 3rem;
+            max-width: 820px;
+            width: 100%;
+            box-shadow: 0 25px 60px -15px rgba(0, 20, 30, 0.25), 0 4px 18px rgba(0, 0, 0, 0.04);
             position: relative;
-            width: 100%;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            margin: 2rem auto;
+            transition: all 0.3s ease;
         }
 
-        .custom-select-trigger {
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1.75rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .section-header .step-badge {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.88rem;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+        }
+
+        .section-header h2 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .register-container {
+                padding: 1.75rem 1.5rem;
+                border-radius: 24px;
+            }
+            .form-grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .upload-card {
+            border: 2px dashed #cbd5e1;
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            background: #f8fafc;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .upload-card:hover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .upload-card input[type="file"] {
+            font-size: 0.85rem;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .upload-card .upload-hint {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .select-field {
             width: 100%;
-            padding: 0.85rem 2.8rem 0.85rem 2.8rem;
+            padding: 0.85rem 1.2rem;
             border: 1.5px solid #e9edf2;
             border-radius: 14px;
             font-size: 0.95rem;
@@ -34,360 +113,178 @@
             background: #fafcff;
             transition: all 0.2s ease;
             color: #0f172a;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            user-select: none;
-            box-sizing: border-box;
-        }
-
-        .custom-select-trigger:hover {
-            border-color: #cbd5e1;
-            background: #ffffff;
-        }
-
-        .custom-select-container.open .custom-select-trigger,
-        .custom-select-trigger:focus {
             outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
-            background: #ffffff;
-        }
-
-        .custom-select-container.invalid .custom-select-trigger {
-            border-color: #dc2626 !important;
-            background: #fef2f2 !important;
-        }
-
-        .select-icon-left {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 1rem;
-            pointer-events: none;
-            transition: color 0.2s ease;
-        }
-
-        .custom-select-container.open .select-icon-left {
-            color: #2563eb;
-        }
-
-        .select-caret-right {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 0.85rem;
-            pointer-events: none;
-            transition: transform 0.25s ease, color 0.2s ease;
-        }
-
-        .custom-select-container.open .select-caret-right {
-            transform: translateY(-50%) rotate(180deg);
-            color: #2563eb;
-        }
-
-        .selected-text-wrap {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            width: 100%;
-            font-size: 0.92rem;
-        }
-
-        .selected-text-wrap.placeholder {
-            color: #94a3b8;
-        }
-
-        /* Dropdown Panel */
-        .custom-dropdown-panel {
-            position: absolute;
-            top: calc(100% + 6px);
-            left: 0;
-            right: 0;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 16px 40px -10px rgba(15, 23, 42, 0.2), 0 2px 10px rgba(0,0,0,0.04);
-            border: 1px solid #e2e8f0;
-            z-index: 999;
-            overflow: hidden;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-8px);
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .custom-select-container.open .custom-dropdown-panel {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        /* Search input inside panel */
-        .search-box-wrap {
-            padding: 0.75rem;
-            border-bottom: 1px solid #f1f5f9;
-            background: #f8fafc;
-            position: relative;
-        }
-
-        .search-box-wrap i {
-            position: absolute;
-            left: 1.4rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 0.85rem;
-        }
-
-        .search-box-wrap input {
-            width: 100%;
-            padding: 0.55rem 0.75rem 0.55rem 2.2rem !important;
-            border: 1px solid #cbd5e1 !important;
-            border-radius: 10px !important;
-            font-size: 0.88rem !important;
-            background: #ffffff !important;
-            box-shadow: none !important;
-        }
-
-        .search-box-wrap input:focus {
-            border-color: #2563eb !important;
-        }
-
-        /* Options list */
-        .options-list {
-            max-height: 220px;
-            overflow-y: auto;
-            padding: 0.35rem;
-            margin: 0;
-            list-style: none;
-        }
-
-        .options-list::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .options-list::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-
-        .options-list::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-
-        .option-item {
-            padding: 0.65rem 0.85rem;
-            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.15s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            border-left: 3px solid transparent;
         }
 
-        .option-item:hover,
-        .option-item.highlighted {
-            background: #eff6ff;
-            border-left-color: #2563eb;
+        .select-field:focus {
+            border-color: #2563eb;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
         }
 
-        .option-item.selected {
-            background: #dbeafe;
-            border-left-color: #1d4ed8;
-        }
-
-        .option-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #0f172a;
-        }
-
-        .option-meta {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.78rem;
-            color: #64748b;
-            flex-wrap: wrap;
-        }
-
-        .badge-chip {
-            background: #e2e8f0;
-            color: #334155;
-            padding: 0.1rem 0.45rem;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 0.75rem;
-        }
-
-        .badge-instansi {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-
-        .no-results {
-            padding: 1rem;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.85rem;
-        }
-
-        /* Info & Warning boxes */
-        .info-box {
+        .info-pill {
             background: #eff6ff;
             border: 1px solid #bfdbfe;
-            color: #1e40af;
-            padding: 0.85rem 1rem;
-            border-radius: 14px;
-            font-size: 0.85rem;
-            margin-top: 1rem;
-            line-height: 1.4;
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
             display: flex;
-            gap: 0.6rem;
             align-items: flex-start;
-        }
-        .info-box i {
-            margin-top: 0.15rem;
-            font-size: 1rem;
-            color: #2563eb;
-        }
-        .warning-box {
-            background: #fffbe6;
-            border: 1px solid #ffe58f;
-            color: #8c6b00;
-            padding: 1rem;
-            border-radius: 14px;
-            font-size: 0.88rem;
-            margin-top: 1.2rem;
-            line-height: 1.5;
-            display: flex;
             gap: 0.75rem;
-            align-items: flex-start;
+            margin-top: 1.25rem;
+            margin-bottom: 1.5rem;
         }
-        .warning-box i {
+
+        .info-pill i {
+            color: #2563eb;
+            font-size: 1.15rem;
             margin-top: 0.15rem;
-            font-size: 1.1rem;
-            color: #faad14;
+        }
+
+        .info-pill-content {
+            font-size: 0.86rem;
+            color: #1e40af;
+            line-height: 1.5;
+        }
+
+        .info-pill-content strong {
+            color: #1e3a8a;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="login-container">
-        <!-- Logo -->
-        <div class="logo-area">
-            <div class="logo-icon" style="background:transparent; box-shadow:none; padding:0; width:52px; height:52px;">
-                <img src="{{ asset('images/logo.jpeg') }}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" alt="Logo">
+    <div class="register-container">
+        <!-- Logo & Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div class="logo-area" style="margin-bottom: 0;">
+                <div class="logo-icon" style="background:transparent; box-shadow:none; padding:0; width:50px; height:50px;">
+                    <img src="{{ asset('images/logo.jpeg') }}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" alt="Logo">
+                </div>
+                <div class="logo-text" style="font-size: 1.45rem;">SIMAG-DISDIKPROV<span>SUMSEL</span></div>
             </div>
-            <div class="logo-text">SIPA<span>DU</span></div>
+            <a href="{{ route('landing') }}" style="color: #64748b; font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; font-weight: 500;">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </a>
         </div>
 
         <!-- Title -->
-        <div class="login-title">
-            <h1>Registrasi Akun Peserta</h1>
-            <p>Pilih data diri Anda yang telah disetujui Kasubbag untuk membuat akun</p>
+        <div class="login-title" style="margin-top: 1.25rem;">
+            <h1 style="font-size: 1.75rem; font-weight: 800; color: #0f172a;">Pendaftaran Peserta Magang Mandiri</h1>
+            <p style="color: #64748b; font-size: 0.92rem; margin-top: 0.25rem;">
+                Daftarkan diri Anda dan buat akun portal. Data pengajuan akan diverifikasi oleh Kasubbag Umum & Kepegawaian sebelum akun diaktifkan.
+            </p>
         </div>
 
-        <!-- Error Messages -->
+        <!-- Notice Banner -->
+        <div class="info-pill">
+            <i class="fas fa-shield-alt"></i>
+            <div class="info-pill-content">
+                <strong>Alur Verifikasi:</strong> Setelah mengisi pendaftaran, akun Anda akan berstatus <strong>PENDING</strong>. Kasubbag akan meninjau berkas permohonan Anda. Setelah disetujui, Anda dapat login ke sistem dan surat balasan (LoA resmi) akan otomatis diterbitkan serta dikirimkan ke <strong>WhatsApp & Email</strong> Anda.
+            </div>
+        </div>
+
+        <!-- Validation Errors -->
         @if ($errors->any())
-            <div class="error-msg">
+            <div class="error-msg" style="margin-bottom: 1.25rem;">
                 <i class="fas fa-exclamation-circle"></i>
-                <span>{{ $errors->first() }}</span>
+                <div style="display: flex; flex-direction: column; gap: 0.2rem;">
+                    <strong>Terdapat kesalahan pengisian formulir:</strong>
+                    <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.84rem;">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         @endif
 
-        @if($pesertas->isEmpty())
-            <div class="warning-box">
-                <i class="fas fa-exclamation-triangle"></i>
-                <div>
-                    <strong>Belum Ada Data Peserta Disetujui</strong><br>
-                    Data peserta Anda belum diinput atau disetujui oleh Kasubbag. Silakan pastikan pengajuan magang Anda sudah dikonfirmasi oleh Kasubbag.
-                </div>
-            </div>
-            <div class="signup-link" style="margin-top: 1.5rem;">
-                Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
-            </div>
-        @else
-            <!-- Info Box -->
-            <div class="info-box">
-                <i class="fas fa-info-circle"></i>
-                <div>
-                    Data pada pilihan bersumber dari pengajuan magang yang telah <strong>disetujui oleh Kasubbag</strong>.
-                </div>
+        <!-- Registration Form -->
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" id="formRegister">
+            @csrf
+
+            <!-- BAGIAN 1: DATA DIRI & AKUN LOGIN -->
+            <div class="section-header">
+                <div class="step-badge">1</div>
+                <h2>Data Diri Peserta & Akun Login</h2>
             </div>
 
-            <!-- Form -->
-            <form method="POST" action="{{ route('register') }}" id="registerForm">
-                @csrf
-
-                <!-- Hidden Input for Form Submission -->
-                <input type="hidden" name="peserta_id" id="peserta_id" value="{{ old('peserta_id') }}" required />
-
-                <!-- Custom Searchable Select Component -->
+            <div class="form-grid-2">
+                <!-- Nama Lengkap -->
                 <div class="form-group">
-                    <label>Pilih Data Peserta Magang <span style="color: #dc2626;">*</span></label>
-                    
-                    <div class="custom-select-container {{ $errors->has('peserta_id') ? 'invalid' : '' }}" id="customSelect">
-                        <i class="fas fa-id-card select-icon-left"></i>
-                        <div class="custom-select-trigger" tabindex="0">
-                            <span class="selected-text-wrap placeholder" id="selectedText">-- Pilih Data Peserta Anda --</span>
-                        </div>
-                        <i class="fas fa-chevron-down select-caret-right"></i>
-
-                        <!-- Panel Dropdown -->
-                        <div class="custom-dropdown-panel">
-                            <div class="search-box-wrap">
-                                <i class="fas fa-search"></i>
-                                <input type="text" id="searchInput" placeholder="Cari nama, NIM, atau sekolah/kampus..." autocomplete="off" />
-                            </div>
-                            <ul class="options-list" id="optionsList">
-                                @foreach($pesertas as $p)
-                                    @php
-                                        $instansiNama = $p->instansi?->nama ?? $p->pengajuan?->nama_instansi ?? 'Instansi N/A';
-                                        $identifier = $p->nim_nisn ? $p->nim_nisn : 'Tanpa NIM/NISN';
-                                        $displayText = $p->nama . ' (' . $identifier . ') - ' . $instansiNama;
-                                    @endphp
-                                    <li class="option-item" 
-                                        data-id="{{ $p->id }}" 
-                                        data-name="{{ $p->nama }}"
-                                        data-nisn="{{ $identifier }}"
-                                        data-instansi="{{ $instansiNama }}"
-                                        data-search="{{ strtolower($p->nama . ' ' . $identifier . ' ' . $instansiNama) }}">
-                                        <div class="option-name">{{ $p->nama }}</div>
-                                        <div class="option-meta">
-                                            <span class="badge-chip"><i class="fas fa-id-badge" style="font-size:0.7rem; margin-right:2px;"></i> {{ $identifier }}</span>
-                                            <span class="badge-chip badge-instansi"><i class="fas fa-building" style="font-size:0.7rem; margin-right:2px;"></i> {{ $instansiNama }}</span>
-                                        </div>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <div class="no-results" id="noResults" style="display: none;">
-                                <i class="fas fa-search-minus" style="font-size: 1.2rem; margin-bottom: 0.3rem; display: block;"></i>
-                                Data tidak ditemukan
-                            </div>
-                        </div>
+                    <label for="nama">Nama Lengkap Peserta <span style="color: #dc2626;">*</span></label>
+                    <div class="input-wrap">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="nama" name="nama" value="{{ old('nama') }}" required placeholder="Contoh: Muhammad Ilham" class="{{ $errors->has('nama') ? 'invalid-input' : '' }}" />
                     </div>
                 </div>
 
-                <!-- Email -->
+                <!-- NIM / NIS / NISN -->
                 <div class="form-group">
-                    <label for="email">Alamat Email <span style="color: #dc2626;">*</span></label>
+                    <label for="nim_nisn">NIM / NIS / NISN <span style="color: #dc2626;">*</span></label>
+                    <div class="input-wrap">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="nim_nisn" name="nim_nisn" value="{{ old('nim_nisn') }}" required placeholder="Nomor Induk Mahasiswa/Siswa" class="{{ $errors->has('nim_nisn') ? 'invalid-input' : '' }}" />
+                    </div>
+                </div>
+
+                <!-- Kategori Peserta -->
+                <div class="form-group">
+                    <label for="jenis_peserta">Kategori Peserta <span style="color: #dc2626;">*</span></label>
+                    <select id="jenis_peserta" name="jenis_peserta" required class="select-field {{ $errors->has('jenis_peserta') ? 'invalid-input' : '' }}">
+                        <option value="" disabled {{ old('jenis_peserta') ? '' : 'selected' }}>-- Pilih Kategori --</option>
+                        <option value="Mahasiswa" {{ old('jenis_peserta') == 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa (Perguruan Tinggi)</option>
+                        <option value="Siswa (SMA/SMK)" {{ old('jenis_peserta') == 'Siswa (SMA/SMK)' ? 'selected' : '' }}>Siswa (SMA / SMK / MA)</option>
+                        <option value="Lainnya" {{ old('jenis_peserta') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                    </select>
+                </div>
+
+                <!-- Jurusan / Prodi -->
+                <div class="form-group">
+                    <label for="jurusan">Jurusan / Program Studi <span style="color: #dc2626;">*</span></label>
+                    <div class="input-wrap">
+                        <i class="fas fa-graduation-cap"></i>
+                        <input type="text" id="jurusan" name="jurusan" value="{{ old('jurusan') }}" required placeholder="Contoh: Teknik Informatika / Administrasi" class="{{ $errors->has('jurusan') ? 'invalid-input' : '' }}" />
+                    </div>
+                </div>
+
+                <!-- Asal Sekolah / Perguruan Tinggi -->
+                <div class="form-group" style="grid-column: span 2;">
+                    <label for="nama_instansi">Asal Sekolah / Universitas / Politeknik <span style="color: #dc2626;">*</span></label>
+                    <div class="input-wrap">
+                        <i class="fas fa-university"></i>
+                        <input type="text" id="nama_instansi" name="nama_instansi" value="{{ old('nama_instansi') }}" required placeholder="Contoh: Universitas Sriwijaya / SMKN 2 Palembang" class="{{ $errors->has('nama_instansi') ? 'invalid-input' : '' }}" />
+                    </div>
+                </div>
+
+                <!-- Nomor WhatsApp / HP -->
+                <div class="form-group">
+                    <label for="no_wa">Nomor WhatsApp / HP Aktif <span style="color: #dc2626;">*</span></label>
+                    <div class="input-wrap">
+                        <i class="fab fa-whatsapp" style="color: #16a34a;"></i>
+                        <input type="text" id="no_wa" name="no_wa" value="{{ old('no_wa') }}" required placeholder="Contoh: 083826383761" class="{{ $errors->has('no_wa') ? 'invalid-input' : '' }}" />
+                    </div>
+                    <small style="color: #64748b; font-size: 0.76rem; margin-top: 0.25rem; display: block;">
+                        Notifikasi kelulusan & link LoA akan dikirimkan ke nomor WhatsApp ini.
+                    </small>
+                </div>
+
+                <!-- Alamat Email -->
+                <div class="form-group">
+                    <label for="email">Alamat Email Aktif <span style="color: #dc2626;">*</span></label>
                     <div class="input-wrap">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="Masukkan email aktif Anda" class="{{ $errors->has('email') ? 'invalid-input' : '' }}" />
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" required placeholder="email.anda@gmail.com" class="{{ $errors->has('email') ? 'invalid-input' : '' }}" />
                     </div>
+                    <small style="color: #64748b; font-size: 0.76rem; margin-top: 0.25rem; display: block;">
+                        Digunakan untuk login ke portal dan menerima surat balasan via email.
+                    </small>
                 </div>
 
                 <!-- Password -->
                 <div class="form-group">
-                    <label for="password">Password <span style="color: #dc2626;">*</span></label>
+                    <label for="password">Kata Sandi (Password) <span style="color: #dc2626;">*</span></label>
                     <div class="input-wrap">
                         <i class="fas fa-lock"></i>
                         <input type="password" id="password" name="password" required placeholder="Minimal 8 karakter" class="{{ $errors->has('password') ? 'invalid-input' : '' }}" />
@@ -396,137 +293,86 @@
 
                 <!-- Konfirmasi Password -->
                 <div class="form-group">
-                    <label for="password_confirmation">Konfirmasi Password <span style="color: #dc2626;">*</span></label>
+                    <label for="password_confirmation">Ulangi Kata Sandi <span style="color: #dc2626;">*</span></label>
                     <div class="input-wrap">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password_confirmation" name="password_confirmation" required placeholder="Ulangi password Anda" />
+                        <i class="fas fa-shield-alt"></i>
+                        <input type="password" id="password_confirmation" name="password_confirmation" required placeholder="Ketik ulang kata sandi" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- BAGIAN 2: PERIODE JADWAL MAGANG -->
+            <div class="section-header">
+                <div class="step-badge">2</div>
+                <h2>Periode Pelaksanaan Magang</h2>
+            </div>
+
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label for="tgl_mulai">Tanggal Mulai Magang <span style="color: #dc2626;">*</span></label>
+                    <div class="input-wrap">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" id="tgl_mulai" name="tgl_mulai" value="{{ old('tgl_mulai') }}" required class="{{ $errors->has('tgl_mulai') ? 'invalid-input' : '' }}" />
                     </div>
                 </div>
 
-                <button type="submit" class="btn-login" id="submitBtn">
-                    <i class="fas fa-user-plus"></i> Registrasi Akun
-                </button>
-            </form>
-
-            <div class="signup-link">
-                Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a>
+                <div class="form-group">
+                    <label for="tgl_selesai">Tanggal Selesai Magang <span style="color: #dc2626;">*</span></label>
+                    <div class="input-wrap">
+                        <i class="fas fa-calendar-check"></i>
+                        <input type="date" id="tgl_selesai" name="tgl_selesai" value="{{ old('tgl_selesai') }}" required class="{{ $errors->has('tgl_selesai') ? 'invalid-input' : '' }}" />
+                    </div>
+                </div>
             </div>
-        @endif
+
+            <!-- BAGIAN 3: BERKAS PERSYARATAN -->
+            <div class="section-header">
+                <div class="step-badge">3</div>
+                <h2>Upload Berkas Persyaratan (PDF, JPG, PNG — Maks. 5MB)</h2>
+            </div>
+
+            <div class="form-group">
+                <label>1. Surat Pengantar / Permohonan Magang dari Kampus / Sekolah <span style="color: #dc2626;">*</span></label>
+                <div class="upload-card">
+                    <input type="file" name="file_surat" accept=".pdf,.jpg,.jpeg,.png" required />
+                    <span class="upload-hint">Surat resmi permohonan magang bertanda tangan dan berstempel instansi asal.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>2. Transkrip Nilai Akademik Terakhir <span style="color: #dc2626;">*</span></label>
+                <div class="upload-card">
+                    <input type="file" name="file_transkrip" accept=".pdf,.jpg,.jpeg,.png" required />
+                    <span class="upload-hint">Transkrip nilai / KHS kumulatif atau rapor terakhir.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>3. Surat Pernyataan Bersedia Mengikuti Program Magang Berdampak <span style="color: #dc2626;">*</span></label>
+                <div class="upload-card">
+                    <input type="file" name="file_surat_pernyataan" accept=".pdf,.jpg,.jpeg,.png" required />
+                    <span class="upload-hint">Surat komitmen kesediaan mematuhi aturan dan menyelesaikan program sampai selesai.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="keterangan">Keterangan / Catatan Tambahan (Opsional)</label>
+                <textarea id="keterangan" name="keterangan" rows="2" placeholder="Tuliskan catatan tambahan jika ada..." style="width:100%; border:1.5px solid #e9edf2; border-radius:14px; padding:0.75rem 1rem; font-family:'Inter', sans-serif; font-size:0.92rem; outline:none; transition:border-color 0.2s ease;">{{ old('keterangan') }}</textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div style="margin-top: 2rem;">
+                <button type="submit" class="btn-login" style="padding: 1rem 1.5rem; font-size: 1rem; font-weight: 700; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 0.6rem;">
+                    <i class="fas fa-paper-plane"></i> Kirim Pendaftaran & Buat Akun
+                </button>
+            </div>
+
+            <div class="signup-link" style="margin-top: 1.5rem; text-align: center;">
+                Sudah memiliki akun? <a href="{{ route('login') }}" style="color: #2563eb; font-weight: 600; text-decoration: none;">Masuk ke Portal</a>
+            </div>
+        </form>
     </div>
 
-    <!-- Script Interaktif Custom Dropdown -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const container = document.getElementById('customSelect');
-            if (!container) return;
-
-            const trigger = container.querySelector('.custom-select-trigger');
-            const selectedText = document.getElementById('selectedText');
-            const hiddenInput = document.getElementById('peserta_id');
-            const searchInput = document.getElementById('searchInput');
-            const optionsList = document.getElementById('optionsList');
-            const optionItems = optionsList.querySelectorAll('.option-item');
-            const noResults = document.getElementById('noResults');
-
-            // Toggle Dropdown
-            function toggleDropdown(e) {
-                if (e) e.stopPropagation();
-                const isOpen = container.classList.contains('open');
-                if (isOpen) {
-                    closeDropdown();
-                } else {
-                    openDropdown();
-                }
-            }
-
-            function openDropdown() {
-                container.classList.add('open');
-                searchInput.value = '';
-                filterOptions('');
-                setTimeout(() => searchInput.focus(), 50);
-            }
-
-            function closeDropdown() {
-                container.classList.remove('open');
-            }
-
-            trigger.addEventListener('click', toggleDropdown);
-
-            // Close on click outside
-            document.addEventListener('click', function (e) {
-                if (!container.contains(e.target)) {
-                    closeDropdown();
-                }
-            });
-
-            // Filter Options
-            function filterOptions(query) {
-                const q = query.toLowerCase().trim();
-                let hasVisible = false;
-
-                optionItems.forEach(item => {
-                    const searchData = item.getAttribute('data-search') || '';
-                    if (searchData.includes(q)) {
-                        item.style.display = 'flex';
-                        hasVisible = true;
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-
-                noResults.style.display = hasVisible ? 'none' : 'block';
-            }
-
-            searchInput.addEventListener('input', function () {
-                filterOptions(this.value);
-            });
-
-            // Select Option
-            function selectOption(item) {
-                const id = item.getAttribute('data-id');
-                const name = item.getAttribute('data-name');
-                const nisn = item.getAttribute('data-nisn');
-                const instansi = item.getAttribute('data-instansi');
-
-                hiddenInput.value = id;
-                selectedText.innerHTML = `<strong>${name}</strong> <span style="font-size:0.8rem; color:#64748b;">[${nisn}] - ${instansi}</span>`;
-                selectedText.classList.remove('placeholder');
-
-                optionItems.forEach(el => el.classList.remove('selected'));
-                item.classList.add('selected');
-
-                container.classList.remove('invalid');
-                closeDropdown();
-            }
-
-            optionItems.forEach(item => {
-                item.addEventListener('click', function () {
-                    selectOption(this);
-                });
-            });
-
-            // Handle Old Input value if validation failed
-            const oldId = hiddenInput.value;
-            if (oldId) {
-                const preselectedItem = optionsList.querySelector(`.option-item[data-id="${oldId}"]`);
-                if (preselectedItem) {
-                    selectOption(preselectedItem);
-                }
-            }
-
-            // Client-side validation check on submit
-            const form = document.getElementById('registerForm');
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    if (!hiddenInput.value) {
-                        e.preventDefault();
-                        container.classList.add('invalid');
-                        openDropdown();
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 
 </html>

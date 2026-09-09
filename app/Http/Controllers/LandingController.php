@@ -126,7 +126,7 @@ class LandingController extends Controller
             return $pdf->download('Surat_Penolakan_Magang_' . str_replace(' ', '_', $pengajuan->nama_instansi) . '.pdf');
         }
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('emails.surat_balasan_pdf', compact('pengajuan'))
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.loa_pdf', compact('pengajuan'))
             ->setPaper('a4', 'portrait');
 
         return $pdf->download('Surat_Balasan_Magang_' . str_replace(' ', '_', $pengajuan->nama_instansi) . '.pdf');

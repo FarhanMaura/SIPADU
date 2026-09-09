@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pengajuan extends Model
 {
     protected $fillable = [
+        'user_id',
         'instansi_id',
         'nama_instansi',
         'pic_nama',
@@ -32,6 +33,11 @@ class Pengajuan extends Model
         'tgl_mulai'  => 'date',
         'tgl_selesai' => 'date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function instansi()
     {
@@ -63,7 +69,7 @@ class Pengajuan extends Model
             $peserta = Peserta::create([
                 'pengajuan_id'  => $this->id,
                 'instansi_id'   => $instansiId,
-                'user_id'       => null, // Peserta mendaftar akun sendiri di /register setelah disetujui Kasubbag
+                'user_id'       => $this->user_id,
                 'nama'          => $this->pic_nama ?? 'Peserta Magang',
                 'nim_nisn'      => $this->nim_nisn,
                 'jurusan'       => $this->jurusan,
@@ -76,6 +82,7 @@ class Pengajuan extends Model
         } else {
             $peserta->update([
                 'instansi_id'   => $instansiId,
+                'user_id'       => $peserta->user_id ?? $this->user_id,
                 'nama'          => $this->pic_nama ?? $peserta->nama,
                 'nim_nisn'      => $this->nim_nisn ?? $peserta->nim_nisn,
                 'jurusan'       => $this->jurusan ?? $peserta->jurusan,
@@ -83,6 +90,10 @@ class Pengajuan extends Model
                 'tgl_mulai'     => $this->tgl_mulai ?? $peserta->tgl_mulai,
                 'tgl_selesai'   => $this->tgl_selesai ?? $peserta->tgl_selesai,
             ]);
+        }
+
+        if ($this->user_id) {
+            User::where('id', $this->user_id)->update(['status' => User::STATUS_AKTIF]);
         }
 
         return $peserta;

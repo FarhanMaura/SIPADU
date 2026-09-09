@@ -42,6 +42,7 @@ Route::middleware(['auth', 'role:kasubbag'])->prefix('kasubbag')->name('kasubbag
     Route::patch('pengajuan/{pengajuan}/reject', [KasubbagPengajuanController::class, 'reject'])->name('pengajuan.reject');
     Route::get('pengajuan/{pengajuan}/file/{type}', [KasubbagPengajuanController::class, 'downloadFile'])->name('pengajuan.file');
     Route::get('pengajuan/{pengajuan}/loa', [KasubbagPengajuanController::class, 'downloadLoa'])->name('pengajuan.loa');
+    Route::post('pengajuan/{pengajuan}/send-email', [KasubbagPengajuanController::class, 'sendEmail'])->name('pengajuan.send_email');
 
     // Peserta (Kelola & Tambah Peserta)
     Route::resource('peserta', KasubbagPesertaController::class)->parameters(['peserta' => 'peserta']);

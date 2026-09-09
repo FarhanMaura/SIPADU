@@ -5,31 +5,107 @@
 <div class="page-header">
     <div class="page-title">
         <h1><i class="fas fa-file-alt"></i> Detail Pengajuan & Penerbitan LoA</h1>
-        <p>Tinjau kelengkapan pengajuan magang dan cetak Surat Balasan (LoA).</p>
+        <p>Tinjau kelengkapan pengajuan magang, verifikasi status, dan kirimkan notifikasi resmi (WhatsApp & Email).</p>
     </div>
     <a href="{{ route('kasubbag.pengajuan.index') }}" class="action-button" style="background: #64748b; box-shadow: none;">
         <i class="fas fa-arrow-left"></i> Kembali
     </a>
 </div>
 
+<!-- Alert Notifikasi Flash -->
+@if(session('success'))
+<div class="alert alert-success" style="background: #dcfce7; border: 1px solid #86efac; color: #166534; padding: 1rem 1.25rem; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+    <i class="fas fa-check-circle" style="font-size: 1.25rem; color: #16a34a;"></i>
+    <div>{{ session('success') }}</div>
+</div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger" style="background: #fee2e2; border: 1px solid #fca5a5; color: #991b1b; padding: 1rem 1.25rem; border-radius: 12px; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+    <i class="fas fa-exclamation-triangle" style="font-size: 1.25rem; color: #dc2626;"></i>
+    <div>{{ session('error') }}</div>
+</div>
+@endif
+
+<!-- KARTU UTAMA: PUSAT NOTIFIKASI OTOMATIS (WHATSAPP & EMAIL) -->
+@if($pengajuan->status !== 'pending')
+<div class="table-container" style="margin-bottom: 2rem; border: 2px solid {{ $pengajuan->status === 'approved' ? '#86efac' : '#fca5a5' }}; border-radius: 18px; overflow: hidden; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);">
+    <div style="background: {{ $pengajuan->status === 'approved' ? 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)' : 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)' }}; padding: 1.25rem 1.75rem; border-bottom: 1px solid {{ $pengajuan->status === 'approved' ? '#bbf7d0' : '#fecaca' }};">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <span class="badge" style="background: {{ $pengajuan->status === 'approved' ? '#16a34a' : '#dc2626' }}; color: white; padding: 0.35rem 0.8rem; border-radius: 20px; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                    <i class="fas {{ $pengajuan->status === 'approved' ? 'fa-check-circle' : 'fa-times-circle' }}"></i> Status: {{ $pengajuan->status === 'approved' ? 'Diterima (Approved)' : 'Ditolak (Rejected)' }}
+                </span>
+                <h3 style="margin: 0.5rem 0 0.2rem 0; color: {{ $pengajuan->status === 'approved' ? '#14532d' : '#7f1d1d' }}; font-weight: 800; font-size: 1.25rem;">
+                    Kirim Notifikasi Validasi & Surat Resmi ke Peserta
+                </h3>
+                <p style="margin: 0; color: {{ $pengajuan->status === 'approved' ? '#166534' : '#991b1b' }}; font-size: 0.9rem;">
+                    Kirimkan pengumuman hasil seleksi, rincian akun, pengarahan magang, dan link Surat Balasan (LoA) ke kontak peserta.
+                </p>
+            </div>
+            <div>
+                <a href="{{ route('kasubbag.pengajuan.loa', $pengajuan) }}" class="action-button" style="background: #0f172a; color: white; padding: 0.65rem 1.2rem; font-weight: 600; font-size: 0.88rem; box-shadow: none;">
+                    <i class="fas fa-file-pdf"></i> Unduh {{ $pengajuan->status === 'approved' ? 'LoA PDF' : 'Surat Penolakan PDF' }}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 1.5rem 1.75rem; background: white;">
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+            <!-- Tombol Kirim WhatsApp -->
+            <a href="{{ $waUrl }}" target="_blank" class="action-button" style="background: #25D366; color: white; padding: 0.8rem 1.5rem; font-weight: 700; font-size: 0.95rem; border-radius: 12px; display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);">
+                <i class="fab fa-whatsapp" style="font-size: 1.35rem;"></i> Kirim Notifikasi WhatsApp (Ke {{ $phone }})
+            </a>
+
+            <!-- Tombol Kirim Email -->
+            <form action="{{ route('kasubbag.pengajuan.send_email', $pengajuan) }}" method="POST" style="display: inline;" onsubmit="return confirm('Kirimkan email resmi status pengajuan dan lampiran LoA PDF ke {{ $pengajuan->pic_email }}?')">
+                @csrf
+                <button type="submit" class="action-button" style="background: #2563eb; color: white; padding: 0.8rem 1.5rem; font-weight: 700; font-size: 0.95rem; border-radius: 12px; display: inline-flex; align-items: center; gap: 0.6rem; border: none; cursor: pointer; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);">
+                    <i class="fas fa-envelope" style="font-size: 1.15rem;"></i> Kirim Notifikasi Email (Ke {{ $pengajuan->pic_email }})
+                </button>
+            </form>
+
+            <!-- Status Tautan LoA Publik -->
+            <a href="{{ route('pengajuan.surat_balasan', $pengajuan) }}" target="_blank" class="action-button" style="background: #f8fafc; color: #475569; border: 1.5px solid #cbd5e1; padding: 0.75rem 1.25rem; font-weight: 600; font-size: 0.88rem; box-shadow: none;">
+                <i class="fas fa-external-link-alt"></i> Cek Link Unduh LoA Publik
+            </a>
+        </div>
+
+        <!-- Accordion Preview Teks WhatsApp -->
+        <div style="margin-top: 1.25rem; padding: 1rem 1.25rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                <i class="fab fa-whatsapp" style="color: #25D366;"></i> Preview Template Teks Pesan WhatsApp:
+            </div>
+            <pre style="white-space: pre-wrap; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.82rem; color: #1e293b; background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0; margin: 0; max-height: 180px; overflow-y: auto;">{{ $waMessage }}</pre>
+        </div>
+    </div>
+</div>
+@endif
+
 <div class="table-container">
     <div class="table-toolbar">
         <h3><i class="fas fa-info-circle"></i> Informasi Permohonan Magang</h3>
         @if($pengajuan->status === 'approved')
-            <a href="{{ route('kasubbag.pengajuan.loa', $pengajuan) }}" class="action-button" style="background: #16a34a; box-shadow: none;">
-                <i class="fas fa-file-pdf"></i> Download Surat Balasan (LoA PDF)
-            </a>
+            <span class="badge-status approved" style="background:#dcfce7; color:#15803d; font-size:0.9rem; padding:0.4rem 0.8rem;">
+                <i class="fas fa-check-circle"></i> Disetujui Kasubbag
+            </span>
         @elseif($pengajuan->status === 'rejected')
-            <a href="{{ route('kasubbag.pengajuan.loa', $pengajuan) }}" class="action-button" style="background: #dc2626; box-shadow: none;">
-                <i class="fas fa-file-pdf"></i> Download Surat Penolakan (PDF)
-            </a>
+            <span class="badge-status rejected" style="background:#fee2e2; color:#b91c1c; font-size:0.9rem; padding:0.4rem 0.8rem;">
+                <i class="fas fa-times-circle"></i> Ditolak
+            </span>
+        @else
+            <span class="badge-status pending" style="background:#fef3c7; color:#d97706; font-size:0.9rem; padding:0.4rem 0.8rem;">
+                <i class="fas fa-clock"></i> Pending (Menunggu Keputusan)
+            </span>
         @endif
     </div>
+
     <div style="padding: 1.5rem;">
         <table style="width: 100%; text-align: left; border-collapse: collapse;">
             <tbody>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; width: 250px; color: #64748b; font-weight: 600;">Nama Lengkap Peserta Magang</th>
+                    <th style="padding: 1rem 0; width: 250px; color: #64748b; font-weight: 600;">Nama Lengkap Peserta</th>
                     <td style="padding: 1rem 0; font-weight: 700; color: #0f172a; font-size: 1.05rem;">{{ $pengajuan->pic_nama }}</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
@@ -50,30 +126,41 @@
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
                     <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Email Peserta Magang</th>
-                    <td style="padding: 1rem 0;"><code style="background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 4px; color: #334155;">{{ $pengajuan->pic_email }}</code></td>
+                    <td style="padding: 1rem 0;"><code style="background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 4px; color: #334155; font-weight:600;">{{ $pengajuan->pic_email }}</code></td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">No. Telepon / WhatsApp</th>
-                    <td style="padding: 1rem 0;">{{ $pengajuan->pic_telp }}</td>
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">No. WhatsApp / HP</th>
+                    <td style="padding: 1rem 0; font-weight:600; color:#0f172a;">
+                        <i class="fab fa-whatsapp" style="color:#25D366; margin-right: 4px;"></i> {{ $pengajuan->pic_telp }}
+                    </td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
                     <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Periode Pelaksanaan</th>
                     <td style="padding: 1rem 0; font-weight: 600; color: #1e293b;">
-                        {{ $pengajuan->tgl_mulai?->format('d F Y') }} s/d {{ $pengajuan->tgl_selesai?->format('d F Y') }}
+                        {{ $pengajuan->tgl_mulai?->translatedFormat('d F Y') }} s/d {{ $pengajuan->tgl_selesai?->translatedFormat('d F Y') }}
                     </td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Status Verifikasi</th>
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Status Akun Portal</th>
                     <td style="padding: 1rem 0;">
-                        @if($pengajuan->status === 'pending')
-                            <span class="badge-status pending" style="background:#fef3c7; color:#d97706;">Pending (Menunggu Persetujuan)</span>
-                        @elseif($pengajuan->status === 'approved')
-                            <span class="badge-status approved" style="background:#dcfce7; color:#15803d;">Disetujui Kasubbag</span>
+                        @if($pengajuan->user)
+                            @if($pengajuan->user->isActive())
+                                <span class="badge" style="background:#dcfce7; color:#15803d; padding:0.3rem 0.6rem; border-radius:6px; font-size:0.8rem; font-weight:700;">AKTIF (Dapat Login)</span>
+                            @elseif($pengajuan->user->isPending())
+                                <span class="badge" style="background:#fef3c7; color:#d97706; padding:0.3rem 0.6rem; border-radius:6px; font-size:0.8rem; font-weight:700;">PENDING (Menunggu Validasi)</span>
+                            @else
+                                <span class="badge" style="background:#fee2e2; color:#b91c1c; padding:0.3rem 0.6rem; border-radius:6px; font-size:0.8rem; font-weight:700;">DITOLAK</span>
+                            @endif
                         @else
-                            <span class="badge-status rejected" style="background:#fee2e2; color:#b91c1c;">Ditolak</span>
+                            <span style="color:#94a3b8; font-size:0.85rem;">Belum membuat akun login</span>
                         @endif
                     </td>
                 </tr>
+                <tr style="border-bottom: 1px solid #f0f4fa;">
+                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Catatan Pemohon</th>
+                    <td style="padding: 1rem 0;">{{ $pengajuan->keterangan ?? '-' }}</td>
+                </tr>
+
                 @if($pengajuan->status === 'rejected' && $pengajuan->keterangan_reject)
                 <tr style="border-bottom: 1px solid #f0f4fa;">
                     <th style="padding: 1rem 0; color: #dc2626; font-weight: 600;">Alasan Penolakan</th>
@@ -86,6 +173,8 @@
                     <td style="padding: 1rem 0; color: #0284c7; font-weight: 500;">{{ $pengajuan->rekomendasi_instansi }}</td>
                 </tr>
                 @endif
+
+                <!-- Berkas Persyaratan -->
                 @if($pengajuan->file_surat)
                 <tr style="border-bottom: 1px solid #f0f4fa;">
                     <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">Surat Permohonan Instansi</th>
@@ -116,27 +205,17 @@
                     </td>
                 </tr>
                 @endif
-                @if($pengajuan->file_peserta)
-                <tr style="border-bottom: 1px solid #f0f4fa;">
-                    <th style="padding: 1rem 0; color: #64748b; font-weight: 600;">File Daftar Peserta (Excel)</th>
-                    <td style="padding: 1rem 0;">
-                        <a href="{{ route('kasubbag.pengajuan.file', ['pengajuan' => $pengajuan->id, 'type' => 'peserta']) }}" class="action-button" style="background: #10b981; padding: 0.4rem 0.8rem; font-size: 0.85rem; box-shadow: none;">
-                            <i class="fas fa-file-excel"></i> Unduh File Excel Peserta
-                        </a>
-                    </td>
-                </tr>
-                @endif
             </tbody>
         </table>
 
-        <!-- Form Aksi Persetujuan / Penolakan -->
+        <!-- Form Aksi Persetujuan / Penolakan (Hanya jika status masih pending) -->
         @if($pengajuan->status === 'pending')
         <div style="margin-top: 2rem; padding: 1.5rem; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
             <h4 style="margin-bottom: 1rem; color: #0f172a;"><i class="fas fa-gavel"></i> Keputusan Kasubbag Umum & Kepegawaian</h4>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                 <form action="{{ route('kasubbag.pengajuan.approve', $pengajuan) }}" method="POST">
                     @csrf @method('PATCH')
-                    <button type="submit" class="action-button" style="background: #16a34a; padding: 0.75rem 1.5rem;" onclick="return confirm('Setujui pengajuan ini dan terbitkan LoA?')">
+                    <button type="submit" class="action-button" style="background: #16a34a; padding: 0.75rem 1.5rem;" onclick="return confirm('Setujui pengajuan ini, aktifkan akun peserta, dan terbitkan LoA?')">
                         <i class="fas fa-check-circle"></i> Setujui Pengajuan & Terbitkan LoA
                     </button>
                 </form>
@@ -144,7 +223,7 @@
                 <form action="{{ route('kasubbag.pengajuan.reject', $pengajuan) }}" method="POST" id="form-reject-kasubbag" style="display: flex; gap: 0.5rem; flex: 1;">
                     @csrf @method('PATCH')
                     <input type="text" name="keterangan_reject" placeholder="Alasan penolakan pengajuan..." required class="form-control" style="border-radius: 8px; flex: 1;">
-                    <button type="submit" class="action-button" style="background: #dc2626; padding: 0.75rem 1.25rem;">
+                    <button type="submit" class="action-button" style="background: #dc2626; padding: 0.75rem 1.25rem;" onclick="return confirm('Tolak permohonan magang ini?')">
                         <i class="fas fa-times-circle"></i> Tolak Permohonan
                     </button>
                 </form>

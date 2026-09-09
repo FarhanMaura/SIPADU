@@ -62,7 +62,17 @@ class DashboardController extends Controller
             return view('kasubbag.dashboard', compact('stats', 'pengajuan_terbaru', 'peserta_terbaru'));
 
         } else {
-            $peserta   = $user->peserta?->load(['pengajuan', 'bidang', 'pembimbing', 'instansi', 'penilaian']);
+            $peserta = $user->peserta;
+            if (!$peserta && $user->pengajuan) {
+                $peserta = $user->pengajuan->pesertas()->first();
+                if ($peserta && !$peserta->user_id) {
+                    $peserta->update(['user_id' => $user->id]);
+                }
+            }
+
+            if ($peserta) {
+                $peserta->load(['pengajuan', 'bidang', 'pembimbing', 'instansi', 'penilaian']);
+            }
 
             $totalHadir  = $peserta ? $peserta->absensis()->where('status', 'hadir')->count() : 0;
             $totalIzin   = $peserta ? $peserta->absensis()->where('status', 'izin')->count() : 0;

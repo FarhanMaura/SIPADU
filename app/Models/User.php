@@ -18,6 +18,10 @@ class User extends Authenticatable
     const ROLE_PESERTA = 3;
     const ROLE_KASUBBAG = 4;
 
+    const STATUS_AKTIF = 'aktif';
+    const STATUS_PENDING = 'pending';
+    const STATUS_DITOLAK = 'ditolak';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +32,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'status',
     ];
 
     /**
@@ -58,9 +63,29 @@ class User extends Authenticatable
         return $this->hasOne(Peserta::class);
     }
 
+    public function pengajuan()
+    {
+        return $this->hasOne(Pengajuan::class);
+    }
+
     public function pembimbing()
     {
         return $this->hasOne(Pembimbing::class);
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === self::STATUS_PENDING;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->status === self::STATUS_AKTIF;
+    }
+
+    public function isDitolak(): bool
+    {
+        return $this->status === self::STATUS_DITOLAK;
     }
 
     public function isAdmin(): bool

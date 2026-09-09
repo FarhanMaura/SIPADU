@@ -32,7 +32,9 @@
                     <a href="{{ route('landing') }}" class="nav-link text-sm font-medium">Beranda</a>
                     <a href="#tentang" class="nav-link text-sm font-medium">Tentang</a>
                     <a href="#alur" class="nav-link text-sm font-medium">Alur Magang</a>
-                    <a href="{{ route('pengajuan.form') }}" class="nav-link text-sm font-medium">Ajukan Magang</a>
+                    <a href="{{ route('register') }}" class="nav-link text-sm font-medium" style="color: #F9DC5C; font-weight: 600;">
+                        <i class="fas fa-user-plus mr-1"></i> Registrasi Mandiri
+                    </a>
                     <a href="{{ route('status.form') }}" class="nav-link text-sm font-medium">Cek Status</a>
                     <a href="{{ route('login') }}" class="nav-btn text-sm font-semibold px-5 py-2 rounded-lg">
                         <i class="fas fa-sign-in-alt mr-1"></i> Login Portal
@@ -60,7 +62,7 @@
                 <a href="{{ route('landing') }}" class="block text-white text-sm py-3 border-b border-white/10">Beranda</a>
                 <a href="#tentang" class="block text-white text-sm py-3 border-b border-white/10">Tentang</a>
                 <a href="#alur" class="block text-white text-sm py-3 border-b border-white/10">Alur Magang</a>
-                <a href="{{ route('pengajuan.form') }}" class="block text-white text-sm py-3 border-b border-white/10">Ajukan Magang</a>
+                <a href="{{ route('register') }}" class="block text-accent font-semibold text-sm py-3 border-b border-white/10"><i class="fas fa-user-plus mr-1"></i> Registrasi Mandiri</a>
                 <a href="{{ route('status.form') }}" class="block text-white text-sm py-3 border-b border-white/10">Cek Status</a>
             </div>
             <div class="p-4 border-t border-white/10 mt-auto">
@@ -87,9 +89,9 @@
                         Kembangkan kompetensi Anda melalui program magang yang terdigitalisasi, didampingi pembimbing berpengalaman, dan tersertifikasi resmi.
                     </p>
                     <div class="flex flex-wrap gap-3">
-                        <a href="{{ route('pengajuan.form') }}"
+                        <a href="{{ route('register') }}"
                             class="bg-accent text-navy font-bold px-7 py-3 rounded-lg text-sm transition hover:bg-yellow-400 shadow-lg shadow-yellow-900/30">
-                            <i class="fas fa-file-alt mr-2"></i>Ajukan Magang
+                            <i class="fas fa-user-plus mr-2"></i>Daftar Magang Mandiri
                         </a>
                         <a href="{{ route('login') }}"
                             class="bg-white/15 hover:bg-white/25 text-white border border-white/30 font-semibold px-7 py-3 rounded-lg text-sm transition backdrop-blur-sm">

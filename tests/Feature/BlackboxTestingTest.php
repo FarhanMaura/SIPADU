@@ -358,6 +358,44 @@ class BlackboxTestingTest extends TestCase
         $this->assertSoftDeleted('pesertas', ['id' => $peserta->id]);
     }
 
+    public function test_TC_KSB_05_kasubbag_send_notification_email_and_whatsapp(): void
+    {
+        \Illuminate\Support\Facades\Mail::fake();
+
+        $kasubbag = User::factory()->create(['role' => User::ROLE_KASUBBAG]);
+        $pengajuan = Pengajuan::create([
+            'jml_peserta'           => 1,
+            'nama_instansi'         => 'Universitas Bina Darma',
+            'pic_nama'              => 'Hsen',
+            'nim_nisn'              => '221410011',
+            'jenis_peserta'         => 'Mahasiswa',
+            'jurusan'               => 'Sistem Informasi',
+            'pic_email'             => 'hsen87046@gmail.com',
+            'pic_telp'              => '083826383761',
+            'tgl_mulai'             => '2026-10-01',
+            'tgl_selesai'           => '2026-12-31',
+            'file_surat'            => 'pengajuan/surat/dummy.pdf',
+            'file_transkrip'        => 'pengajuan/transkrip/dummy.pdf',
+            'file_surat_pernyataan' => 'pengajuan/surat_pernyataan/dummy.pdf',
+            'status'                => 'approved',
+        ]);
+
+        // Cek show page memuat link WhatsApp dan pesan notifikasi
+        $responseShow = $this->actingAs($kasubbag)->get(route('kasubbag.pengajuan.show', $pengajuan));
+        $responseShow->assertStatus(200);
+        $responseShow->assertSee('wa.me/6283826383761', false);
+        $responseShow->assertSee('Kirim Notifikasi Email');
+
+        // Kirim email notifikasi
+        $responseEmail = $this->actingAs($kasubbag)->post(route('kasubbag.pengajuan.send_email', $pengajuan));
+        $responseEmail->assertRedirect(route('kasubbag.pengajuan.show', $pengajuan));
+        $responseEmail->assertSessionHas('success');
+
+        \Illuminate\Support\Facades\Mail::assertSent(\App\Mail\PengajuanStatusMail::class, function ($mail) use ($pengajuan) {
+            return $mail->hasTo('hsen87046@gmail.com') && $mail->pengajuan->id === $pengajuan->id;
+        });
+    }
+
     // =========================================================================
     // MODUL 3: ADMIN (ROLE 1)
     // =========================================================================
@@ -548,36 +586,57 @@ class BlackboxTestingTest extends TestCase
 
     public function test_TC_PST_01_peserta_registration_flow(): void
     {
-        $peserta = Peserta::create([
-            'nama'      => 'Galang Ramadhan',
-            'nim_nisn'  => '09021182025777',
-            'status'    => 'aktif',
-            'user_id'   => null,
-        ]);
-
         $response = $this->post('/register', [
-            'peserta_id'            => $peserta->id,
+            'nama'                  => 'Galang Ramadhan',
+            'nim_nisn'              => '09021182025777',
+            'jenis_peserta'         => 'Mahasiswa',
+            'nama_instansi'         => 'Universitas Sriwijaya',
+            'jurusan'               => 'Teknik Informatika',
+            'no_wa'                 => '083826383761',
             'email'                 => 'galang@student.unsri.ac.id',
             'password'              => 'Password123!',
             'password_confirmation' => 'Password123!',
+            'tgl_mulai'             => '2026-10-01',
+            'tgl_selesai'           => '2026-12-31',
+            'file_surat'            => \Illuminate\Http\UploadedFile::fake()->create('surat.pdf', 500, 'application/pdf'),
+            'file_transkrip'        => \Illuminate\Http\UploadedFile::fake()->create('transkrip.pdf', 500, 'application/pdf'),
+            'file_surat_pernyataan' => \Illuminate\Http\UploadedFile::fake()->create('pernyataan.pdf', 500, 'application/pdf'),
         ]);
 
-        $response->assertRedirect(route('dashboard'));
-        $this->assertAuthenticated();
+        $response->assertRedirect(route('login'));
+        $this->assertGuest(); // Belum login karena pending
 
-        $peserta->refresh();
-        $this->assertNotNull($peserta->user_id);
-        $this->assertEquals(User::ROLE_PESERTA, $peserta->user->role);
+        $user = User::where('email', 'galang@student.unsri.ac.id')->first();
+        $this->assertNotNull($user);
+        $this->assertEquals(User::STATUS_PENDING, $user->status);
 
-        // Percobaan mendaftar lagi pada peserta yang sudah punya akun -> Ditolak
+        $pengajuan = Pengajuan::where('pic_email', 'galang@student.unsri.ac.id')->first();
+        $this->assertNotNull($pengajuan);
+        $this->assertEquals('pending', $pengajuan->status);
+
+        // Saat status masih pending, login ditolak
+        $responseLoginPending = $this->post('/login', [
+            'email'    => 'galang@student.unsri.ac.id',
+            'password' => 'Password123!',
+        ]);
+        $this->assertGuest();
+        $responseLoginPending->assertSessionHasErrors('email');
+
+        // Kasubbag menyetujui pengajuan
+        $kasubbag = User::factory()->create(['role' => User::ROLE_KASUBBAG]);
+        $this->actingAs($kasubbag)->patch(route('kasubbag.pengajuan.approve', $pengajuan));
+
+        $user->refresh();
+        $this->assertEquals(User::STATUS_AKTIF, $user->status);
+
+        // Setelah disetujui, login berhasil
         auth()->logout();
-        $responseDuplicate = $this->post('/register', [
-            'peserta_id'            => $peserta->id,
-            'email'                 => 'galang2@student.unsri.ac.id',
-            'password'              => 'Password123!',
-            'password_confirmation' => 'Password123!',
+        $responseLoginApproved = $this->post('/login', [
+            'email'    => 'galang@student.unsri.ac.id',
+            'password' => 'Password123!',
         ]);
-        $responseDuplicate->assertSessionHasErrors('peserta_id');
+        $this->assertAuthenticated();
+        $responseLoginApproved->assertRedirect(route('dashboard'));
     }
 
     public function test_TC_PST_02_peserta_self_absensi_and_duplicate_prevention(): void
