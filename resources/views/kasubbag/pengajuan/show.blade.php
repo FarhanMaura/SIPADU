@@ -37,7 +37,7 @@
                     <i class="fas {{ $pengajuan->status === 'approved' ? 'fa-check-circle' : 'fa-times-circle' }}"></i> Status: {{ $pengajuan->status === 'approved' ? 'Diterima (Approved)' : 'Ditolak (Rejected)' }}
                 </span>
                 <h3 style="margin: 0.5rem 0 0.2rem 0; color: {{ $pengajuan->status === 'approved' ? '#14532d' : '#7f1d1d' }}; font-weight: 800; font-size: 1.25rem;">
-                    Kirim Notifikasi Validasi & Surat Resmi ke Peserta
+                    Kirim Notifikasi Email & WhatsApp ke Peserta
                 </h3>
                 <p style="margin: 0; color: {{ $pengajuan->status === 'approved' ? '#166534' : '#991b1b' }}; font-size: 0.9rem;">
                     Kirimkan pengumuman hasil seleksi, rincian akun, pengarahan magang, dan link Surat Balasan (LoA) ke kontak peserta.
@@ -52,32 +52,48 @@
     </div>
 
     <div style="padding: 1.5rem 1.75rem; background: white;">
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
-            <!-- Tombol Kirim WhatsApp -->
-            <a href="{{ $waUrl }}" target="_blank" class="action-button" style="background: #25D366; color: white; padding: 0.8rem 1.5rem; font-weight: 700; font-size: 0.95rem; border-radius: 12px; display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);">
-                <i class="fab fa-whatsapp" style="font-size: 1.35rem;"></i> Kirim Notifikasi WhatsApp (Ke {{ $phone }})
+        <div style="margin-bottom: 1.25rem; padding: 0.85rem 1.1rem; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; font-size: 0.86rem; color: #166534; display: flex; align-items: center; gap: 0.75rem;">
+            <i class="fas fa-lightbulb" style="font-size: 1.2rem; color: #16a34a; flex-shrink: 0;"></i>
+            <div>
+                <strong>Sistem Direct Link Praktis (One-Click):</strong> Klik tombol <strong>Kirim via WhatsApp</strong> atau <strong>Kirim via Gmail</strong> di bawah untuk langsung membuka tab dengan nomor/email tujuan, surat balasan, link LoA resmi, dan info akun yang sudah otomatis terisi lengkap tanpa konfigurasi server!
+            </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center;">
+            <!-- Tombol Kirim WhatsApp (Direct Link) -->
+            <a href="{{ $waUrl }}" target="_blank" class="action-button" style="background: #25D366; color: white; padding: 0.85rem 1.45rem; font-weight: 700; font-size: 0.95rem; border-radius: 12px; display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);">
+                <i class="fab fa-whatsapp" style="font-size: 1.35rem;"></i> Kirim via WhatsApp
             </a>
 
-            <!-- Tombol Kirim Email -->
-            <form action="{{ route('kasubbag.pengajuan.send_email', $pengajuan) }}" method="POST" style="display: inline;" onsubmit="return confirm('Kirimkan email resmi status pengajuan dan lampiran LoA PDF ke {{ $pengajuan->pic_email }}?')">
-                @csrf
-                <button type="submit" class="action-button" style="background: #2563eb; color: white; padding: 0.8rem 1.5rem; font-weight: 700; font-size: 0.95rem; border-radius: 12px; display: inline-flex; align-items: center; gap: 0.6rem; border: none; cursor: pointer; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);">
-                    <i class="fas fa-envelope" style="font-size: 1.15rem;"></i> Kirim Notifikasi Email (Ke {{ $pengajuan->pic_email }})
-                </button>
-            </form>
+            <!-- Tombol Kirim via Gmail Web (Direct Link seperti WA) -->
+            <a href="{{ $gmailUrl }}" target="_blank" class="action-button" style="background: #EA4335; color: white; padding: 0.85rem 1.45rem; font-weight: 700; font-size: 0.95rem; border-radius: 12px; display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; box-shadow: 0 4px 14px rgba(234, 67, 53, 0.35);">
+                <i class="fab fa-google" style="font-size: 1.2rem;"></i> Kirim via Gmail (Buka Tab)
+            </a>
 
-            <!-- Status Tautan LoA Publik -->
-            <a href="{{ route('pengajuan.surat_balasan', $pengajuan) }}" target="_blank" class="action-button" style="background: #f8fafc; color: #475569; border: 1.5px solid #cbd5e1; padding: 0.75rem 1.25rem; font-weight: 600; font-size: 0.88rem; box-shadow: none;">
-                <i class="fas fa-external-link-alt"></i> Cek Link Unduh LoA Publik
+            <!-- Status Tautan LoA Publik (Membuka langsung di browser) -->
+            <a href="{{ route('pengajuan.surat_balasan', $pengajuan) }}" target="_blank" class="action-button" style="background: #f8fafc; color: #1e293b; border: 1.5px solid #cbd5e1; padding: 0.85rem 1.25rem; font-weight: 600; font-size: 0.9rem; border-radius: 12px; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; box-shadow: none;">
+                <i class="fas fa-file-pdf" style="color: #ef4444; font-size: 1.1rem;"></i> Buka Surat Balasan (LoA)
             </a>
         </div>
 
-        <!-- Accordion Preview Teks WhatsApp -->
-        <div style="margin-top: 1.25rem; padding: 1rem 1.25rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;">
-            <div style="font-size: 0.82rem; font-weight: 700; color: #475569; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
-                <i class="fab fa-whatsapp" style="color: #25D366;"></i> Preview Template Teks Pesan WhatsApp:
+        <div style="margin-top: 1.25rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <!-- Accordion Preview Teks WhatsApp -->
+            <div style="padding: 1rem 1.25rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;">
+                <div style="font-size: 0.82rem; font-weight: 700; color: #166534; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                    <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1rem;"></i> Template Pesan WhatsApp:
+                </div>
+                <pre style="white-space: pre-wrap; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.8rem; color: #1e293b; background: white; padding: 0.85rem; border-radius: 8px; border: 1px solid #e2e8f0; margin: 0; max-height: 180px; overflow-y: auto;">{{ $waMessage }}</pre>
             </div>
-            <pre style="white-space: pre-wrap; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.82rem; color: #1e293b; background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0; margin: 0; max-height: 180px; overflow-y: auto;">{{ $waMessage }}</pre>
+
+            <!-- Accordion Preview Teks Email -->
+            <div style="padding: 1rem 1.25rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;">
+                <div style="font-size: 0.82rem; font-weight: 700; color: #991b1b; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                    <i class="fab fa-google" style="color: #EA4335; font-size: 1rem;"></i> Template Pesan Email (Gmail):
+                </div>
+                <pre style="white-space: pre-wrap; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.8rem; color: #1e293b; background: white; padding: 0.85rem; border-radius: 8px; border: 1px solid #e2e8f0; margin: 0; max-height: 180px; overflow-y: auto;"><strong>Subjek:</strong> {{ $emailSubject }}
+
+{{ $emailBody }}</pre>
+            </div>
         </div>
     </div>
 </div>

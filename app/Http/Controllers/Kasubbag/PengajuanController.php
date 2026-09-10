@@ -67,7 +67,7 @@ class PengajuanController extends Controller
                 . "• Email Login: {$pengajuan->pic_email}\n"
                 . "• Link Login Portal: " . route('login') . "\n\n"
                 . "*Surat Balasan / Letter of Acceptance (LoA) Resmi:*\n"
-                . "Unduh dokumen LoA resmi Anda melalui tautan berikut:\n"
+                . "Buka dokumen LoA resmi Anda melalui tautan berikut:\n"
                 . route('pengajuan.surat_balasan', $pengajuan) . "\n\n"
                 . "*Pengumuman & Petunjuk Awal Magang:*\n"
                 . "1. Hadir pada hari pertama magang pukul 07.30 WIB di Subbagian Umum & Kepegawaian Disdik Prov. Sumsel.\n"
@@ -88,7 +88,7 @@ class PengajuanController extends Controller
                 . "\"" . ($pengajuan->keterangan_reject ?? 'Kapasitas kuota penerimaan magang periode ini telah terpenuhi.') . "\"\n\n"
                 . ($pengajuan->rekomendasi_instansi ? "*Rekomendasi Alternatif:*\n{$pengajuan->rekomendasi_instansi}\n\n" : "")
                 . "*Surat Keterangan Resmi:*\n"
-                . "Unduh surat penolakan resmi melalui tautan berikut:\n"
+                . "Buka surat penolakan resmi melalui tautan berikut:\n"
                 . route('pengajuan.surat_balasan', $pengajuan) . "\n\n"
                 . "Terima kasih atas partisipasi dan minat Anda.\n"
                 . "_Subbagian Umum dan Kepegawaian_\n"
@@ -97,7 +97,50 @@ class PengajuanController extends Controller
 
         $waUrl = "https://wa.me/{$phone}?text=" . rawurlencode($waMessage);
 
-        return view('kasubbag.pengajuan.show', compact('pengajuan', 'waUrl', 'waMessage', 'phone'));
+        $emailSubject = $pengajuan->status === 'approved'
+            ? "Pengumuman Hasil Seleksi Magang & Penerbitan LoA - Dinas Pendidikan Prov. Sumsel"
+            : "Pemberitahuan Hasil Seleksi Permohonan Magang - Dinas Pendidikan Prov. Sumsel";
+
+        if ($pengajuan->status === 'approved') {
+            $emailBody = "Yth. Sdr/i {$pengajuan->pic_nama},\n\n"
+                . "Selamat! Berdasarkan hasil verifikasi berkas permohonan magang mandiri oleh Kasubbag Umum dan Kepegawaian Dinas Pendidikan Provinsi Sumatera Selatan, pengajuan Anda dinyatakan DITERIMA (APPROVED).\n\n"
+                . "Informasi Pelaksanaan Magang:\n"
+                . "- Nama: {$pengajuan->pic_nama}\n"
+                . "- NIM/NISN: " . ($pengajuan->nim_nisn ?? '-') . "\n"
+                . "- Asal Sekolah/Kampus: {$pengajuan->nama_instansi}\n"
+                . "- Jurusan: " . ($pengajuan->jurusan ?? '-') . "\n"
+                . "- Periode: " . ($pengajuan->tgl_mulai?->translatedFormat('d F Y') ?? '-') . " s/d " . ($pengajuan->tgl_selesai?->translatedFormat('d F Y') ?? '-') . "\n"
+                . "- Status Akun Portal: AKTIF (Dapat Login)\n"
+                . "- Email Login: {$pengajuan->pic_email}\n"
+                . "- Link Login Portal: " . route('login') . "\n\n"
+                . "Surat Balasan / Letter of Acceptance (LoA) Resmi:\n"
+                . "Silakan buka dokumen LoA resmi Anda melalui tautan berikut:\n"
+                . route('pengajuan.surat_balasan', $pengajuan) . "\n\n"
+                . "Petunjuk & Tata Tertib Awal Masuk Magang:\n"
+                . "1. Hadir pada hari pertama magang pukul 07.30 WIB di Kantor Dinas Pendidikan Provinsi Sumatera Selatan (Jl. Kapten A. Rivai No.47, Palembang).\n"
+                . "2. Melapor ke Subbagian Umum dan Kepegawaian dengan membawa cetakan Surat Pengantar dan Surat Balasan (LoA) ini.\n"
+                . "3. Mengenakan pakaian sopan rapi / almamater resmi instansi asal.\n\n"
+                . "Terima kasih.\n"
+                . "Subbagian Umum dan Kepegawaian\n"
+                . "Dinas Pendidikan Provinsi Sumatera Selatan";
+        } else {
+            $emailBody = "Yth. Sdr/i {$pengajuan->pic_nama},\n\n"
+                . "Sehubungan dengan permohonan magang yang Anda ajukan kepada Dinas Pendidikan Provinsi Sumatera Selatan, melalui surat elektronik ini kami sampaikan bahwa pengajuan Anda saat ini BELUM DAPAT DITERIMA (DITOLAK).\n\n"
+                . "Alasan / Keterangan Penolakan:\n"
+                . "\"" . ($pengajuan->keterangan_reject ?? 'Kapasitas kuota penerimaan magang periode ini telah terpenuhi.') . "\"\n\n"
+                . ($pengajuan->rekomendasi_instansi ? "Rekomendasi Alternatif:\n{$pengajuan->rekomendasi_instansi}\n\n" : "")
+                . "Surat Keterangan Resmi:\n"
+                . "Buka surat penolakan resmi melalui tautan berikut:\n"
+                . route('pengajuan.surat_balasan', $pengajuan) . "\n\n"
+                . "Terima kasih atas partisipasi dan minat Anda.\n"
+                . "Subbagian Umum dan Kepegawaian\n"
+                . "Dinas Pendidikan Provinsi Sumatera Selatan";
+        }
+
+        $gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=" . rawurlencode($pengajuan->pic_email) . "&su=" . rawurlencode($emailSubject) . "&body=" . rawurlencode($emailBody);
+        $mailtoUrl = "mailto:" . rawurlencode($pengajuan->pic_email) . "?subject=" . rawurlencode($emailSubject) . "&body=" . rawurlencode($emailBody);
+
+        return view('kasubbag.pengajuan.show', compact('pengajuan', 'waUrl', 'waMessage', 'phone', 'gmailUrl', 'mailtoUrl', 'emailSubject', 'emailBody'));
     }
 
     public function approve(Request $request, Pengajuan $pengajuan): RedirectResponse

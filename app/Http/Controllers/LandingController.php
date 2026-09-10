@@ -123,12 +123,24 @@ class LandingController extends Controller
             $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.loa_penolakan_pdf', compact('pengajuan'))
                 ->setPaper('a4', 'portrait');
 
-            return $pdf->download('Surat_Penolakan_Magang_' . str_replace(' ', '_', $pengajuan->nama_instansi) . '.pdf');
+            $filename = 'Surat_Penolakan_Magang_' . str_replace(' ', '_', $pengajuan->nama_instansi) . '.pdf';
+
+            if (request()->has('download')) {
+                return $pdf->download($filename);
+            }
+
+            return $pdf->stream($filename);
         }
 
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.loa_pdf', compact('pengajuan'))
             ->setPaper('a4', 'portrait');
 
-        return $pdf->download('Surat_Balasan_Magang_' . str_replace(' ', '_', $pengajuan->nama_instansi) . '.pdf');
+        $filename = 'Surat_Balasan_Magang_' . str_replace(' ', '_', $pengajuan->nama_instansi) . '.pdf';
+
+        if (request()->has('download')) {
+            return $pdf->download($filename);
+        }
+
+        return $pdf->stream($filename);
     }
 }
